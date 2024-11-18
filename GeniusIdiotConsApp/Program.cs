@@ -20,14 +20,18 @@
 
             int correctUserAnswersCount = 0;
 
+            Random random = new Random();
+
             for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("Вопрос №" + (i + 1));
-                Console.WriteLine(questions[i]);
+
+                int randomQuestionIndex = random.Next(0, 5);
+                Console.WriteLine(questions[randomQuestionIndex]);
 
                 int userAnswer = Convert.ToInt32(Console.ReadLine());
 
-                int rightAnswer = rightAnswers[i];
+                int rightAnswer = rightAnswers[randomQuestionIndex];
 
                 if (userAnswer == rightAnswer)
                 {
