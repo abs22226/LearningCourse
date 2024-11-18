@@ -17,6 +17,22 @@
             rightAnswers[2] = 25;
             rightAnswers[3] = 60;
             rightAnswers[4] = 2;
+
+            int correctUserAnswersCount = 0;
+
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(questions[i]);
+
+                int userAnswer = Convert.ToInt32(Console.ReadLine());
+
+                int rightAnswer = rightAnswers[i];
+
+                if (userAnswer == rightAnswer)
+                {
+                    correctUserAnswersCount++;
+                }
+            }
         }
     }
 }
