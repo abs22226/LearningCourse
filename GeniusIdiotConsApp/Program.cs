@@ -36,6 +36,16 @@
             }
 
             Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
+
+            string[] diagnoses = new string[6];
+            diagnoses[0] = "идиот";
+            diagnoses[1] = "кретин";
+            diagnoses[2] = "дурак";
+            diagnoses[3] = "нормальный";
+            diagnoses[4] = "талант";
+            diagnoses[5] = "гений";
+
+            Console.WriteLine("Ваш диагноз:" + diagnoses[correctUserAnswersCount]);
         }
     }
 }
