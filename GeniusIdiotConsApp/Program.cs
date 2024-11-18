@@ -33,6 +33,8 @@
                     correctUserAnswersCount++;
                 }
             }
+
+            Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
         }
     }
 }
