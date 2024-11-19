@@ -8,16 +8,20 @@
             string[] questions = GetQuestions(questionsCount);
             int[] rightAnswers = GetRightAnswers(questionsCount);
 
-            int correctUserAnswersCount = 0;
-
             Random random = new Random();
+
+            List<int> alreadyUsedQuestionsIndexes = new List<int>();
+
+            int correctUserAnswersCount = 0;
 
             for (int i = 0; i < questionsCount; i++)
             {
                 Console.WriteLine("Вопрос №" + (i + 1));
 
-                int randomQuestionIndex = random.Next(0, questionsCount);
+                int randomQuestionIndex = GetRandomQuestionIndex(random, questionsCount, alreadyUsedQuestionsIndexes);
                 Console.WriteLine(questions[randomQuestionIndex]);
+
+                alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
 
                 int userAnswer = Convert.ToInt32(Console.ReadLine());
 
@@ -55,6 +59,16 @@
             rightAnswers[3] = 60;
             rightAnswers[4] = 2;
             return rightAnswers;
+        }
+
+        static int GetRandomQuestionIndex(Random random, int questionsCount, List<int> alreadyUsedQuestionsIndexes)
+        {
+            int randomQuestionIndex = random.Next(0, questionsCount);
+            while (alreadyUsedQuestionsIndexes.Contains(randomQuestionIndex))
+            {
+                randomQuestionIndex = random.Next(0, questionsCount);
+            }
+            return randomQuestionIndex;
         }
 
         static string[] GetDiagnoses()
