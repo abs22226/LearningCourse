@@ -4,14 +4,15 @@
     {
         static void Main(string[] args)
         {
-            string[] questions = new string[5];
+            const int questionsCount = 5;
+            string[] questions = new string[questionsCount];
             questions[0] = "Сколько будет два плюс два умноженное на два?";
             questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
             questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
             questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
             questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
 
-            int[] rightAnswers = new int[5];
+            int[] rightAnswers = new int[questionsCount];
             rightAnswers[0] = 6;
             rightAnswers[1] = 9;
             rightAnswers[2] = 25;
@@ -22,11 +23,11 @@
 
             Random random = new Random();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < questionsCount; i++)
             {
                 Console.WriteLine("Вопрос №" + (i + 1));
 
-                int randomQuestionIndex = random.Next(0, 5);
+                int randomQuestionIndex = random.Next(0, questionsCount);
                 Console.WriteLine(questions[randomQuestionIndex]);
 
                 int userAnswer = Convert.ToInt32(Console.ReadLine());
