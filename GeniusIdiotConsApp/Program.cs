@@ -31,15 +31,8 @@
 
             Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
 
-            string[] diagnoses = new string[6];
-            diagnoses[0] = "идиот";
-            diagnoses[1] = "кретин";
-            diagnoses[2] = "дурак";
-            diagnoses[3] = "нормальный";
-            diagnoses[4] = "талант";
-            diagnoses[5] = "гений";
-
-            Console.WriteLine("Ваш диагноз:" + diagnoses[correctUserAnswersCount]);
+            string[] diagnoses = GetDiagnoses();
+            Console.WriteLine("Ваш диагноз: " + diagnoses[correctUserAnswersCount]);
         }
 
         static string[] GetQuestions(int questionsCount)
@@ -62,6 +55,18 @@
             rightAnswers[3] = 60;
             rightAnswers[4] = 2;
             return rightAnswers;
+        }
+
+        static string[] GetDiagnoses()
+        {
+            string[] diagnoses = new string[6];
+            diagnoses[0] = "идиот";
+            diagnoses[1] = "кретин";
+            diagnoses[2] = "дурак";
+            diagnoses[3] = "нормальный";
+            diagnoses[4] = "талант";
+            diagnoses[5] = "гений";
+            return diagnoses;
         }
     }
 }
