@@ -6,13 +6,7 @@
         {
             const int questionsCount = 5;
             string[] questions = GetQuestions(questionsCount);
-
-            int[] rightAnswers = new int[questionsCount];
-            rightAnswers[0] = 6;
-            rightAnswers[1] = 9;
-            rightAnswers[2] = 25;
-            rightAnswers[3] = 60;
-            rightAnswers[4] = 2;
+            int[] rightAnswers = GetRightAnswers(questionsCount);
 
             int correctUserAnswersCount = 0;
 
@@ -57,6 +51,17 @@
             questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
             questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
             return questions;
+        }
+
+        static int[] GetRightAnswers(int questionsCount)
+        {
+            int[] rightAnswers = new int[questionsCount];
+            rightAnswers[0] = 6;
+            rightAnswers[1] = 9;
+            rightAnswers[2] = 25;
+            rightAnswers[3] = 60;
+            rightAnswers[4] = 2;
+            return rightAnswers;
         }
     }
 }
