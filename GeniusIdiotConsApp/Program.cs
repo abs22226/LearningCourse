@@ -8,6 +8,9 @@
             string[] questions = GetQuestions(questionsCount);
             int[] rightAnswers = GetRightAnswers(questionsCount);
 
+            Console.WriteLine("Введите ваше имя:");
+            string userName = GetUserNameInput();
+
             Random random = new Random();
 
             List<int> alreadyUsedQuestionsIndexes = new List<int>();
@@ -59,6 +62,17 @@
             rightAnswers[3] = 60;
             rightAnswers[4] = 2;
             return rightAnswers;
+        }
+
+        static string GetUserNameInput()
+        {
+            string? userInput = Console.ReadLine()?.Trim();
+            while (string.IsNullOrEmpty(userInput))
+            {
+                Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                userInput = Console.ReadLine()?.Trim();
+            }
+            return userInput;
         }
 
         static int GetRandomQuestionIndex(Random random, int questionsCount, List<int> alreadyUsedQuestionsIndexes)
