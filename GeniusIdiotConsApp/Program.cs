@@ -11,35 +11,50 @@
             Console.WriteLine("Введите ваше имя:");
             string userName = GetUserNameInput();
 
+            bool userWantsToTestHimself = true;
+
             Random random = new Random();
 
             List<int> alreadyUsedQuestionsIndexes = new List<int>();
 
             int correctUserAnswersCount = 0;
 
-            for (int i = 0; i < questionsCount; i++)
+            while (userWantsToTestHimself)
             {
-                Console.WriteLine("Вопрос №" + (i + 1));
-
-                int randomQuestionIndex = GetRandomQuestionIndex(random, questionsCount, alreadyUsedQuestionsIndexes);
-                Console.WriteLine(questions[randomQuestionIndex]);
-
-                alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
-
-                int userAnswer = Convert.ToInt32(Console.ReadLine());
-
-                int rightAnswer = rightAnswers[randomQuestionIndex];
-
-                if (userAnswer == rightAnswer)
+                for (int i = 0; i < questionsCount; i++)
                 {
-                    correctUserAnswersCount++;
+                    Console.WriteLine("Вопрос №" + (i + 1));
+
+                    int randomQuestionIndex = GetRandomQuestionIndex(random, questionsCount, alreadyUsedQuestionsIndexes);
+                    Console.WriteLine(questions[randomQuestionIndex]);
+
+                    alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
+
+                    int userAnswer = Convert.ToInt32(Console.ReadLine());
+
+                    int rightAnswer = rightAnswers[randomQuestionIndex];
+
+                    if (userAnswer == rightAnswer)
+                    {
+                        correctUserAnswersCount++;
+                    }
+                }
+
+                Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
+
+                string[] diagnoses = GetDiagnoses();
+                Console.WriteLine(userName + ", ваш диагноз: " + diagnoses[correctUserAnswersCount]);
+
+                Console.WriteLine("Хотите повторить? (Да/Нет)");
+                userWantsToTestHimself = GetUserDecisionAboutTesting();
+
+                if (userWantsToTestHimself)
+                {
+                    Console.Clear();
+                    alreadyUsedQuestionsIndexes.Clear();
+                    correctUserAnswersCount = 0;
                 }
             }
-
-            Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
-
-            string[] diagnoses = GetDiagnoses();
-            Console.WriteLine(userName + ", ваш диагноз: " + diagnoses[correctUserAnswersCount]);
         }
 
         static string[] GetQuestions(int questionsCount)
@@ -95,6 +110,30 @@
             diagnoses[4] = "талант";
             diagnoses[5] = "гений";
             return diagnoses;
+        }
+
+        static bool GetUserDecisionAboutTesting()
+        {
+            string? userInput = Console.ReadLine();
+            string? userAnswer = userInput?.Trim().ToLower();
+            while (String.IsNullOrEmpty(userInput) || userAnswer != "да" && userAnswer != "нет")
+            {
+                if (String.IsNullOrEmpty(userInput))
+                {
+                    Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                    userInput = Console.ReadLine();
+                    userAnswer = userInput?.Trim().ToLower();
+
+                }
+                else
+                {
+                    Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                    Console.Write(new string(' ', userInput.Length) + "\r");
+                    userInput = Console.ReadLine();
+                    userAnswer = userInput?.Trim().ToLower();
+                }
+            }
+            return userAnswer == "да" ? true : false; ;
         }
     }
 }
