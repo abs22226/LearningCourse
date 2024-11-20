@@ -1,4 +1,6 @@
-﻿namespace GeniusIdiotConsApp
+﻿using System.Text;
+
+namespace GeniusIdiotConsApp
 {
     internal class Program
     {
@@ -40,10 +42,12 @@
                     }
                 }
 
-                Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);                
+                Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
 
                 string userDiagnosis = GetUserDiagnosis(questionsCount, correctUserAnswersCount);
                 Console.WriteLine(userName + ", ваш диагноз: " + userDiagnosis);
+
+                SaveUserResult(userName, correctUserAnswersCount, questionsCount, userDiagnosis);
 
                 Console.WriteLine("Хотите повторить? (Да/Нет)");
                 userWantsToTestHimself = GetUserDecisionAboutTesting();
@@ -112,12 +116,12 @@
                 userInput = Console.ReadLine();
             }
             return userAnswer;
-        }        
+        }
 
         static string GetUserDiagnosis(int questionsCount, int correctUserAnswersCount)
         {
             string[] diagnoses = GetDiagnoses();
-            int correctUserAnswersPercent =  100 * correctUserAnswersCount / questionsCount;
+            int correctUserAnswersPercent = 100 * correctUserAnswersCount / questionsCount;
             switch (correctUserAnswersPercent)
             {
                 case < 20: return diagnoses[0];
@@ -139,6 +143,14 @@
             diagnoses[4] = "талант";
             diagnoses[5] = "гений";
             return diagnoses;
+        }
+
+        static void SaveUserResult(string userName, int correctUserAnswersCount, int questionsCount, string userDiagnosis)
+        {
+            using (StreamWriter writer = new("GeniusIdiotConsAppUserResults.txt", true, Encoding.UTF8))
+            {
+                writer.WriteLine($"{userName}#{correctUserAnswersCount}/{questionsCount}#{userDiagnosis}");
+            }
         }
 
         static bool GetUserDecisionAboutTesting()
