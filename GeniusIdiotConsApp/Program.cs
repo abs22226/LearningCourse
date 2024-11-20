@@ -108,7 +108,7 @@
             {
                 Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
                 Console.Write(userInput != null ? new string(' ', userInput.Length) + "\r" : string.Empty);
-                Console.WriteLine("Пожалуйста, введите число!");
+                Console.WriteLine("Введите число от -2*10^9 до 2*10^9!");
                 userInput = Console.ReadLine();
             }
             return userAnswer;
