@@ -40,10 +40,10 @@
                     }
                 }
 
-                Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
+                Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);                
 
-                string[] diagnoses = GetDiagnoses();
-                Console.WriteLine(userName + ", ваш диагноз: " + diagnoses[correctUserAnswersCount]);
+                string userDiagnosis = GetUserDiagnosis(questionsCount, correctUserAnswersCount);
+                Console.WriteLine(userName + ", ваш диагноз: " + userDiagnosis);
 
                 Console.WriteLine("Хотите повторить? (Да/Нет)");
                 userWantsToTestHimself = GetUserDecisionAboutTesting();
@@ -112,6 +112,21 @@
                 userInput = Console.ReadLine();
             }
             return userAnswer;
+        }        
+
+        static string GetUserDiagnosis(int questionsCount, int correctUserAnswersCount)
+        {
+            string[] diagnoses = GetDiagnoses();
+            int correctUserAnswersPercent =  100 * correctUserAnswersCount / questionsCount;
+            switch (correctUserAnswersPercent)
+            {
+                case < 20: return diagnoses[0];
+                case < 40: return diagnoses[1];
+                case < 60: return diagnoses[2];
+                case < 80: return diagnoses[3];
+                case < 100: return diagnoses[4];
+                default: return diagnoses[5];
+            }
         }
 
         static string[] GetDiagnoses()
