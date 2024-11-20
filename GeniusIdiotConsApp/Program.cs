@@ -39,7 +39,7 @@
             Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
 
             string[] diagnoses = GetDiagnoses();
-            Console.WriteLine("Ваш диагноз: " + diagnoses[correctUserAnswersCount]);
+            Console.WriteLine(userName + ", ваш диагноз: " + diagnoses[correctUserAnswersCount]);
         }
 
         static string[] GetQuestions(int questionsCount)
