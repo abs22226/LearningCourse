@@ -30,7 +30,7 @@
 
                     alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
 
-                    int userAnswer = Convert.ToInt32(Console.ReadLine());
+                    int userAnswer = GetUserNumericAnswer();
 
                     int rightAnswer = rightAnswers[randomQuestionIndex];
 
@@ -98,6 +98,20 @@
                 randomQuestionIndex = random.Next(0, questionsCount);
             }
             return randomQuestionIndex;
+        }
+
+        private static int GetUserNumericAnswer()
+        {
+            string? userInput = Console.ReadLine();
+            int userAnswer;
+            while (!int.TryParse(userInput, out userAnswer))
+            {
+                Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                Console.Write(userInput != null ? new string(' ', userInput.Length) + "\r" : string.Empty);
+                Console.WriteLine("Пожалуйста, введите число!");
+                userInput = Console.ReadLine();
+            }
+            return userAnswer;
         }
 
         static string[] GetDiagnoses()
