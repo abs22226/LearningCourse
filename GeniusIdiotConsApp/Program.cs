@@ -6,9 +6,8 @@ namespace GeniusIdiotConsApp
     {
         static void Main(string[] args)
         {
-            const int questionsCount = 5;
-            var questions = GetQuestions(questionsCount);
-            var rightAnswers = GetRightAnswers(questionsCount);
+            var questions = GetQuestions();
+            var rightAnswers = GetRightAnswers();
 
             Console.WriteLine("Введите ваше имя:\n(до 20 символов, cимвол '#' недопустим)");
             var userName = GetUserNameInput();
@@ -23,11 +22,11 @@ namespace GeniusIdiotConsApp
 
             while (userWantsToTestHimself)
             {
-                for (int i = 0; i < questionsCount; i++)
+                for (int i = 0; i < questions.Count; i++)
                 {
                     Console.WriteLine("Вопрос №" + (i + 1));
 
-                    var randomQuestionIndex = GetRandomQuestionIndex(random, questionsCount, alreadyUsedQuestionsIndexes);
+                    var randomQuestionIndex = GetRandomQuestionIndex(random, questions.Count, alreadyUsedQuestionsIndexes);
                     Console.WriteLine(questions[randomQuestionIndex]);
 
                     alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
@@ -44,10 +43,10 @@ namespace GeniusIdiotConsApp
 
                 Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
 
-                var userDiagnosis = GetUserDiagnosis(questionsCount, correctUserAnswersCount);
+                var userDiagnosis = GetUserDiagnosis(questions.Count, correctUserAnswersCount);
                 Console.WriteLine(userName + ", ваш диагноз: " + userDiagnosis);
 
-                SaveUserResult(userName, correctUserAnswersCount, questionsCount, userDiagnosis);
+                SaveUserResult(userName, correctUserAnswersCount, questions.Count, userDiagnosis);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
                 var userWantsToSeeResultsHistory = GetUserDecision();
@@ -69,25 +68,25 @@ namespace GeniusIdiotConsApp
             }
         }
 
-        static string[] GetQuestions(int questionsCount)
+        static List<string> GetQuestions()
         {
-            var questions = new string[questionsCount];
-            questions[0] = "Сколько будет два плюс два умноженное на два?";
-            questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
-            questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
-            questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
-            questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
+            var questions = new List<string>();
+            questions.Add("Сколько будет два плюс два умноженное на два?");
+            questions.Add("Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?");
+            questions.Add("На двух руках 10 пальцев. Сколько пальцев на 5 руках?");
+            questions.Add("Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?");
+            questions.Add("Пять свечей горело, две потухли. Сколько свечей осталось?");
             return questions;
         }
 
-        static int[] GetRightAnswers(int questionsCount)
+        static List<int> GetRightAnswers()
         {
-            var rightAnswers = new int[questionsCount];
-            rightAnswers[0] = 6;
-            rightAnswers[1] = 9;
-            rightAnswers[2] = 25;
-            rightAnswers[3] = 60;
-            rightAnswers[4] = 2;
+            var rightAnswers = new List<int>();
+            rightAnswers.Add(6);
+            rightAnswers.Add(9);
+            rightAnswers.Add(25);
+            rightAnswers.Add(60);
+            rightAnswers.Add(2);
             return rightAnswers;
         }
 
