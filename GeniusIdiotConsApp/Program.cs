@@ -49,8 +49,16 @@ namespace GeniusIdiotConsApp
 
                 SaveUserResult(userName, correctUserAnswersCount, questionsCount, userDiagnosis);
 
+                Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
+                bool userWantsToSeeResultsHistory = GetUserDecision();
+
+                if (userWantsToSeeResultsHistory)
+                {
+                    ShowResultsHistory();
+                }
+
                 Console.WriteLine("Хотите повторить? (Да/Нет)");
-                userWantsToTestHimself = GetUserDecisionAboutTesting();
+                userWantsToTestHimself = GetUserDecision();
 
                 if (userWantsToTestHimself)
                 {
@@ -147,13 +155,13 @@ namespace GeniusIdiotConsApp
 
         static void SaveUserResult(string userName, int correctUserAnswersCount, int questionsCount, string userDiagnosis)
         {
-            using (StreamWriter writer = new("GeniusIdiotConsAppUserResults.txt", true, Encoding.UTF8))
+            using (StreamWriter writer = new("GeniusIdiotConsAppResultsHistory.txt", true, Encoding.UTF8))
             {
                 writer.WriteLine($"{userName}#{correctUserAnswersCount}/{questionsCount}#{userDiagnosis}");
             }
         }
 
-        static bool GetUserDecisionAboutTesting()
+        static bool GetUserDecision()
         {
             string? userInput = Console.ReadLine();
             string? userAnswer = userInput?.Trim().ToLower();
@@ -175,6 +183,22 @@ namespace GeniusIdiotConsApp
                 }
             }
             return userAnswer == "да" ? true : false; ;
+        }
+
+        static void ShowResultsHistory()
+        {
+            Console.WriteLine($"|| {"Имя:",-15} || {"Результат:",-15} || {"Диагноз:",-15} ||");
+
+            string[] allLines = File.ReadAllLines("GeniusIdiotConsAppResultsHistory.txt");
+            foreach (var line in allLines)
+            {
+                string[] result = line.Split('#');
+                string userName = result[0];
+                string userScore = result[1];
+                string userDiagnosis = result[2];
+
+                Console.WriteLine($"|| {userName,-15} || {userScore,-15} || {userDiagnosis,-15} ||");
+            }
         }
     }
 }
