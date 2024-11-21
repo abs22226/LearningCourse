@@ -183,26 +183,33 @@ namespace GeniusIdiotConsApp
 
         static bool GetUserDecision()
         {
-            string? userInput = Console.ReadLine();
-            string? userAnswer = userInput?.Trim().ToLower();
-            while (String.IsNullOrEmpty(userInput) || userAnswer != "да" && userAnswer != "нет")
+            while (true)
             {
+                string? userInput = Console.ReadLine();
                 if (String.IsNullOrEmpty(userInput))
                 {
                     Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                    userInput = Console.ReadLine();
-                    userAnswer = userInput?.Trim().ToLower();
-
                 }
                 else
                 {
-                    Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                    Console.Write(new string(' ', userInput.Length) + "\r");
-                    userInput = Console.ReadLine();
-                    userAnswer = userInput?.Trim().ToLower();
+                    string userAnswer = userInput.Trim().ToLower();
+                    if (userAnswer != "да" && userAnswer != "нет")
+                    {
+                        Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                        Console.Write(new string(' ', userInput.Length) + "\r");
+                    }
+                    else
+                    {
+                        if (userAnswer.Length < userInput.Length)
+                        {
+                            Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                            Console.Write(new string(' ', userInput.Length) + "\r");
+                            Console.WriteLine(userAnswer);
+                        }
+                        return userAnswer == "да" ? true : false;
+                    }
                 }
             }
-            return userAnswer == "да" ? true : false; ;
         }
 
         static void ShowResultsHistory()
