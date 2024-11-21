@@ -225,7 +225,8 @@ namespace GeniusIdiotConsApp
 
         static void ShowResultsHistory()
         {
-            Console.WriteLine($"|| {"Имя:",-15} || {"Результат:",-15} || {"Диагноз:",-15} ||");
+            const int columnWidth = 20;
+            Console.WriteLine($"|| {"Имя:",-columnWidth} || {"Результат:",-columnWidth} || {"Диагноз:",-columnWidth} ||");
 
             var allLines = File.ReadAllLines("GeniusIdiotConsAppResultsHistory.txt");
             foreach (var line in allLines)
@@ -235,7 +236,7 @@ namespace GeniusIdiotConsApp
                 string userScore = result[1];
                 string userDiagnosis = result[2];
 
-                Console.WriteLine($"|| {userName,-15} || {userScore,-15} || {userDiagnosis,-15} ||");
+                Console.WriteLine($"|| {userName,-columnWidth} || {userScore,-columnWidth} || {userDiagnosis,-columnWidth} ||");
             }
         }
     }
