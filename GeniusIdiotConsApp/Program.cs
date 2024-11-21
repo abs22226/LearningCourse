@@ -98,22 +98,22 @@ namespace GeniusIdiotConsApp
                 string? userInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(userInput))
                 {
-                    Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                    Console.CursorTop--;
                 }
                 else
                 {
                     string userName = userInput.Trim();
                     if (userName.Contains('#') || userName.Length > 20)
                     {
-                        Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                        Console.Write(new string(' ', userInput.Length) + "\r");
+                        Console.CursorTop--;
+                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
                     }
                     else
                     {
                         if (userName.Length < userInput.Length)
                         {
-                            Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                            Console.Write(new string(' ', userInput.Length) + "\r");
+                            Console.CursorTop--;
+                            Console.Write("\r" + new string(' ', userInput.Length) + "\r");
                             Console.WriteLine(userName);
                         }
                         return userName;
@@ -188,22 +188,22 @@ namespace GeniusIdiotConsApp
                 string? userInput = Console.ReadLine();
                 if (String.IsNullOrEmpty(userInput))
                 {
-                    Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                    Console.CursorTop--;
                 }
                 else
                 {
                     string userAnswer = userInput.Trim().ToLower();
                     if (userAnswer != "да" && userAnswer != "нет")
                     {
-                        Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                        Console.Write(new string(' ', userInput.Length) + "\r");
+                        Console.CursorTop--;
+                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
                     }
                     else
                     {
                         if (userAnswer.Length < userInput.Length)
                         {
-                            Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                            Console.Write(new string(' ', userInput.Length) + "\r");
+                            Console.CursorTop--;
+                            Console.Write("\r" + new string(' ', userInput.Length) + "\r");
                             Console.WriteLine(userAnswer);
                         }
                         return userAnswer == "да" ? true : false;
