@@ -57,7 +57,7 @@ namespace GeniusIdiotConsApp
                     ShowResultsHistory();
                 }
 
-                Console.WriteLine("Хотите повторить? (Да/Нет)");
+                Console.WriteLine("Хотите пройти тест снова? (Да/Нет)");
                 userWantsToTestHimself = GetUserDecision();
 
                 if (userWantsToTestHimself)
