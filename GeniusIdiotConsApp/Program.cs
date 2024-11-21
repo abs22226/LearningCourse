@@ -7,19 +7,19 @@ namespace GeniusIdiotConsApp
         static void Main(string[] args)
         {
             const int questionsCount = 5;
-            string[] questions = GetQuestions(questionsCount);
-            int[] rightAnswers = GetRightAnswers(questionsCount);
+            var questions = GetQuestions(questionsCount);
+            var rightAnswers = GetRightAnswers(questionsCount);
 
             Console.WriteLine("Введите ваше имя:\n(до 20 символов, cимвол '#' недопустим)");
-            string userName = GetUserNameInput();
+            var userName = GetUserNameInput();
 
-            bool userWantsToTestHimself = true;
+            var userWantsToTestHimself = true;
 
-            Random random = new Random();
+            var random = new Random();
 
-            List<int> alreadyUsedQuestionsIndexes = new List<int>();
+            var alreadyUsedQuestionsIndexes = new List<int>();
 
-            int correctUserAnswersCount = 0;
+            var correctUserAnswersCount = 0;
 
             while (userWantsToTestHimself)
             {
@@ -27,14 +27,14 @@ namespace GeniusIdiotConsApp
                 {
                     Console.WriteLine("Вопрос №" + (i + 1));
 
-                    int randomQuestionIndex = GetRandomQuestionIndex(random, questionsCount, alreadyUsedQuestionsIndexes);
+                    var randomQuestionIndex = GetRandomQuestionIndex(random, questionsCount, alreadyUsedQuestionsIndexes);
                     Console.WriteLine(questions[randomQuestionIndex]);
 
                     alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
 
-                    int userAnswer = GetUserNumericAnswer();
+                    var userAnswer = GetUserNumericAnswer();
 
-                    int rightAnswer = rightAnswers[randomQuestionIndex];
+                    var rightAnswer = rightAnswers[randomQuestionIndex];
 
                     if (userAnswer == rightAnswer)
                     {
@@ -44,13 +44,13 @@ namespace GeniusIdiotConsApp
 
                 Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
 
-                string userDiagnosis = GetUserDiagnosis(questionsCount, correctUserAnswersCount);
+                var userDiagnosis = GetUserDiagnosis(questionsCount, correctUserAnswersCount);
                 Console.WriteLine(userName + ", ваш диагноз: " + userDiagnosis);
 
                 SaveUserResult(userName, correctUserAnswersCount, questionsCount, userDiagnosis);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
-                bool userWantsToSeeResultsHistory = GetUserDecision();
+                var userWantsToSeeResultsHistory = GetUserDecision();
 
                 if (userWantsToSeeResultsHistory)
                 {
@@ -71,7 +71,7 @@ namespace GeniusIdiotConsApp
 
         static string[] GetQuestions(int questionsCount)
         {
-            string[] questions = new string[questionsCount];
+            var questions = new string[questionsCount];
             questions[0] = "Сколько будет два плюс два умноженное на два?";
             questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
             questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
@@ -82,7 +82,7 @@ namespace GeniusIdiotConsApp
 
         static int[] GetRightAnswers(int questionsCount)
         {
-            int[] rightAnswers = new int[questionsCount];
+            var rightAnswers = new int[questionsCount];
             rightAnswers[0] = 6;
             rightAnswers[1] = 9;
             rightAnswers[2] = 25;
@@ -95,14 +95,14 @@ namespace GeniusIdiotConsApp
         {
             while (true)
             {
-                string? userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(userInput))
                 {
                     Console.CursorTop--;
                 }
                 else
                 {
-                    string userName = userInput.Trim();
+                    var userName = userInput.Trim();
                     if (userName.Contains('#') || userName.Length > 20)
                     {
                         Console.CursorTop--;
@@ -124,7 +124,7 @@ namespace GeniusIdiotConsApp
 
         static int GetRandomQuestionIndex(Random random, int questionsCount, List<int> alreadyUsedQuestionsIndexes)
         {
-            int randomQuestionIndex = random.Next(0, questionsCount);
+            var randomQuestionIndex = random.Next(0, questionsCount);
             while (alreadyUsedQuestionsIndexes.Contains(randomQuestionIndex))
             {
                 randomQuestionIndex = random.Next(0, questionsCount);
@@ -134,7 +134,7 @@ namespace GeniusIdiotConsApp
 
         private static int GetUserNumericAnswer()
         {
-            string? userInput = Console.ReadLine();
+            var userInput = Console.ReadLine();
             int userAnswer;
             while (!int.TryParse(userInput, out userAnswer))
             {
@@ -148,8 +148,8 @@ namespace GeniusIdiotConsApp
 
         static string GetUserDiagnosis(int questionsCount, int correctUserAnswersCount)
         {
-            string[] diagnoses = GetDiagnoses();
-            int correctUserAnswersPercent = 100 * correctUserAnswersCount / questionsCount;
+            var diagnoses = GetDiagnoses();
+            var correctUserAnswersPercent = (double)correctUserAnswersCount / questionsCount * 100;
             switch (correctUserAnswersPercent)
             {
                 case < 20: return diagnoses[0];
@@ -163,7 +163,7 @@ namespace GeniusIdiotConsApp
 
         static string[] GetDiagnoses()
         {
-            string[] diagnoses = new string[6];
+            var diagnoses = new string[6];
             diagnoses[0] = "идиот";
             diagnoses[1] = "кретин";
             diagnoses[2] = "дурак";
@@ -185,14 +185,14 @@ namespace GeniusIdiotConsApp
         {
             while (true)
             {
-                string? userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
                 if (String.IsNullOrEmpty(userInput))
                 {
                     Console.CursorTop--;
                 }
                 else
                 {
-                    string userAnswer = userInput.Trim().ToLower();
+                    var userAnswer = userInput.Trim().ToLower();
                     if (userAnswer != "да" && userAnswer != "нет")
                     {
                         Console.CursorTop--;
@@ -216,10 +216,10 @@ namespace GeniusIdiotConsApp
         {
             Console.WriteLine($"|| {"Имя:",-15} || {"Результат:",-15} || {"Диагноз:",-15} ||");
 
-            string[] allLines = File.ReadAllLines("GeniusIdiotConsAppResultsHistory.txt");
+            var allLines = File.ReadAllLines("GeniusIdiotConsAppResultsHistory.txt");
             foreach (var line in allLines)
             {
-                string[] result = line.Split('#');
+                var result = line.Split('#');
                 string userName = result[0];
                 string userScore = result[1];
                 string userDiagnosis = result[2];
