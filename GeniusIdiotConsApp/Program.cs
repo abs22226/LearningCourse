@@ -10,7 +10,7 @@ namespace GeniusIdiotConsApp
             string[] questions = GetQuestions(questionsCount);
             int[] rightAnswers = GetRightAnswers(questionsCount);
 
-            Console.WriteLine("Введите ваше имя:");
+            Console.WriteLine("Введите ваше имя:\n(до 20 символов, cимвол '#' недопустим)");
             string userName = GetUserNameInput();
 
             bool userWantsToTestHimself = true;
@@ -93,13 +93,33 @@ namespace GeniusIdiotConsApp
 
         static string GetUserNameInput()
         {
-            string? userInput = Console.ReadLine()?.Trim();
-            while (string.IsNullOrEmpty(userInput))
+            while (true)
             {
-                Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                userInput = Console.ReadLine()?.Trim();
+                string? userInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(userInput))
+                {
+                    Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                }
+                else
+                {
+                    string userName = userInput.Trim();
+                    if (userName.Contains('#') || userName.Length > 20)
+                    {
+                        Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                        Console.Write(new string(' ', userInput.Length) + "\r");
+                    }
+                    else
+                    {
+                        if (userName.Length < userInput.Length)
+                        {
+                            Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
+                            Console.Write(new string(' ', userInput.Length) + "\r");
+                            Console.WriteLine(userName);
+                        }
+                        return userName;
+                    }
+                }
             }
-            return userInput;
         }
 
         static int GetRandomQuestionIndex(Random random, int questionsCount, List<int> alreadyUsedQuestionsIndexes)
