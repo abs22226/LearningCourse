@@ -134,16 +134,27 @@ namespace GeniusIdiotConsApp
 
         private static int GetUserNumericAnswer()
         {
-            var userInput = Console.ReadLine();
-            int userAnswer;
-            while (!int.TryParse(userInput, out userAnswer))
+            while (true)
             {
-                Console.Write("\x1b[1A"); // перевод курсора в начало предыдущей строки
-                Console.Write(userInput != null ? new string(' ', userInput.Length) + "\r" : string.Empty);
-                Console.WriteLine("Введите число от -2*10^9 до 2*10^9!");
-                userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
+                int userAnswer;
+                if (int.TryParse(userInput, out userAnswer))
+                {
+                    if (userAnswer.ToString().Length < userInput.Length)
+                    {
+                        Console.CursorTop--;
+                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        Console.WriteLine(userAnswer);
+                    }
+                    return userAnswer;
+                }
+                else
+                {
+                    Console.CursorTop--;
+                    Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r");
+                    Console.WriteLine("Введите число от -2*10^9 до 2*10^9!");
+                }
             }
-            return userAnswer;
         }
 
         static string GetUserDiagnosis(int questionsCount, int correctUserAnswersCount)
