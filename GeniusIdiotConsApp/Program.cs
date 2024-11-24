@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace GeniusIdiotConsApp
+﻿namespace GeniusIdiotConsApp
 {
     class Program
     {
@@ -47,7 +45,7 @@ namespace GeniusIdiotConsApp
                 user.Diagnosis = GetUserDiagnosis(rightAnswersCount, startingQuestionsCount);
                 Console.WriteLine(user.Name + ", ваш диагноз: " + user.Diagnosis);
 
-                SaveResult(user);
+                UsersStorage.Save(user);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
                 var userWantsToSeeHistory = GetUserDecision();
@@ -151,14 +149,6 @@ namespace GeniusIdiotConsApp
             return diagnoses;
         }
 
-        static void SaveResult(User user)
-        {
-            using (StreamWriter writer = new("GeniusIdiotConsAppHistory.txt", true, Encoding.UTF8))
-            {
-                writer.WriteLine($"{user.Name}#{user.Score}#{user.Diagnosis}");
-            }
-        }
-
         static bool GetUserDecision()
         {
             while (true)
@@ -192,18 +182,13 @@ namespace GeniusIdiotConsApp
 
         static void ShowHistory()
         {
-            const int columnWidth = 20;
-            Console.WriteLine($"|| {"Имя:",-columnWidth} || {"Результат:",-columnWidth} || {"Диагноз:",-columnWidth} ||");
+            const int columnWidth = -20;
+            Console.WriteLine($"|| {"Имя:", columnWidth} || {"Результат:", columnWidth} || {"Диагноз:", columnWidth} ||");
 
-            var allLines = File.ReadAllLines("GeniusIdiotConsAppHistory.txt");
-            foreach (var line in allLines)
+            var allUsers = UsersStorage.GetAll();
+            foreach (var user in allUsers)
             {
-                var result = line.Split('#');
-                var userName = result[0];
-                var userScore = result[1];
-                var userDiagnosis = result[2];
-
-                Console.WriteLine($"|| {userName,-columnWidth} || {userScore,-columnWidth} || {userDiagnosis,-columnWidth} ||");
+                Console.WriteLine($"|| {user.Name, columnWidth} || {user.Score, columnWidth} || {user.Diagnosis, columnWidth} ||");
             }
         }
     }

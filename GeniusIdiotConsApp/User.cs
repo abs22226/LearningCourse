@@ -13,6 +13,13 @@
             Diagnosis = string.Empty;
         }
 
+        public User(string name, string score, string diagnosis)
+        {
+            Name = name;
+            Score = score;
+            Diagnosis = diagnosis;
+        }
+
         public void SetScore(int rightAnswersCount, int startingQuestionsCount)
         {
             Score = $"{rightAnswersCount}/{startingQuestionsCount}";
