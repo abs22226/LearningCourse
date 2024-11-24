@@ -2,6 +2,7 @@
 
 namespace GeniusIdiotConsApp
 {
+
     class Program
     {
         static void Main(string[] args)
@@ -13,7 +14,7 @@ namespace GeniusIdiotConsApp
 
             while (userWantsToTestHimself)
             {
-                var questions = GetQuestions();
+                var questions = QuestionsStorage.GetAll();
                 var startingQuestionsCount = questions.Count();
 
                 var correctUserAnswersCount = 0;
