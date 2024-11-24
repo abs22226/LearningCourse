@@ -6,29 +6,26 @@ namespace GeniusIdiotConsApp
     {
         static void Main(string[] args)
         {
-            var questions = GetQuestions();
-
             Console.WriteLine("Введите ваше имя:\n(до 20 символов, cимвол '#' недопустим)");
             var userName = GetUserNameInput();
 
             var userWantsToTestHimself = true;
 
-            var random = new Random();
-
-            var alreadyUsedQuestionsIndexes = new List<int>();
-
-            var correctUserAnswersCount = 0;
-
             while (userWantsToTestHimself)
             {
-                for (int i = 0; i < questions.Count; i++)
+                var questions = GetQuestions();
+                var startingQuestionsCount = questions.Count();
+
+                var correctUserAnswersCount = 0;
+
+                var random = new Random();
+
+                for (int i = 0; i < startingQuestionsCount; i++)
                 {
-                    Console.WriteLine("Вопрос №" + (i + 1));
-
-                    var randomQuestionIndex = GetRandomQuestionIndex(random, questions.Count, alreadyUsedQuestionsIndexes);
+                    var randomQuestionIndex = random.Next(0, questions.Count);
+                    
+                    Console.WriteLine("Вопрос №" + (i + 1));                    
                     Console.WriteLine(questions[randomQuestionIndex].Text);
-
-                    alreadyUsedQuestionsIndexes.Add(randomQuestionIndex);
 
                     var userAnswer = GetUserNumericAnswer();
 
@@ -38,14 +35,16 @@ namespace GeniusIdiotConsApp
                     {
                         correctUserAnswersCount++;
                     }
+
+                    questions.RemoveAt(randomQuestionIndex);
                 }
 
                 Console.WriteLine("Количество правильных ответов: " + correctUserAnswersCount);
 
-                var userDiagnosis = GetUserDiagnosis(questions.Count, correctUserAnswersCount);
+                var userDiagnosis = GetUserDiagnosis(correctUserAnswersCount, startingQuestionsCount);
                 Console.WriteLine(userName + ", ваш диагноз: " + userDiagnosis);
 
-                SaveUserResult(userName, correctUserAnswersCount, questions.Count, userDiagnosis);
+                SaveUserResult(userName, correctUserAnswersCount, startingQuestionsCount, userDiagnosis);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
                 var userWantsToSeeResultsHistory = GetUserDecision();
@@ -61,7 +60,6 @@ namespace GeniusIdiotConsApp
                 if (userWantsToTestHimself)
                 {
                     Console.Clear();
-                    alreadyUsedQuestionsIndexes.Clear();
                     correctUserAnswersCount = 0;
                 }
             }
@@ -76,7 +74,7 @@ namespace GeniusIdiotConsApp
             questions.Add(new Question("Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?", 60));
             questions.Add(new Question("Пять свечей горело, две потухли. Сколько свечей осталось?", 2));
             return questions;
-        }        
+        }
 
         static string GetUserNameInput()
         {
@@ -109,16 +107,6 @@ namespace GeniusIdiotConsApp
             }
         }
 
-        static int GetRandomQuestionIndex(Random random, int questionsCount, List<int> alreadyUsedQuestionsIndexes)
-        {
-            var randomQuestionIndex = random.Next(0, questionsCount);
-            while (alreadyUsedQuestionsIndexes.Contains(randomQuestionIndex))
-            {
-                randomQuestionIndex = random.Next(0, questionsCount);
-            }
-            return randomQuestionIndex;
-        }
-
         private static int GetUserNumericAnswer()
         {
             while (true)
@@ -144,10 +132,10 @@ namespace GeniusIdiotConsApp
             }
         }
 
-        static string GetUserDiagnosis(int questionsCount, int correctUserAnswersCount)
+        static string GetUserDiagnosis(int correctUserAnswersCount, int startingQuestionsCount)
         {
             var diagnoses = GetDiagnoses();
-            var correctUserAnswersPercent = (double)correctUserAnswersCount / questionsCount * 100;
+            var correctUserAnswersPercent = (double)correctUserAnswersCount / startingQuestionsCount * 100;
             switch (correctUserAnswersPercent)
             {
                 case < 20: return diagnoses[0];
@@ -171,11 +159,11 @@ namespace GeniusIdiotConsApp
             return diagnoses;
         }
 
-        static void SaveUserResult(string userName, int correctUserAnswersCount, int questionsCount, string userDiagnosis)
+        static void SaveUserResult(string userName, int correctUserAnswersCount, int startingQuestionsCount, string userDiagnosis)
         {
             using (StreamWriter writer = new("GeniusIdiotConsAppResultsHistory.txt", true, Encoding.UTF8))
             {
-                writer.WriteLine($"{userName}#{correctUserAnswersCount}/{questionsCount}#{userDiagnosis}");
+                writer.WriteLine($"{userName}#{correctUserAnswersCount}/{startingQuestionsCount}#{userDiagnosis}");
             }
         }
 
