@@ -1,4 +1,5 @@
-﻿namespace GeniusIdiotConsApp
+﻿
+namespace GeniusIdiotConsApp
 {
     public class QuestionsStorage
     {
@@ -11,6 +12,11 @@
             questions.Add(new Question("Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?", 60));
             questions.Add(new Question("Пять свечей горело, две потухли. Сколько свечей осталось?", 2));
             return questions;
+        }
+
+        public static void Add(Question newQuestion)
+        {
+            FileProvider.Append("GeniusIdiotConsAppQuestionsStorage.txt", $"{newQuestion.Text}#{newQuestion.Answer}"); 
         }
     }
 }

@@ -27,7 +27,7 @@
                     Console.WriteLine("Вопрос №" + (i + 1));
                     Console.WriteLine(questions[randomQuestionIndex].Text);
 
-                    var userAnswer = GetUserNumericAnswer();
+                    var userAnswer = GetNumber();
 
                     var rightAnswer = questions[randomQuestionIndex].Answer;
 
@@ -48,16 +48,21 @@
                 UsersStorage.Save(user);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
-                var userWantsToSeeHistory = GetUserDecision();
-
-                if (userWantsToSeeHistory)
+                var userDecision = GetUserDecision();
+                if (userDecision)
                 {
                     ShowHistory();
                 }
 
+                Console.WriteLine("Хотите добавить новый вопрос? (Да/Нет)");
+                userDecision = GetUserDecision();
+                if (userDecision)
+                {
+                    AddNewQuestion();
+                }
+
                 Console.WriteLine("Хотите пройти тест снова? (Да/Нет)");
                 userWantsToQuiz = GetUserDecision();
-
                 if (userWantsToQuiz)
                 {
                     Console.Clear();
@@ -97,7 +102,7 @@
             }
         }
 
-        private static int GetUserNumericAnswer()
+        static int GetNumber()
         {
             while (true)
             {
@@ -190,6 +195,16 @@
             {
                 Console.WriteLine($"|| {user.Name, columnWidth} || {user.Score, columnWidth} || {user.Diagnosis, columnWidth} ||");
             }
+        }
+
+        static void AddNewQuestion()
+        {
+            Console.WriteLine("Введите текст вопроса:");
+            var text = Console.ReadLine();
+            Console.WriteLine("Введите ответ на вопрос:");
+            var answer = GetNumber();
+
+            QuestionsStorage.Add(new Question(text, answer));
         }
     }
 }
