@@ -188,23 +188,46 @@
         static void ShowHistory()
         {
             const int columnWidth = -20;
-            Console.WriteLine($"|| {"Имя:", columnWidth} || {"Результат:", columnWidth} || {"Диагноз:", columnWidth} ||");
+            Console.WriteLine($"|| {"Имя:",columnWidth} || {"Результат:",columnWidth} || {"Диагноз:",columnWidth} ||");
 
             var allUsers = UsersStorage.GetAll();
             foreach (var user in allUsers)
             {
-                Console.WriteLine($"|| {user.Name, columnWidth} || {user.Score, columnWidth} || {user.Diagnosis, columnWidth} ||");
+                Console.WriteLine($"|| {user.Name,columnWidth} || {user.Score,columnWidth} || {user.Diagnosis,columnWidth} ||");
             }
         }
 
         static void AddNewQuestion()
         {
             Console.WriteLine("Введите текст вопроса:");
-            var text = Console.ReadLine();
+            var text = GetNewQuestionText();
             Console.WriteLine("Введите ответ на вопрос:");
             var answer = GetNumber();
 
             QuestionsStorage.Add(new Question(text, answer));
+        }
+
+        static string GetNewQuestionText()
+        {
+            while (true)
+            {
+                var userInput = Console.ReadLine();
+                if (String.IsNullOrEmpty(userInput))
+                {
+                    Console.CursorTop--;
+                }
+                else
+                {
+                    var newQuestionText = userInput.Trim();
+                    if (newQuestionText.Length < userInput.Length)
+                    {
+                        Console.CursorTop--;
+                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        Console.WriteLine(newQuestionText);
+                    }
+                    return newQuestionText;
+                }
+            }
         }
     }
 }
