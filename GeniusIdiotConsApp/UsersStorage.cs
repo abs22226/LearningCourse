@@ -6,17 +6,15 @@ namespace GeniusIdiotConsApp
     {
         public static void Save(User user)
         {
-            using (StreamWriter writer = new("GeniusIdiotConsAppUsersStorage.txt", true, Encoding.UTF8))
-            {
-                writer.WriteLine($"{user.Name}#{user.Score}#{user.Diagnosis}");
-            }
+            FileProvider.Append("GeniusIdiotConsAppUsersStorage.txt", $"{user.Name}#{user.Score}#{user.Diagnosis}");
         }
 
         public static List<User> GetAll()
         {
-            var allLines = File.ReadAllLines("GeniusIdiotConsAppUsersStorage.txt");
+            var value = FileProvider.GetValue("GeniusIdiotConsAppUsersStorage.txt");
+            var lines = value.Split("\n");
             var users = new List<User>();            
-            foreach (var line in allLines)
+            foreach (var line in lines)
             {
                 var result = line.Split('#');
                 var name = result[0];
