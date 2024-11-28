@@ -29,17 +29,38 @@ namespace GeniusIdiotConsApp
                 questions.Add(new Question("Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?", 60));
                 questions.Add(new Question("Пять свечей горело, две потухли. Сколько свечей осталось?", 2));
 
-                foreach (var question in questions)
-                {
-                    Add(question);
-                }
+                Save(questions);
             }
             return questions;
+        }
+
+        public static void Save(List<Question> questions)
+        {
+            foreach (var question in questions)
+            {
+                Add(question);
+            }
         }
 
         public static void Add(Question newQuestion)
         {
             FileProvider.Append("GeniusIdiotConsAppQuestionsStorage.txt", $"{newQuestion.Text}#{newQuestion.Answer}");
+        }
+
+        public static void Remove(Question question)
+        {
+            var questions = GetAll();            
+            for (int i = 0; i < questions.Count; i++)
+            {
+                if (questions[i].Text == question.Text)
+                {
+                    questions.RemoveAt(i);
+                    break;
+                }
+            }
+
+            FileProvider.Clear("GeniusIdiotConsAppQuestionsStorage.txt");
+            Save(questions);
         }
     }
 }

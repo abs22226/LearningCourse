@@ -22,21 +22,21 @@
 
                 for (int i = 0; i < startingQuestionsCount; i++)
                 {
-                    var randomQuestionIndex = random.Next(0, questions.Count);
+                    var index = random.Next(0, questions.Count);
 
                     Console.WriteLine("Вопрос №" + (i + 1));
-                    Console.WriteLine(questions[randomQuestionIndex].Text);
+                    Console.WriteLine(questions[index].Text);
 
-                    var userAnswer = GetNumber();
+                    var userAnswer = GetNumericAnswer();
 
-                    var rightAnswer = questions[randomQuestionIndex].Answer;
+                    var rightAnswer = questions[index].Answer;
 
                     if (userAnswer == rightAnswer)
                     {
                         rightAnswersCount++;
                     }
 
-                    questions.RemoveAt(randomQuestionIndex);
+                    questions.RemoveAt(index);
                 }
 
                 user.SetScore(rightAnswersCount, startingQuestionsCount);
@@ -59,6 +59,13 @@
                 if (user.IsReady)
                 {
                     AddNewQuestion();
+                }
+
+                Console.WriteLine("Хотите удалить какой-то вопрос? (Да/Нет)");
+                user.IsReady = GetUserDecision();
+                if (user.IsReady)
+                {
+                    RemoveQuestion();
                 }
 
                 Console.WriteLine("Хотите пройти тест снова? (Да/Нет)");
@@ -102,7 +109,7 @@
             }
         }
 
-        static int GetNumber()
+        static int GetNumericAnswer()
         {
             while (true)
             {
@@ -125,7 +132,7 @@
                     Console.WriteLine("Введите число от -2*10^9 до 2*10^9!");
                 }
             }
-        }        
+        }
 
         static bool GetUserDecision()
         {
@@ -175,7 +182,7 @@
             Console.WriteLine("Введите текст вопроса:");
             var text = GetNewQuestionText();
             Console.WriteLine("Введите ответ на вопрос:");
-            var answer = GetNumber();
+            var answer = GetNumericAnswer();
 
             QuestionsStorage.Add(new Question(text, answer));
         }
@@ -199,6 +206,55 @@
                         Console.WriteLine(newQuestionText);
                     }
                     return newQuestionText;
+                }
+            }
+        }
+
+        static void RemoveQuestion()
+        {
+            var questions = QuestionsStorage.GetAll();
+            Console.WriteLine("Введите номер вопроса для удаления:");
+            for (int i = 0; i < questions.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {questions[i].Text}");
+            }
+
+            var number = GetQuestionNumber(questions.Count);
+            var question = questions[number - 1];
+
+            QuestionsStorage.Remove(question);
+        }
+
+        static int GetQuestionNumber(int questionsCount)
+        {
+            while (true)
+            {
+                var userInput = Console.ReadLine();
+                int number;
+                if (int.TryParse(userInput, out number))
+                {
+                    if (number < 1 || number > questionsCount)
+                    {
+                        Console.CursorTop--;
+                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        Console.WriteLine($"Введите число от 1 до {questionsCount}!");
+                    }
+                    else
+                    {
+                        if (number.ToString().Length < userInput.Length)
+                        {
+                            Console.CursorTop--;
+                            Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                            Console.WriteLine(number);
+                        }
+                        return number;
+                    }
+                }
+                else
+                {
+                    Console.CursorTop--;
+                    Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r");
+                    Console.WriteLine($"Введите число от 1 до {questionsCount}!");
                 }
             }
         }
