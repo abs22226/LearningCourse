@@ -9,9 +9,9 @@
 
             var user = new User(name);
 
-            var userWantsToQuiz = true;
+            user.IsReady = true;
 
-            while (userWantsToQuiz)
+            while (user.IsReady)
             {
                 var questions = QuestionsStorage.GetAll();
                 var startingQuestionsCount = questions.Count();
@@ -42,28 +42,28 @@
                 user.SetScore(rightAnswersCount, startingQuestionsCount);
                 Console.WriteLine("Количество правильных ответов: " + user.Score);
 
-                user.Diagnosis = GetUserDiagnosis(rightAnswersCount, startingQuestionsCount);
+                user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
                 Console.WriteLine(user.Name + ", ваш диагноз: " + user.Diagnosis);
 
                 UsersStorage.Save(user);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
-                var userDecision = GetUserDecision();
-                if (userDecision)
+                user.IsReady = GetUserDecision();
+                if (user.IsReady)
                 {
                     ShowHistory();
                 }
 
                 Console.WriteLine("Хотите добавить новый вопрос? (Да/Нет)");
-                userDecision = GetUserDecision();
-                if (userDecision)
+                user.IsReady = GetUserDecision();
+                if (user.IsReady)
                 {
                     AddNewQuestion();
                 }
 
                 Console.WriteLine("Хотите пройти тест снова? (Да/Нет)");
-                userWantsToQuiz = GetUserDecision();
-                if (userWantsToQuiz)
+                user.IsReady = GetUserDecision();
+                if (user.IsReady)
                 {
                     Console.Clear();
                     user.ResetResult();
@@ -125,34 +125,7 @@
                     Console.WriteLine("Введите число от -2*10^9 до 2*10^9!");
                 }
             }
-        }
-
-        static string GetUserDiagnosis(int rightAnswersCount, int startingQuestionsCount)
-        {
-            var diagnoses = GetDiagnoses();
-            var rightAnswersPercentage = (double)rightAnswersCount / startingQuestionsCount * 100;
-            switch (rightAnswersPercentage)
-            {
-                case < 20: return diagnoses[0];
-                case < 40: return diagnoses[1];
-                case < 60: return diagnoses[2];
-                case < 80: return diagnoses[3];
-                case < 100: return diagnoses[4];
-                default: return diagnoses[5];
-            }
-        }
-
-        static string[] GetDiagnoses()
-        {
-            var diagnoses = new string[6];
-            diagnoses[0] = "идиот";
-            diagnoses[1] = "кретин";
-            diagnoses[2] = "дурак";
-            diagnoses[3] = "нормальный";
-            diagnoses[4] = "талант";
-            diagnoses[5] = "гений";
-            return diagnoses;
-        }
+        }        
 
         static bool GetUserDecision()
         {

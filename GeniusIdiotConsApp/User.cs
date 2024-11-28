@@ -4,7 +4,8 @@
     {
         public string Name { get; }
         public string Score { get; private set; }
-        public string Diagnosis { get; set; }
+        public string Diagnosis { get; private set; }
+        public bool IsReady { get; set; }
 
         public User(string name)
         {
@@ -29,6 +30,20 @@
         {
             Score = string.Empty;
             Diagnosis = string.Empty;
+        }
+
+        public void SetDiagnosis(int rightAnswersCount, int startingQuestionsCount)
+        {
+            var rightAnswersPercentage = (double)rightAnswersCount / startingQuestionsCount * 100;
+            switch (rightAnswersPercentage)
+            {
+                case < 20: Diagnosis = "идиот"; break;
+                case < 40: Diagnosis = "кретин"; break;
+                case < 60: Diagnosis = "дурак"; break;
+                case < 80: Diagnosis = "нормальный"; break;
+                case < 100: Diagnosis = "талант"; break;
+                default: Diagnosis = "гений"; break;
+            }
         }
     }
 }
