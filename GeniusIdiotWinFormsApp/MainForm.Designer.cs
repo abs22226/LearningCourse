@@ -32,6 +32,7 @@
             questionNumberLabel = new Label();
             questionTextLabel = new Label();
             userAnswerTextBox = new TextBox();
+            commentTextLabel = new Label();
             SuspendLayout();
             // 
             // nextButton
@@ -43,6 +44,7 @@
             nextButton.TabIndex = 0;
             nextButton.Text = "Далее";
             nextButton.UseVisualStyleBackColor = true;
+            nextButton.Click += nextButton_Click;
             // 
             // questionNumberLabel
             // 
@@ -71,11 +73,22 @@
             userAnswerTextBox.Size = new Size(296, 23);
             userAnswerTextBox.TabIndex = 3;
             // 
+            // commentTextLabel
+            // 
+            commentTextLabel.AutoSize = true;
+            commentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            commentTextLabel.Location = new Point(56, 238);
+            commentTextLabel.Name = "commentTextLabel";
+            commentTextLabel.Size = new Size(149, 21);
+            commentTextLabel.TabIndex = 4;
+            commentTextLabel.Text = "Текст комментария";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 450);
+            Controls.Add(commentTextLabel);
             Controls.Add(userAnswerTextBox);
             Controls.Add(questionTextLabel);
             Controls.Add(questionNumberLabel);
@@ -93,5 +106,6 @@
         private Label questionNumberLabel;
         private Label questionTextLabel;
         private TextBox userAnswerTextBox;
+        private Label commentTextLabel;
     }
 }
