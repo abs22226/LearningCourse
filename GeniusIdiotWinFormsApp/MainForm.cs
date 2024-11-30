@@ -104,6 +104,7 @@ namespace GeniusIdiotWinFormsApp
 
             questionNumber++;
             QuestionNumberLabel.Text = "Вопрос № " + questionNumber;
+
             QuestionTextLabel.Text = currentQuestion.Text;
 
             UserAnswerTextBox.Clear();
@@ -130,7 +131,7 @@ namespace GeniusIdiotWinFormsApp
                 }
                 else
                 {
-                    FinishTheQuiz();                   
+                    FinishTheQuiz();
                 }
             }
         }
@@ -153,20 +154,22 @@ namespace GeniusIdiotWinFormsApp
 
         private void FinishTheQuiz()
         {
-            QuestionNumberLabel.Text = string.Empty;
+            ShowUserDiagnosis();
+
             QuestionTextLabel.Text = string.Empty;
             UserAnswerTextBox.Clear();
             CommentTextLabel.Text = string.Empty;
 
-            ShowDiagnosis();
+
+
         }
 
-        private void ShowDiagnosis()
+        private void ShowUserDiagnosis()
         {
             user.SetScore(rightAnswersCount, startingQuestionsCount);
             user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
 
-            MessageBox.Show($"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis}");
+            QuestionNumberLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis}";
         }
     }
 }
