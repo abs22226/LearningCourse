@@ -1,20 +1,17 @@
 using GeniusIdiotConsApp;
-using System.Windows;
 
 namespace GeniusIdiotWinFormsApp
 {
     public partial class MainForm : Form
     {
+        private List<Question> questions;
+        private Question currentQuestion;
+
         public MainForm()
         {
             InitializeComponent();
-        }
 
-        private void mainForm_Load(object sender, EventArgs e)
-        {
             SetSizes();
-
-
         }
 
         private void SetSizes()
@@ -23,6 +20,25 @@ namespace GeniusIdiotWinFormsApp
             this.MinimumSize = new Size(430, 489);
 
             questionTextLabel.MaximumSize = new Size(296, 90);
+        }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            questions = QuestionsStorage.GetAll();
+            
+            ShowRandomQuestion();
+
+            
+            
+        }
+
+        private void ShowRandomQuestion()
+        {
+            var random = new Random();
+            var randomIndex = random.Next(0, questions.Count);
+
+            currentQuestion = questions[randomIndex];
+            questionTextLabel.Text = currentQuestion.Text;
         }
     }
 }
