@@ -5,7 +5,6 @@
         public string Name { get; }
         public string Score { get; private set; }
         public string Diagnosis { get; private set; }
-        public bool IsReady { get; set; }
 
         public User(string name)
         {

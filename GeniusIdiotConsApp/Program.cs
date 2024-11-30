@@ -9,9 +9,9 @@
 
             var user = new User(name);
 
-            user.IsReady = true;
+            var userIsReady = true;
 
-            while (user.IsReady)
+            while (userIsReady)
             {
                 var questions = QuestionsStorage.GetAll();
                 var startingQuestionsCount = questions.Count();
@@ -48,29 +48,29 @@
                 UsersStorage.Save(user);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
-                user.IsReady = GetUserDecision();
-                if (user.IsReady)
+                userIsReady = GetUserDecision();
+                if (userIsReady)
                 {
                     ShowHistory();
                 }
 
                 Console.WriteLine("Хотите добавить новый вопрос? (Да/Нет)");
-                user.IsReady = GetUserDecision();
-                if (user.IsReady)
+                userIsReady = GetUserDecision();
+                if (userIsReady)
                 {
                     AddNewQuestion();
                 }
 
                 Console.WriteLine("Хотите удалить какой-то вопрос? (Да/Нет)");
-                user.IsReady = GetUserDecision();
-                if (user.IsReady)
+                userIsReady = GetUserDecision();
+                if (userIsReady)
                 {
                     RemoveQuestion();
                 }
 
                 Console.WriteLine("Хотите пройти тест снова? (Да/Нет)");
-                user.IsReady = GetUserDecision();
-                if (user.IsReady)
+                userIsReady = GetUserDecision();
+                if (userIsReady)
                 {
                     Console.Clear();
                     user.ResetResult();

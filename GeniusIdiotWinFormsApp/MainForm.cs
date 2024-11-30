@@ -1,5 +1,4 @@
 using GeniusIdiotConsApp;
-using System;
 
 namespace GeniusIdiotWinFormsApp
 {
@@ -8,16 +7,22 @@ namespace GeniusIdiotWinFormsApp
         private List<Question> questions;
         private int initialQuestionsCount;
         private Question currentQuestion;
+        private int questionNumber;
         private User user;
         private int rightAnswersCount;
 
         public MainForm()
         {
             InitializeComponent();
+        }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             SetSizes();
 
-            userAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
+            GreetNewUser();
+
+            UserAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
         }
 
         private void SetSizes()
@@ -25,27 +30,65 @@ namespace GeniusIdiotWinFormsApp
             this.MaximumSize = new Size(430, 489);
             this.MinimumSize = new Size(430, 489);
 
-            questionTextLabel.MaximumSize = new Size(296, 90);
+            QuestionTextLabel.MaximumSize = new Size(296, 90);
 
-            commentTextLabel.MaximumSize = new Size(296, 90);
+            CommentTextLabel.MaximumSize = new Size(296, 90);
+        }
+
+        private void GreetNewUser()
+        {
+            QuestionNumberLabel.Text = "Введите ваше имя:";
+            QuestionTextLabel.Text = "- до 20 символов,\n- символ # недопустим";
+
+            UserAnswerTextBox.Clear();
+
+            CommentTextLabel.Text = string.Empty;
         }
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
         {
-            commentTextLabel.Text = string.Empty;
+            CommentTextLabel.Text = string.Empty;
         }
 
-        private void mainForm_Load(object sender, EventArgs e)
+        private void NextButton_Click(object sender, EventArgs e)
         {
-            questions = QuestionsStorage.GetAll();
-            initialQuestionsCount = questions.Count;
+            switch (QuestionNumberLabel.Text)
+            {
+                case "Введите ваше имя:": StartNewQuiz(); break;
+                default: ProceedGettingNumericAnswer(); break;
 
-            user = new User("Гость");
+            }
+        }
 
-            ShowRandomQuestion();
+        private void StartNewQuiz()
+        {
+            var name = GetUserName();
 
+            if (!string.IsNullOrEmpty(name))
+            {
+                user = new User(name);
 
+                questions = QuestionsStorage.GetAll();
+                initialQuestionsCount = questions.Count;
 
+                ShowRandomQuestion();
+            }
+        }
+
+        private string? GetUserName()
+        {
+            var userInput = UserAnswerTextBox.Text;
+            if (string.IsNullOrEmpty(userInput) || userInput.Contains('#') || userInput.Trim().Length > 20)
+            {
+                CommentTextLabel.Text = "Необходимо ввести корректное имя!";
+                UserAnswerTextBox.Clear();
+                return null;
+            }
+            else
+            {
+                var userName = userInput.Trim();
+                return userName;
+            }
         }
 
         private void ShowRandomQuestion()
@@ -54,14 +97,17 @@ namespace GeniusIdiotWinFormsApp
             var randomIndex = random.Next(0, questions.Count);
 
             currentQuestion = questions[randomIndex];
-            questionTextLabel.Text = currentQuestion.Text;
 
-            userAnswerTextBox.Clear();
+            questionNumber++;
+            QuestionNumberLabel.Text = "Вопрос № " + questionNumber;
+            QuestionTextLabel.Text = currentQuestion.Text;
 
-            commentTextLabel.Text = string.Empty;
+            UserAnswerTextBox.Clear();
+
+            CommentTextLabel.Text = string.Empty;
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void ProceedGettingNumericAnswer()
         {
             var userAnswer = GetNumericAnswer();
 
@@ -79,7 +125,7 @@ namespace GeniusIdiotWinFormsApp
 
         private int? GetNumericAnswer()
         {
-            string userInput = userAnswerTextBox.Text;
+            string userInput = UserAnswerTextBox.Text;
             int userAnswer;
             if (int.TryParse(userInput, out userAnswer))
             {
@@ -87,8 +133,8 @@ namespace GeniusIdiotWinFormsApp
             }
             else
             {
-                commentTextLabel.Text = "Введите число от -2*10^9 до 2*10^9!";
-                userAnswerTextBox.Clear();
+                CommentTextLabel.Text = "Введите число от -2*10^9 до 2*10^9!";
+                UserAnswerTextBox.Clear();
                 return null;
             }
         }

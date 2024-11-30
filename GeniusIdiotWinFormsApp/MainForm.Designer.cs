@@ -28,84 +28,84 @@
         /// </summary>
         private void InitializeComponent()
         {
-            nextButton = new Button();
-            questionNumberLabel = new Label();
-            questionTextLabel = new Label();
-            userAnswerTextBox = new TextBox();
-            commentTextLabel = new Label();
+            NextButton = new Button();
+            QuestionNumberLabel = new Label();
+            QuestionTextLabel = new Label();
+            UserAnswerTextBox = new TextBox();
+            CommentTextLabel = new Label();
             SuspendLayout();
             // 
-            // nextButton
+            // NextButton
             // 
-            nextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            nextButton.Location = new Point(56, 327);
-            nextButton.Name = "nextButton";
-            nextButton.Size = new Size(296, 69);
-            nextButton.TabIndex = 0;
-            nextButton.Text = "Далее";
-            nextButton.UseVisualStyleBackColor = true;
-            nextButton.Click += nextButton_Click;
+            NextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            NextButton.Location = new Point(56, 327);
+            NextButton.Name = "NextButton";
+            NextButton.Size = new Size(296, 69);
+            NextButton.TabIndex = 0;
+            NextButton.Text = "Далее";
+            NextButton.UseVisualStyleBackColor = true;
+            NextButton.Click += NextButton_Click;
             // 
-            // questionNumberLabel
+            // QuestionNumberLabel
             // 
-            questionNumberLabel.AutoSize = true;
-            questionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            questionNumberLabel.Location = new Point(56, 42);
-            questionNumberLabel.Name = "questionNumberLabel";
-            questionNumberLabel.Size = new Size(97, 21);
-            questionNumberLabel.TabIndex = 1;
-            questionNumberLabel.Text = "Вопрос № 1";
+            QuestionNumberLabel.AutoSize = true;
+            QuestionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            QuestionNumberLabel.Location = new Point(56, 42);
+            QuestionNumberLabel.Name = "QuestionNumberLabel";
+            QuestionNumberLabel.Size = new Size(97, 21);
+            QuestionNumberLabel.TabIndex = 1;
+            QuestionNumberLabel.Text = "Вопрос № 1";
             // 
-            // questionTextLabel
+            // QuestionTextLabel
             // 
-            questionTextLabel.AutoSize = true;
-            questionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            questionTextLabel.Location = new Point(56, 90);
-            questionTextLabel.Name = "questionTextLabel";
-            questionTextLabel.Size = new Size(111, 21);
-            questionTextLabel.TabIndex = 2;
-            questionTextLabel.Text = "Текст вопроса";
+            QuestionTextLabel.AutoSize = true;
+            QuestionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            QuestionTextLabel.Location = new Point(56, 90);
+            QuestionTextLabel.Name = "QuestionTextLabel";
+            QuestionTextLabel.Size = new Size(111, 21);
+            QuestionTextLabel.TabIndex = 2;
+            QuestionTextLabel.Text = "Текст вопроса";
             // 
-            // userAnswerTextBox
+            // UserAnswerTextBox
             // 
-            userAnswerTextBox.Location = new Point(56, 196);
-            userAnswerTextBox.Name = "userAnswerTextBox";
-            userAnswerTextBox.Size = new Size(296, 23);
-            userAnswerTextBox.TabIndex = 3;
+            UserAnswerTextBox.Location = new Point(56, 196);
+            UserAnswerTextBox.Name = "UserAnswerTextBox";
+            UserAnswerTextBox.Size = new Size(296, 23);
+            UserAnswerTextBox.TabIndex = 3;
             // 
-            // commentTextLabel
+            // CommentTextLabel
             // 
-            commentTextLabel.AutoSize = true;
-            commentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            commentTextLabel.Location = new Point(56, 238);
-            commentTextLabel.Name = "commentTextLabel";
-            commentTextLabel.Size = new Size(149, 21);
-            commentTextLabel.TabIndex = 4;
-            commentTextLabel.Text = "Текст комментария";
+            CommentTextLabel.AutoSize = true;
+            CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CommentTextLabel.Location = new Point(56, 238);
+            CommentTextLabel.Name = "CommentTextLabel";
+            CommentTextLabel.Size = new Size(149, 21);
+            CommentTextLabel.TabIndex = 4;
+            CommentTextLabel.Text = "Текст комментария";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 450);
-            Controls.Add(commentTextLabel);
-            Controls.Add(userAnswerTextBox);
-            Controls.Add(questionTextLabel);
-            Controls.Add(questionNumberLabel);
-            Controls.Add(nextButton);
+            Controls.Add(CommentTextLabel);
+            Controls.Add(UserAnswerTextBox);
+            Controls.Add(QuestionTextLabel);
+            Controls.Add(QuestionNumberLabel);
+            Controls.Add(NextButton);
             Name = "MainForm";
             Text = "Гений-Идиот";
-            Load += mainForm_Load;
+            Load += MainForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button nextButton;
-        private Label questionNumberLabel;
-        private Label questionTextLabel;
-        private TextBox userAnswerTextBox;
-        private Label commentTextLabel;
+        private Button NextButton;
+        private Label QuestionNumberLabel;
+        private Label QuestionTextLabel;
+        private TextBox UserAnswerTextBox;
+        private Label CommentTextLabel;
     }
 }
