@@ -1,6 +1,6 @@
 ﻿namespace GeniusIdiotWinFormsApp
 {
-    partial class mainForm
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,18 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
+            nextButton = new Button();
+            questionNumberLabel = new Label();
+            questionTextLabel = new Label();
+            userAnswerTextBox = new TextBox();
             SuspendLayout();
             // 
-            // mainForm
+            // nextButton
+            // 
+            nextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            nextButton.Location = new Point(56, 327);
+            nextButton.Name = "nextButton";
+            nextButton.Size = new Size(296, 69);
+            nextButton.TabIndex = 0;
+            nextButton.Text = "Далее";
+            nextButton.UseVisualStyleBackColor = true;
+            // 
+            // questionNumberLabel
+            // 
+            questionNumberLabel.AutoSize = true;
+            questionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            questionNumberLabel.Location = new Point(56, 42);
+            questionNumberLabel.Name = "questionNumberLabel";
+            questionNumberLabel.Size = new Size(97, 21);
+            questionNumberLabel.TabIndex = 1;
+            questionNumberLabel.Text = "Вопрос № 1";
+            // 
+            // questionTextLabel
+            // 
+            questionTextLabel.AutoSize = true;
+            questionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            questionTextLabel.Location = new Point(56, 90);
+            questionTextLabel.Name = "questionTextLabel";
+            questionTextLabel.Size = new Size(111, 21);
+            questionTextLabel.TabIndex = 2;
+            questionTextLabel.Text = "Текст вопроса";
+            // 
+            // userAnswerTextBox
+            // 
+            userAnswerTextBox.Location = new Point(56, 196);
+            userAnswerTextBox.Name = "userAnswerTextBox";
+            userAnswerTextBox.Size = new Size(296, 23);
+            userAnswerTextBox.TabIndex = 3;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "mainForm";
+            ClientSize = new Size(414, 450);
+            Controls.Add(userAnswerTextBox);
+            Controls.Add(questionTextLabel);
+            Controls.Add(questionNumberLabel);
+            Controls.Add(nextButton);
+            Name = "MainForm";
             Text = "Гений-Идиот";
+            Load += mainForm_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button nextButton;
+        private Label questionNumberLabel;
+        private Label questionTextLabel;
+        private TextBox userAnswerTextBox;
     }
 }
