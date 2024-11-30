@@ -5,7 +5,7 @@ namespace GeniusIdiotWinFormsApp
     public partial class MainForm : Form
     {
         private List<Question> questions;
-        private int initialQuestionsCount;
+        private int startingQuestionsCount;
         private Question currentQuestion;
         private int questionNumber;
         private User user;
@@ -54,13 +54,12 @@ namespace GeniusIdiotWinFormsApp
         {
             switch (QuestionNumberLabel.Text)
             {
-                case "Введите ваше имя:": StartNewQuiz(); break;
-                default: ProceedGettingNumericAnswer(); break;
-
+                case "Введите ваше имя:": HandleGettingName(); break;
+                default: HandleGettingNumericAnswer(); break;
             }
         }
 
-        private void StartNewQuiz()
+        private void HandleGettingName()
         {
             var name = GetUserName();
 
@@ -68,10 +67,7 @@ namespace GeniusIdiotWinFormsApp
             {
                 user = new User(name);
 
-                questions = QuestionsStorage.GetAll();
-                initialQuestionsCount = questions.Count;
-
-                ShowRandomQuestion();
+                StartNewQuiz();
             }
         }
 
@@ -91,6 +87,14 @@ namespace GeniusIdiotWinFormsApp
             }
         }
 
+        private void StartNewQuiz()
+        {
+            questions = QuestionsStorage.GetAll();
+            startingQuestionsCount = questions.Count;
+
+            ShowRandomQuestion();
+        }
+
         private void ShowRandomQuestion()
         {
             var random = new Random();
@@ -107,7 +111,7 @@ namespace GeniusIdiotWinFormsApp
             CommentTextLabel.Text = string.Empty;
         }
 
-        private void ProceedGettingNumericAnswer()
+        private void HandleGettingNumericAnswer()
         {
             var userAnswer = GetNumericAnswer();
 
@@ -117,9 +121,17 @@ namespace GeniusIdiotWinFormsApp
                 {
                     rightAnswersCount++;
                 }
+
                 questions.Remove(currentQuestion);
 
-                ShowRandomQuestion();
+                if (questions.Count > 0)
+                {
+                    ShowRandomQuestion();
+                }
+                else
+                {
+                    FinishTheQuiz();                   
+                }
             }
         }
 
@@ -137,6 +149,24 @@ namespace GeniusIdiotWinFormsApp
                 UserAnswerTextBox.Clear();
                 return null;
             }
+        }
+
+        private void FinishTheQuiz()
+        {
+            QuestionNumberLabel.Text = string.Empty;
+            QuestionTextLabel.Text = string.Empty;
+            UserAnswerTextBox.Clear();
+            CommentTextLabel.Text = string.Empty;
+
+            ShowDiagnosis();
+        }
+
+        private void ShowDiagnosis()
+        {
+            user.SetScore(rightAnswersCount, startingQuestionsCount);
+            user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
+
+            MessageBox.Show($"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis}");
         }
     }
 }
