@@ -1,6 +1,4 @@
 using GeniusIdiotConsApp;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GeniusIdiotWinFormsApp
 {
@@ -40,11 +38,9 @@ namespace GeniusIdiotWinFormsApp
 
         private void GreetNewUser()
         {
-            QuestionNumberLabel.Text = "Ââåäèòå âàøå èìÿ:";
-            QuestionTextLabel.Text = "- äî 20 ñèìâîëîâ,\n- ñèìâîë # íåäîïóñòèì";
-
+            QuestionNumberLabel.Text = string.Empty;
+            QuestionTextLabel.Text = "Ââåäèòå âàøå èìÿ:\n- ñèìâîë # íåäîïóñòèì";
             UserAnswerTextBox.Clear();
-
             CommentTextLabel.Text = string.Empty;
         }
 
@@ -55,7 +51,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (QuestionNumberLabel.Text == "Ââåäèòå âàøå èìÿ:")
+            if (QuestionTextLabel.Text.StartsWith("Ââåäèòå âàøå èìÿ:"))
             {
                 HandleGettingName();
             }
@@ -65,7 +61,7 @@ namespace GeniusIdiotWinFormsApp
             }
             else if (QuestionTextLabel.Text.StartsWith("Ââåäèòå"))
             {
-                HandleAddingNewQuestion();
+                HandleQuestionsStorageModification();
             }
             else
             {
@@ -87,7 +83,7 @@ namespace GeniusIdiotWinFormsApp
         private string? GetUserName()
         {
             var userInput = UserAnswerTextBox.Text;
-            if (string.IsNullOrEmpty(userInput) || userInput.Contains('#') || userInput.Trim().Length > 20)
+            if (string.IsNullOrEmpty(userInput) || userInput.Contains('#'))
             {
                 CommentTextLabel.Text = "Íåîáõîäèìî ââåñòè êîğğåêòíîå èìÿ!";
                 UserAnswerTextBox.Clear();
@@ -177,16 +173,16 @@ namespace GeniusIdiotWinFormsApp
             user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
 
             var userIsPathetic = user.Diagnosis == "èäèîò" || user.Diagnosis == "êğåòèí" || user.Diagnosis == "äóğàê";
-
             QuestionNumberLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
+
             QuestionNumberLabel.Text = $"Êîëè÷åñòâî ïğàâèëüíûõ îòâåòîâ: {user.Score}\n{user.Name}, âàø äèàãíîç: {user.Diagnosis.ToUpper()}";
 
             UsersStorage.Save(user);
 
-            QuestionTextLabel.Text = "Õîòèòå ïîñìîòğåòü èñòîğèş ğåçóëüòàòîâ? (Äà/Íåò)";
+            QuestionTextLabel.Text = "Õîòèòå ïîñìîòğåòü èñòîğèş ğåçóëüòàòîâ? (äà/íåò)";
         }
 
-        private void HandleAddingNewQuestion()
+        private void HandleQuestionsStorageModification()
         {
             if (QuestionTextLabel.Text == "Ââåäèòå òåêñò âîïğîñà:\n- ñèìâîë # íåäîïóñòèì")
             {
@@ -197,12 +193,24 @@ namespace GeniusIdiotWinFormsApp
                     DisplayText("Ââåäèòå ÷èñëîâîé îòâåò:");
                 }
             }
-            else
+            else if (QuestionTextLabel.Text == "Ââåäèòå ÷èñëîâîé îòâåò:")
             {
                 var numericAnswer = GetNumericAnswer();
                 if (numericAnswer != null)
                 {
                     QuestionsStorage.Add(new Question(newQuestionText, (int)numericAnswer));
+                    DisplayText("Õîòèòå óäàëèòü êàêîé-òî âîïğîñ? (äà/íåò)");
+                }
+            }
+            else if (QuestionTextLabel.Text == "Ââåäèòå íîìåğ âîïğîñà äëÿ óäàëåíèÿ:")
+            {
+                var number = GetQuestionNumber(questions.Count);
+                if (number != null)
+                {
+                    var index = (int)number - 1;
+                    var question = questions[index];
+                    QuestionsStorage.Remove(question);
+                    //TODO: Display last question
                 }
             }
         }
@@ -223,12 +231,28 @@ namespace GeniusIdiotWinFormsApp
             }
         }
 
+        private int? GetQuestionNumber(int questionsCount)
+        {
+            var userInput = UserAnswerTextBox.Text;
+            int number;
+            if (int.TryParse(userInput, out number) && number >= 1 && number <= questionsCount)
+            {
+                return number;
+            }
+            else
+            {
+                UserAnswerTextBox.Clear();
+                CommentTextLabel.Text = $"Ââåäèòå ÷èñëî îò 1 äî {questionsCount}!";
+                return null;
+            }
+        }
+
         private void HandleGettingDecision()
         {
             var userIsReady = GetUserDecision();
             if (userIsReady.HasValue)
             {
-                if (QuestionTextLabel.Text == "Õîòèòå ïîñìîòğåòü èñòîğèş ğåçóëüòàòîâ? (Äà/Íåò)")
+                if (QuestionTextLabel.Text == "Õîòèòå ïîñìîòğåòü èñòîğèş ğåçóëüòàòîâ? (äà/íåò)")
                 {
                     if ((bool)userIsReady)
                     {
@@ -236,10 +260,10 @@ namespace GeniusIdiotWinFormsApp
                     }
                     else
                     {
-                        DisplayText("Õîòèòå äîáàâèòü íîâûé âîïğîñ? (Äà/Íåò)");
+                        DisplayText("Õîòèòå äîáàâèòü íîâûé âîïğîñ? (äà/íåò)");
                     }
                 }
-                else if (QuestionTextLabel.Text == "Õîòèòå äîáàâèòü íîâûé âîïğîñ? (Äà/Íåò)")
+                else if (QuestionTextLabel.Text == "Õîòèòå äîáàâèòü íîâûé âîïğîñ? (äà/íåò)")
                 {
                     if ((bool)userIsReady)
                     {
@@ -247,7 +271,29 @@ namespace GeniusIdiotWinFormsApp
                     }
                     else
                     {
-                        // TODO: Display next question
+                        DisplayText("Õîòèòå óäàëèòü êàêîé-òî âîïğîñ? (äà/íåò)");
+                    }
+                }
+                else if (QuestionTextLabel.Text == "Õîòèòå óäàëèòü êàêîé-òî âîïğîñ? (äà/íåò)")
+                {
+                    if ((bool)userIsReady)
+                    {
+                        InitiateQuestionRemoval();
+                    }
+                    else
+                    {
+                        DisplayText("Õîòèòå ïğîéòè òåñò ñíîâà? (äà/íåò)");
+                    }
+                }
+                else if (QuestionTextLabel.Text == "Õîòèòå ïğîéòè òåñò ñíîâà? (äà/íåò)")
+                {
+                    if ((bool)userIsReady)
+                    {
+                        //TODO: Start new quiz
+                    }
+                    else
+                    {
+                        //TODO: Close the app
                     }
                 }
             }
@@ -275,18 +321,18 @@ namespace GeniusIdiotWinFormsApp
 
         private void ShowHistory()
         {
-            var table = string.Empty;
+            var text = string.Empty;
 
             var allUsers = UsersStorage.GetAll();
             foreach (var user in allUsers)
             {
-                table += $"{user.Name} - {user.Score} - {user.Diagnosis}\n";
+                text += $"{user.Name} - {user.Score} - {user.Diagnosis}\n";
             }
 
-            var result = MessageBox.Show(table);
-            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            var pressedMessageBoxButton = MessageBox.Show(text);
+            if (pressedMessageBoxButton == DialogResult.OK || pressedMessageBoxButton == DialogResult.Cancel)
             {
-                DisplayText("Õîòèòå äîáàâèòü íîâûé âîïğîñ? (Äà/Íåò)");
+                DisplayText("Õîòèòå äîáàâèòü íîâûé âîïğîñ? (äà/íåò)");
             }
         }
 
@@ -297,8 +343,23 @@ namespace GeniusIdiotWinFormsApp
             CommentTextLabel.Text = string.Empty;
         }
 
+        private void InitiateQuestionRemoval()
+        {
+            questions = QuestionsStorage.GetAll();
 
+            var text = string.Empty;
+            for (int i = 0; i < questions.Count; i++)
+            {
+                text += $"\n{i + 1}. {questions[i].Text}";
+            }
 
+            DisplayText("Çàïîìíèòå íîìåğ âîïğîñà äëÿ óäàëåíèÿ:");
 
+            var pressedMessageBoxButton = MessageBox.Show(text);
+            if (pressedMessageBoxButton == DialogResult.OK || pressedMessageBoxButton == DialogResult.Cancel)
+            {
+                DisplayText("Ââåäèòå íîìåğ âîïğîñà äëÿ óäàëåíèÿ:");
+            }
+        }
     }
 }

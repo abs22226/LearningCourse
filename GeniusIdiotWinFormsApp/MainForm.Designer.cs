@@ -50,7 +50,7 @@
             // 
             QuestionNumberLabel.AutoSize = true;
             QuestionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            QuestionNumberLabel.Location = new Point(56, 42);
+            QuestionNumberLabel.Location = new Point(56, 55);
             QuestionNumberLabel.Name = "QuestionNumberLabel";
             QuestionNumberLabel.Size = new Size(97, 21);
             QuestionNumberLabel.TabIndex = 1;

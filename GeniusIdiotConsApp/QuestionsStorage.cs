@@ -6,9 +6,9 @@ namespace GeniusIdiotConsApp
         public static List<Question> GetAll()
         {
             var questions = new List<Question>();
-            if (FileProvider.Exists("GeniusIdiotConsAppQuestionsStorage.txt"))
+            if (FileProvider.Exists("QuestionsStorage.txt"))
             {
-                var value = FileProvider.GetValue("GeniusIdiotConsAppQuestionsStorage.txt");
+                var value = FileProvider.GetValue("QuestionsStorage.txt");
                 var lines = value.Split('\n');
                 foreach (var line in lines)
                 {
@@ -44,7 +44,7 @@ namespace GeniusIdiotConsApp
 
         public static void Add(Question newQuestion)
         {
-            FileProvider.Append("GeniusIdiotConsAppQuestionsStorage.txt", $"{newQuestion.Text}#{newQuestion.Answer}");
+            FileProvider.Append("QuestionsStorage.txt", $"{newQuestion.Text}#{newQuestion.Answer}");
         }
 
         public static void Remove(Question question)
@@ -59,7 +59,7 @@ namespace GeniusIdiotConsApp
                 }
             }
 
-            FileProvider.Clear("GeniusIdiotConsAppQuestionsStorage.txt");
+            FileProvider.Clear("QuestionsStorage.txt");
             Save(questions);
         }
     }
