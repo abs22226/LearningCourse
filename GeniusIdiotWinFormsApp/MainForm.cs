@@ -98,10 +98,20 @@ namespace GeniusIdiotWinFormsApp
 
         private void StartNewQuiz()
         {
+            ResetScoring();
+            ClearForms();
+
             questions = QuestionsStorage.GetAll();
             startingQuestionsCount = questions.Count;
 
             ShowRandomQuestion();
+        }
+
+        private void ResetScoring()
+        {
+            startingQuestionsCount = 0;
+            questionNumber = 0;
+            rightAnswersCount = 0;
         }
 
         private void ShowRandomQuestion()
@@ -123,6 +133,8 @@ namespace GeniusIdiotWinFormsApp
             QuestionTextLabel.Text = string.Empty;
             UserAnswerTextBox.Clear();
             CommentTextLabel.Text = string.Empty;
+
+            QuestionNumberLabel.ForeColor = Color.Black;
         }
 
         private void HandleGettingNumericAnswer()
@@ -190,6 +202,7 @@ namespace GeniusIdiotWinFormsApp
                 if (!string.IsNullOrEmpty(questionText))
                 {
                     newQuestionText = questionText;
+
                     DisplayText("Введите числовой ответ:");
                 }
             }
@@ -199,6 +212,7 @@ namespace GeniusIdiotWinFormsApp
                 if (numericAnswer != null)
                 {
                     QuestionsStorage.Add(new Question(newQuestionText, (int)numericAnswer));
+
                     DisplayText("Хотите удалить какой-то вопрос? (да/нет)");
                 }
             }
@@ -210,7 +224,8 @@ namespace GeniusIdiotWinFormsApp
                     var index = (int)number - 1;
                     var question = questions[index];
                     QuestionsStorage.Remove(question);
-                    //TODO: Display last question
+
+                    DisplayText("Хотите пройти тест снова? (Да/Нет)");
                 }
             }
         }
@@ -254,47 +269,23 @@ namespace GeniusIdiotWinFormsApp
             {
                 if (QuestionTextLabel.Text == "Хотите посмотреть историю результатов? (да/нет)")
                 {
-                    if ((bool)userIsReady)
-                    {
-                        ShowHistory();
-                    }
-                    else
-                    {
-                        DisplayText("Хотите добавить новый вопрос? (да/нет)");
-                    }
+                    if ((bool)userIsReady) ShowHistory();
+                    else DisplayText("Хотите добавить новый вопрос? (да/нет)");
                 }
                 else if (QuestionTextLabel.Text == "Хотите добавить новый вопрос? (да/нет)")
                 {
-                    if ((bool)userIsReady)
-                    {
-                        DisplayText("Введите текст вопроса:\n- символ # недопустим");
-                    }
-                    else
-                    {
-                        DisplayText("Хотите удалить какой-то вопрос? (да/нет)");
-                    }
+                    if ((bool)userIsReady) DisplayText("Введите текст вопроса:\n- символ # недопустим");
+                    else DisplayText("Хотите удалить какой-то вопрос? (да/нет)");
                 }
                 else if (QuestionTextLabel.Text == "Хотите удалить какой-то вопрос? (да/нет)")
                 {
-                    if ((bool)userIsReady)
-                    {
-                        InitiateQuestionRemoval();
-                    }
-                    else
-                    {
-                        DisplayText("Хотите пройти тест снова? (да/нет)");
-                    }
+                    if ((bool)userIsReady) InitiateQuestionRemoval();
+                    else DisplayText("Хотите пройти тест снова? (да/нет)");
                 }
                 else if (QuestionTextLabel.Text == "Хотите пройти тест снова? (да/нет)")
                 {
-                    if ((bool)userIsReady)
-                    {
-                        //TODO: Start new quiz
-                    }
-                    else
-                    {
-                        //TODO: Close the app
-                    }
+                    if ((bool)userIsReady) StartNewQuiz();
+                    else CloseTheApp();
                 }
             }
         }
@@ -360,6 +351,11 @@ namespace GeniusIdiotWinFormsApp
             {
                 DisplayText("Введите номер вопроса для удаления:");
             }
+        }
+
+        private void CloseTheApp()
+        {
+            this.Close();
         }
     }
 }
