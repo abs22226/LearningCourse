@@ -1,4 +1,6 @@
 using GeniusIdiotConsApp;
+using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GeniusIdiotWinFormsApp
 {
@@ -10,6 +12,7 @@ namespace GeniusIdiotWinFormsApp
         private int questionNumber;
         private User user;
         private int rightAnswersCount;
+        private string newQuestionText;
 
         public MainForm()
         {
@@ -60,11 +63,14 @@ namespace GeniusIdiotWinFormsApp
             {
                 HandleGettingNumericAnswer();
             }
+            else if (QuestionTextLabel.Text.StartsWith("Введите"))
+            {
+                HandleAddingNewQuestion();
+            }
             else
             {
                 HandleGettingDecision();
             }
-
         }
 
         private void HandleGettingName()
@@ -123,6 +129,100 @@ namespace GeniusIdiotWinFormsApp
             CommentTextLabel.Text = string.Empty;
         }
 
+        private void HandleGettingNumericAnswer()
+        {
+            var userAnswer = GetNumericAnswer();
+
+            if (userAnswer != null)
+            {
+                if (userAnswer == currentQuestion.Answer)
+                {
+                    rightAnswersCount++;
+                }
+
+                questions.Remove(currentQuestion);
+
+                if (questions.Count > 0)
+                {
+                    ShowRandomQuestion();
+                }
+                else
+                {
+                    FinishTheQuiz();
+                }
+            }
+        }
+
+        private int? GetNumericAnswer()
+        {
+            string userInput = UserAnswerTextBox.Text;
+            int userAnswer;
+            if (int.TryParse(userInput, out userAnswer))
+            {
+                return userAnswer;
+            }
+            else
+            {
+                UserAnswerTextBox.Clear();
+                CommentTextLabel.Text = "Введите число от -2*10^9 до 2*10^9!";
+                return null;
+            }
+        }
+
+        private void FinishTheQuiz()
+        {
+            ClearForms();
+
+            user.SetScore(rightAnswersCount, startingQuestionsCount);
+            user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
+
+            var userIsPathetic = user.Diagnosis == "идиот" || user.Diagnosis == "кретин" || user.Diagnosis == "дурак";
+
+            QuestionNumberLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
+            QuestionNumberLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis.ToUpper()}";
+
+            UsersStorage.Save(user);
+
+            QuestionTextLabel.Text = "Хотите посмотреть историю результатов? (Да/Нет)";
+        }
+
+        private void HandleAddingNewQuestion()
+        {
+            if (QuestionTextLabel.Text == "Введите текст вопроса:\n- символ # недопустим")
+            {
+                var questionText = GetNewQuestionText();
+                if (!string.IsNullOrEmpty(questionText))
+                {
+                    newQuestionText = questionText;
+                    DisplayText("Введите числовой ответ:");
+                }
+            }
+            else
+            {
+                var numericAnswer = GetNumericAnswer();
+                if (numericAnswer != null)
+                {
+                    QuestionsStorage.Add(new Question(newQuestionText, (int)numericAnswer));
+                }
+            }
+        }
+
+        private string? GetNewQuestionText()
+        {
+            var userInput = UserAnswerTextBox.Text;
+            if (string.IsNullOrEmpty(userInput) || userInput.Contains('#'))
+            {
+                CommentTextLabel.Text = "Необходимо ввести корректный текст!";
+                UserAnswerTextBox.Clear();
+                return null;
+            }
+            else
+            {
+                var newQuestionText = userInput.Trim();
+                return newQuestionText;
+            }
+        }
+
         private void HandleGettingDecision()
         {
             var userIsReady = GetUserDecision();
@@ -136,11 +236,20 @@ namespace GeniusIdiotWinFormsApp
                     }
                     else
                     {
-                        // TODO: Ask about adding a new question
-                        QuestionTextLabel.Text = string.Empty;
+                        DisplayText("Хотите добавить новый вопрос? (Да/Нет)");
                     }
                 }
-
+                else if (QuestionTextLabel.Text == "Хотите добавить новый вопрос? (Да/Нет)")
+                {
+                    if ((bool)userIsReady)
+                    {
+                        DisplayText("Введите текст вопроса:\n- символ # недопустим");
+                    }
+                    else
+                    {
+                        // TODO: Display next question
+                    }
+                }
             }
         }
 
@@ -177,64 +286,18 @@ namespace GeniusIdiotWinFormsApp
             var result = MessageBox.Show(table);
             if (result == DialogResult.OK || result == DialogResult.Cancel)
             {
-                // TODO: Ask about adding a new question
-                QuestionTextLabel.Text = string.Empty;
+                DisplayText("Хотите добавить новый вопрос? (Да/Нет)");
             }
         }
 
-        private void HandleGettingNumericAnswer()
+        private void DisplayText(string text)
         {
-            var userAnswer = GetNumericAnswer();
-
-            if (userAnswer != null)
-            {
-                if (userAnswer == currentQuestion.Answer)
-                {
-                    rightAnswersCount++;
-                }
-
-                questions.Remove(currentQuestion);
-
-                if (questions.Count > 0)
-                {
-                    ShowRandomQuestion();
-                }
-                else
-                {
-                    FinishTheQuiz();
-                }
-            }
+            QuestionTextLabel.Text = text;
+            UserAnswerTextBox.Clear();
+            CommentTextLabel.Text = string.Empty;
         }
 
-        private int? GetNumericAnswer()
-        {
-            string userInput = UserAnswerTextBox.Text;
-            int userAnswer;
-            if (int.TryParse(userInput, out userAnswer))
-            {
-                return userAnswer;
-            }
-            else
-            {
-                CommentTextLabel.Text = "Введите число от -2*10^9 до 2*10^9!";
-                UserAnswerTextBox.Clear();
-                return null;
-            }
-        }
 
-        private void FinishTheQuiz()
-        {
-            ClearForms();
-
-            user.SetScore(rightAnswersCount, startingQuestionsCount);
-            user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
-
-            QuestionNumberLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis}";
-
-            UsersStorage.Save(user);
-
-            QuestionTextLabel.Text = "Хотите посмотреть историю результатов? (Да/Нет)";
-        }
 
 
     }
