@@ -60,7 +60,7 @@
             // 
             QuestionTextLabel.AutoSize = true;
             QuestionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            QuestionTextLabel.Location = new Point(56, 90);
+            QuestionTextLabel.Location = new Point(56, 120);
             QuestionTextLabel.Name = "QuestionTextLabel";
             QuestionTextLabel.Size = new Size(111, 21);
             QuestionTextLabel.TabIndex = 2;
@@ -68,7 +68,7 @@
             // 
             // UserAnswerTextBox
             // 
-            UserAnswerTextBox.Location = new Point(56, 196);
+            UserAnswerTextBox.Location = new Point(56, 219);
             UserAnswerTextBox.Name = "UserAnswerTextBox";
             UserAnswerTextBox.Size = new Size(296, 23);
             UserAnswerTextBox.TabIndex = 3;
@@ -77,7 +77,7 @@
             // 
             CommentTextLabel.AutoSize = true;
             CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CommentTextLabel.Location = new Point(56, 238);
+            CommentTextLabel.Location = new Point(56, 261);
             CommentTextLabel.Name = "CommentTextLabel";
             CommentTextLabel.Size = new Size(149, 21);
             CommentTextLabel.TabIndex = 4;

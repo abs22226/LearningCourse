@@ -52,17 +52,24 @@ namespace GeniusIdiotWinFormsApp
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            switch (QuestionNumberLabel.Text)
+            if (QuestionNumberLabel.Text == "Введите ваше имя:")
             {
-                case "Введите ваше имя:": HandleGettingName(); break;
-                default: HandleGettingNumericAnswer(); break;
+                HandleGettingName();
             }
+            else if (QuestionNumberLabel.Text.StartsWith("Вопрос № "))
+            {
+                HandleGettingNumericAnswer();
+            }
+            else
+            {
+                HandleGettingDecision();
+            }
+
         }
 
         private void HandleGettingName()
         {
             var name = GetUserName();
-
             if (!string.IsNullOrEmpty(name))
             {
                 user = new User(name);
@@ -97,19 +104,82 @@ namespace GeniusIdiotWinFormsApp
 
         private void ShowRandomQuestion()
         {
-            var random = new Random();
-            var randomIndex = random.Next(0, questions.Count);
-
-            currentQuestion = questions[randomIndex];
+            ClearForms();
 
             questionNumber++;
             QuestionNumberLabel.Text = "Вопрос № " + questionNumber;
 
+            var random = new Random();
+            var randomIndex = random.Next(0, questions.Count);
+            currentQuestion = questions[randomIndex];
             QuestionTextLabel.Text = currentQuestion.Text;
+        }
 
+        private void ClearForms()
+        {
+            QuestionNumberLabel.Text = string.Empty;
+            QuestionTextLabel.Text = string.Empty;
             UserAnswerTextBox.Clear();
-
             CommentTextLabel.Text = string.Empty;
+        }
+
+        private void HandleGettingDecision()
+        {
+            var userIsReady = GetUserDecision();
+            if (userIsReady.HasValue)
+            {
+                if (QuestionTextLabel.Text == "Хотите посмотреть историю результатов? (Да/Нет)")
+                {
+                    if ((bool)userIsReady)
+                    {
+                        ShowHistory();
+                    }
+                    else
+                    {
+                        // TODO: Ask about adding a new question
+                        QuestionTextLabel.Text = string.Empty;
+                    }
+                }
+
+            }
+        }
+
+        private bool? GetUserDecision()
+        {
+            var userInput = UserAnswerTextBox.Text;
+            if (string.IsNullOrEmpty(userInput) || userInput.Trim().ToLower() != "да" && userInput.Trim().ToLower() != "нет")
+            {
+                CommentTextLabel.Text = "Необходимо ввести: да или нет!";
+                UserAnswerTextBox.Clear();
+                return null;
+            }
+            else
+            {
+                var userDecision = userInput.Trim().ToLower();
+                if (userDecision.Length < userInput.Length)
+                {
+                    UserAnswerTextBox.Text = userDecision;
+                }
+                return userDecision == "да" ? true : false;
+            }
+        }
+
+        private void ShowHistory()
+        {
+            var table = string.Empty;
+
+            var allUsers = UsersStorage.GetAll();
+            foreach (var user in allUsers)
+            {
+                table += $"{user.Name} - {user.Score} - {user.Diagnosis}\n";
+            }
+
+            var result = MessageBox.Show(table);
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                // TODO: Ask about adding a new question
+                QuestionTextLabel.Text = string.Empty;
+            }
         }
 
         private void HandleGettingNumericAnswer()
@@ -154,22 +224,18 @@ namespace GeniusIdiotWinFormsApp
 
         private void FinishTheQuiz()
         {
-            ShowUserDiagnosis();
+            ClearForms();
 
-            QuestionTextLabel.Text = string.Empty;
-            UserAnswerTextBox.Clear();
-            CommentTextLabel.Text = string.Empty;
-
-
-
-        }
-
-        private void ShowUserDiagnosis()
-        {
             user.SetScore(rightAnswersCount, startingQuestionsCount);
             user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
 
             QuestionNumberLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis}";
+
+            UsersStorage.Save(user);
+
+            QuestionTextLabel.Text = "Хотите посмотреть историю результатов? (Да/Нет)";
         }
+
+
     }
 }
