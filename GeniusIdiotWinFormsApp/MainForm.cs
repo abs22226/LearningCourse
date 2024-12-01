@@ -39,9 +39,8 @@ namespace GeniusIdiotWinFormsApp
         private void GreetNewUser()
         {
             QuestionNumberLabel.Text = string.Empty;
-            QuestionTextLabel.Text = "Введите ваше имя:\n- символ # недопустим";
-            UserAnswerTextBox.Clear();
-            CommentTextLabel.Text = string.Empty;
+
+            DisplayText("Введите ваше имя:\n- символ # недопустим");
         }
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
@@ -125,6 +124,8 @@ namespace GeniusIdiotWinFormsApp
             var randomIndex = random.Next(0, questions.Count);
             currentQuestion = questions[randomIndex];
             QuestionTextLabel.Text = currentQuestion.Text;
+
+            UserAnswerTextBox.Focus();
         }
 
         private void ClearForms()
@@ -192,6 +193,8 @@ namespace GeniusIdiotWinFormsApp
             UsersStorage.Save(user);
 
             QuestionTextLabel.Text = "Хотите посмотреть историю результатов? (да/нет)";
+
+            UserAnswerTextBox.Focus();
         }
 
         private void HandleQuestionsStorageModification()
@@ -225,7 +228,7 @@ namespace GeniusIdiotWinFormsApp
                     var question = questions[index];
                     QuestionsStorage.Remove(question);
 
-                    DisplayText("Хотите пройти тест снова? (Да/Нет)");
+                    DisplayText("Хотите пройти тест снова? (да/нет)");
                 }
             }
         }
@@ -332,6 +335,8 @@ namespace GeniusIdiotWinFormsApp
             QuestionTextLabel.Text = text;
             UserAnswerTextBox.Clear();
             CommentTextLabel.Text = string.Empty;
+
+            UserAnswerTextBox.Focus();
         }
 
         private void InitiateQuestionRemoval()
