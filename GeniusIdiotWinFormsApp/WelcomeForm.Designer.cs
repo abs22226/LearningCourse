@@ -67,7 +67,7 @@
             // StartButton
             // 
             StartButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            StartButton.Location = new Point(87, 242);
+            StartButton.Location = new Point(86, 242);
             StartButton.Name = "StartButton";
             StartButton.Size = new Size(125, 48);
             StartButton.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             CommentTextLabel.AutoSize = true;
             CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentTextLabel.Location = new Point(73, 182);
+            CommentTextLabel.Location = new Point(70, 182);
             CommentTextLabel.MaximumSize = new Size(193, 90);
             CommentTextLabel.Name = "CommentTextLabel";
             CommentTextLabel.Size = new Size(159, 42);

@@ -228,12 +228,7 @@ namespace GeniusIdiotWinFormsApp
             var userIsReady = GetUserDecision();
             if (userIsReady.HasValue)
             {
-                if (QuestionTextLabel.Text == "’отите посмотреть историю результатов? (да/нет)")
-                {
-                    if ((bool)userIsReady) ShowHistory();
-                    else DisplayText("’отите добавить новый вопрос? (да/нет)");
-                }
-                else if (QuestionTextLabel.Text == "’отите добавить новый вопрос? (да/нет)")
+                if (QuestionTextLabel.Text == "’отите добавить новый вопрос? (да/нет)")
                 {
                     if ((bool)userIsReady) DisplayText("¬ведите текст вопроса:\n- символ # недопустим");
                     else DisplayText("’отите удалить какой-то вопрос? (да/нет)");
@@ -271,23 +266,6 @@ namespace GeniusIdiotWinFormsApp
             }
         }
 
-        private void ShowHistory()
-        {
-            var text = string.Empty;
-
-            var allUsers = UsersStorage.GetAll();
-            foreach (var user in allUsers)
-            {
-                text += $"{user.Name} - {user.Score} - {user.Diagnosis}\n";
-            }
-
-            var pressedMessageBoxButton = MessageBox.Show(text);
-            if (pressedMessageBoxButton == DialogResult.OK || pressedMessageBoxButton == DialogResult.Cancel)
-            {
-                DisplayText("’отите добавить новый вопрос? (да/нет)");
-            }
-        }
-
         private void DisplayText(string text)
         {
             QuestionTextLabel.Text = text;
@@ -319,6 +297,22 @@ namespace GeniusIdiotWinFormsApp
         private void CloseTheApp()
         {
             this.Close();
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void рестартToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void показать»сториюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var historyForm = new HistoryForm();
+            historyForm.ShowDialog();
         }
     }
 }
