@@ -31,7 +31,7 @@
             inputNameLabel = new Label();
             UserNameTextBox = new TextBox();
             StartButton = new Button();
-            CommentTextLabel = new Label();
+            CommentLabel = new Label();
             SuspendLayout();
             // 
             // inputNameLabel
@@ -65,20 +65,20 @@
             // 
             // CommentTextLabel
             // 
-            CommentTextLabel.AutoSize = true;
-            CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentTextLabel.Location = new Point(34, 151);
-            CommentTextLabel.Name = "CommentTextLabel";
-            CommentTextLabel.Size = new Size(164, 21);
-            CommentTextLabel.TabIndex = 4;
-            CommentTextLabel.Text = "Текст комментария";
+            CommentLabel.AutoSize = true;
+            CommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            CommentLabel.Location = new Point(34, 140);
+            CommentLabel.Name = "CommentTextLabel";
+            CommentLabel.Size = new Size(164, 21);
+            CommentLabel.TabIndex = 4;
+            CommentLabel.Text = "Текст комментария";
             // 
             // WelcomeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 313);
-            Controls.Add(CommentTextLabel);
+            Controls.Add(CommentLabel);
             Controls.Add(StartButton);
             Controls.Add(UserNameTextBox);
             Controls.Add(inputNameLabel);
@@ -95,6 +95,6 @@
         private Label inputNameLabel;
         public TextBox UserNameTextBox;
         private Button StartButton;
-        private Label CommentTextLabel;
+        private Label CommentLabel;
     }
 }

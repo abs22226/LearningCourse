@@ -35,19 +35,20 @@
             CommentTextLabel = new Label();
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
+            новыйТестToolStripMenuItem = new ToolStripMenuItem();
             показатьИсториюToolStripMenuItem = new ToolStripMenuItem();
+            добавитьВопросToolStripMenuItem = new ToolStripMenuItem();
             перезапускToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
-            новыйТестToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // NextButton
             // 
             NextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            NextButton.Location = new Point(56, 327);
+            NextButton.Location = new Point(30, 327);
             NextButton.Name = "NextButton";
-            NextButton.Size = new Size(296, 69);
+            NextButton.Size = new Size(356, 69);
             NextButton.TabIndex = 0;
             NextButton.Text = "Далее";
             NextButton.UseVisualStyleBackColor = true;
@@ -57,7 +58,7 @@
             // 
             QuestionNumberLabel.AutoSize = true;
             QuestionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            QuestionNumberLabel.Location = new Point(56, 55);
+            QuestionNumberLabel.Location = new Point(30, 55);
             QuestionNumberLabel.Name = "QuestionNumberLabel";
             QuestionNumberLabel.Size = new Size(97, 21);
             QuestionNumberLabel.TabIndex = 1;
@@ -67,7 +68,7 @@
             // 
             QuestionTextLabel.AutoSize = true;
             QuestionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            QuestionTextLabel.Location = new Point(56, 120);
+            QuestionTextLabel.Location = new Point(30, 121);
             QuestionTextLabel.MaximumSize = new Size(296, 90);
             QuestionTextLabel.Name = "QuestionTextLabel";
             QuestionTextLabel.Size = new Size(111, 21);
@@ -76,19 +77,20 @@
             // 
             // UserAnswerTextBox
             // 
-            UserAnswerTextBox.Location = new Point(56, 219);
+            UserAnswerTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            UserAnswerTextBox.Location = new Point(30, 219);
             UserAnswerTextBox.Name = "UserAnswerTextBox";
-            UserAnswerTextBox.Size = new Size(296, 23);
+            UserAnswerTextBox.Size = new Size(356, 29);
             UserAnswerTextBox.TabIndex = 3;
             // 
             // CommentTextLabel
             // 
             CommentTextLabel.AutoSize = true;
-            CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CommentTextLabel.Location = new Point(56, 261);
+            CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            CommentTextLabel.Location = new Point(30, 261);
             CommentTextLabel.MaximumSize = new Size(296, 90);
             CommentTextLabel.Name = "CommentTextLabel";
-            CommentTextLabel.Size = new Size(149, 21);
+            CommentTextLabel.Size = new Size(164, 21);
             CommentTextLabel.TabIndex = 4;
             CommentTextLabel.Text = "Текст комментария";
             // 
@@ -104,11 +106,17 @@
             // менюToolStripMenuItem
             // 
             менюToolStripMenuItem.BackColor = SystemColors.Control;
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, добавитьВопросToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
             менюToolStripMenuItem.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(65, 23);
             менюToolStripMenuItem.Text = "МЕНЮ";
+            // 
+            // новыйТестToolStripMenuItem
+            // 
+            новыйТестToolStripMenuItem.Name = "новыйТестToolStripMenuItem";
+            новыйТестToolStripMenuItem.Size = new Size(195, 24);
+            новыйТестToolStripMenuItem.Text = "Новый тест";
             // 
             // показатьИсториюToolStripMenuItem
             // 
@@ -116,6 +124,13 @@
             показатьИсториюToolStripMenuItem.Size = new Size(195, 24);
             показатьИсториюToolStripMenuItem.Text = "Показать историю";
             показатьИсториюToolStripMenuItem.Click += ПоказатьИсториюToolStripMenuItem_Click;
+            // 
+            // добавитьВопросToolStripMenuItem
+            // 
+            добавитьВопросToolStripMenuItem.Name = "добавитьВопросToolStripMenuItem";
+            добавитьВопросToolStripMenuItem.Size = new Size(195, 24);
+            добавитьВопросToolStripMenuItem.Text = "Добавить вопрос";
+            добавитьВопросToolStripMenuItem.Click += ДобавитьВопросToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
@@ -130,12 +145,6 @@
             выходToolStripMenuItem.Size = new Size(195, 24);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += ВыходToolStripMenuItem_Click;
-            // 
-            // новыйТестToolStripMenuItem
-            // 
-            новыйТестToolStripMenuItem.Name = "новыйТестToolStripMenuItem";
-            новыйТестToolStripMenuItem.Size = new Size(195, 24);
-            новыйТестToolStripMenuItem.Text = "Новый тест";
             // 
             // MainForm
             // 
@@ -173,5 +182,6 @@
         private ToolStripMenuItem перезапускToolStripMenuItem;
         private ToolStripMenuItem выходToolStripMenuItem;
         private ToolStripMenuItem новыйТестToolStripMenuItem;
+        private ToolStripMenuItem добавитьВопросToolStripMenuItem;
     }
 }

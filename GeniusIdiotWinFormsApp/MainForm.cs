@@ -156,27 +156,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void HandleQuestionsStorageModification()
         {
-            if (QuestionTextLabel.Text == "Введите текст вопроса:\n- символ # недопустим")
-            {
-                var questionText = GetNewQuestionText();
-                if (!string.IsNullOrEmpty(questionText))
-                {
-                    newQuestionText = questionText;
-
-                    DisplayText("Введите числовой ответ:");
-                }
-            }
-            else if (QuestionTextLabel.Text == "Введите числовой ответ:")
-            {
-                var numericAnswer = GetNumericAnswer();
-                if (numericAnswer != null)
-                {
-                    QuestionsStorage.Add(new Question(newQuestionText, (int)numericAnswer));
-
-                    DisplayText("Хотите удалить какой-то вопрос? (да/нет)");
-                }
-            }
-            else if (QuestionTextLabel.Text == "Введите номер вопроса для удаления:")
+            if (QuestionTextLabel.Text == "Введите номер вопроса для удаления:")
             {
                 var number = GetQuestionNumber(questions.Count);
                 if (number != null)
@@ -312,6 +292,18 @@ namespace GeniusIdiotWinFormsApp
         {
             var historyForm = new HistoryForm();
             historyForm.ShowDialog();
+        }
+
+        private void ДобавитьВопросToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var addQuestionForm = new AddQuestionForm();
+            addQuestionForm.ShowDialog();
+
+            var questions = QuestionsStorage.GetAll();
+            if (questions.Count != startingQuestionsCount)
+            {
+                StartNewQuiz();
+            }           
         }
     }
 }
