@@ -1,4 +1,5 @@
 using GeniusIdiotCommon;
+using System.Xml.Linq;
 
 namespace GeniusIdiotWinFormsApp
 {
@@ -19,28 +20,14 @@ namespace GeniusIdiotWinFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            SetSizes();
-
-            GreetNewUser();
-
             UserAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
-        }
 
-        private void SetSizes()
-        {
-            this.MaximumSize = new Size(430, 489);
-            this.MinimumSize = new Size(430, 489);
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.ShowDialog();
 
-            QuestionTextLabel.MaximumSize = new Size(296, 90);
+            user = new User(welcomeForm.UserNameTextBox.Text);
 
-            CommentTextLabel.MaximumSize = new Size(296, 90);
-        }
-
-        private void GreetNewUser()
-        {
-            QuestionNumberLabel.Text = string.Empty;
-
-            DisplayText("Введите ваше имя:\n- символ # недопустим");
+            StartNewQuiz();
         }
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
@@ -50,11 +37,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (QuestionTextLabel.Text.StartsWith("Введите ваше имя:"))
-            {
-                HandleGettingName();
-            }
-            else if (QuestionNumberLabel.Text.StartsWith("Вопрос № "))
+            if (QuestionNumberLabel.Text.StartsWith("Вопрос № "))
             {
                 HandleGettingNumericAnswer();
             }
@@ -65,33 +48,6 @@ namespace GeniusIdiotWinFormsApp
             else
             {
                 HandleGettingDecision();
-            }
-        }
-
-        private void HandleGettingName()
-        {
-            var name = GetUserName();
-            if (!string.IsNullOrEmpty(name))
-            {
-                user = new User(name);
-
-                StartNewQuiz();
-            }
-        }
-
-        private string? GetUserName()
-        {
-            var userInput = UserAnswerTextBox.Text;
-            if (string.IsNullOrEmpty(userInput) || userInput.Contains('#'))
-            {
-                CommentTextLabel.Text = "Необходимо ввести корректное имя!";
-                UserAnswerTextBox.Clear();
-                return null;
-            }
-            else
-            {
-                var userName = userInput.Trim();
-                return userName;
             }
         }
 
@@ -113,6 +69,16 @@ namespace GeniusIdiotWinFormsApp
             rightAnswersCount = 0;
         }
 
+        private void ClearForms()
+        {
+            QuestionNumberLabel.Text = string.Empty;
+            QuestionTextLabel.Text = string.Empty;
+            UserAnswerTextBox.Clear();
+            CommentTextLabel.Text = string.Empty;
+
+            QuestionNumberLabel.ForeColor = Color.Black;
+        }
+
         private void ShowRandomQuestion()
         {
             ClearForms();
@@ -128,15 +94,7 @@ namespace GeniusIdiotWinFormsApp
             UserAnswerTextBox.Focus();
         }
 
-        private void ClearForms()
-        {
-            QuestionNumberLabel.Text = string.Empty;
-            QuestionTextLabel.Text = string.Empty;
-            UserAnswerTextBox.Clear();
-            CommentTextLabel.Text = string.Empty;
 
-            QuestionNumberLabel.ForeColor = Color.Black;
-        }
 
         private void HandleGettingNumericAnswer()
         {

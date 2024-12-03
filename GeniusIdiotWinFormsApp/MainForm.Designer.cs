@@ -61,6 +61,7 @@
             QuestionTextLabel.AutoSize = true;
             QuestionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             QuestionTextLabel.Location = new Point(56, 120);
+            QuestionTextLabel.MaximumSize = new Size(296, 90);
             QuestionTextLabel.Name = "QuestionTextLabel";
             QuestionTextLabel.Size = new Size(111, 21);
             QuestionTextLabel.TabIndex = 2;
@@ -78,6 +79,7 @@
             CommentTextLabel.AutoSize = true;
             CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CommentTextLabel.Location = new Point(56, 261);
+            CommentTextLabel.MaximumSize = new Size(296, 90);
             CommentTextLabel.Name = "CommentTextLabel";
             CommentTextLabel.Size = new Size(149, 21);
             CommentTextLabel.TabIndex = 4;
@@ -93,6 +95,8 @@
             Controls.Add(QuestionTextLabel);
             Controls.Add(QuestionNumberLabel);
             Controls.Add(NextButton);
+            MaximumSize = new Size(430, 489);
+            MinimumSize = new Size(430, 489);
             Name = "MainForm";
             Text = "Гений-Идиот";
             Load += MainForm_Load;
