@@ -1,4 +1,4 @@
-using GeniusIdiotConsApp;
+using GeniusIdiotCommon;
 
 namespace GeniusIdiotWinFormsApp
 {

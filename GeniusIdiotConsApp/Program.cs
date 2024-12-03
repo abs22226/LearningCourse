@@ -1,4 +1,6 @@
-﻿namespace GeniusIdiotConsApp
+﻿using GeniusIdiotCommon;
+
+namespace GeniusIdiotConsApp
 {
     class Program
     {

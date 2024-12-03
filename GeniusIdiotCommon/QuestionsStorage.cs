@@ -1,5 +1,4 @@
-﻿
-namespace GeniusIdiotConsApp
+﻿namespace GeniusIdiotCommon
 {
     public class QuestionsStorage
     {

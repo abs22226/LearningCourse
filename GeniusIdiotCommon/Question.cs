@@ -1,4 +1,4 @@
-﻿namespace GeniusIdiotConsApp
+﻿namespace GeniusIdiotCommon
 {
     public class Question
     {

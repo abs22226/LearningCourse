@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace GeniusIdiotConsApp
+﻿namespace GeniusIdiotCommon
 {
     public class UsersStorage
     {
