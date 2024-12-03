@@ -36,8 +36,9 @@
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             показатьИсториюToolStripMenuItem = new ToolStripMenuItem();
-            рестартToolStripMenuItem = new ToolStripMenuItem();
+            перезапускToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
+            новыйТестToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -103,7 +104,7 @@
             // менюToolStripMenuItem
             // 
             менюToolStripMenuItem.BackColor = SystemColors.Control;
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { показатьИсториюToolStripMenuItem, рестартToolStripMenuItem, выходToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
             менюToolStripMenuItem.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(65, 23);
@@ -114,21 +115,27 @@
             показатьИсториюToolStripMenuItem.Name = "показатьИсториюToolStripMenuItem";
             показатьИсториюToolStripMenuItem.Size = new Size(195, 24);
             показатьИсториюToolStripMenuItem.Text = "Показать историю";
-            показатьИсториюToolStripMenuItem.Click += показатьИсториюToolStripMenuItem_Click;
+            показатьИсториюToolStripMenuItem.Click += ПоказатьИсториюToolStripMenuItem_Click;
             // 
-            // рестартToolStripMenuItem
+            // перезапускToolStripMenuItem
             // 
-            рестартToolStripMenuItem.Name = "рестартToolStripMenuItem";
-            рестартToolStripMenuItem.Size = new Size(195, 24);
-            рестартToolStripMenuItem.Text = "Рестарт";
-            рестартToolStripMenuItem.Click += рестартToolStripMenuItem_Click;
+            перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
+            перезапускToolStripMenuItem.Size = new Size(195, 24);
+            перезапускToolStripMenuItem.Text = "Перезапуск";
+            перезапускToolStripMenuItem.Click += ПерезапускToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.Size = new Size(195, 24);
             выходToolStripMenuItem.Text = "Выход";
-            выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
+            выходToolStripMenuItem.Click += ВыходToolStripMenuItem_Click;
+            // 
+            // новыйТестToolStripMenuItem
+            // 
+            новыйТестToolStripMenuItem.Name = "новыйТестToolStripMenuItem";
+            новыйТестToolStripMenuItem.Size = new Size(195, 24);
+            новыйТестToolStripMenuItem.Text = "Новый тест";
             // 
             // MainForm
             // 
@@ -163,7 +170,8 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem показатьИсториюToolStripMenuItem;
-        private ToolStripMenuItem рестартToolStripMenuItem;
+        private ToolStripMenuItem перезапускToolStripMenuItem;
         private ToolStripMenuItem выходToolStripMenuItem;
+        private ToolStripMenuItem новыйТестToolStripMenuItem;
     }
 }

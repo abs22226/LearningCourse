@@ -1,5 +1,4 @@
 using GeniusIdiotCommon;
-using System.Xml.Linq;
 
 namespace GeniusIdiotWinFormsApp
 {
@@ -299,17 +298,17 @@ namespace GeniusIdiotWinFormsApp
             this.Close();
         }
 
-        private void âûõîäToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ÂûõîäToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void ğåñòàğòToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ÏåğåçàïóñêToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Restart();
         }
 
-        private void ïîêàçàòüÈñòîğèşToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ÏîêàçàòüÈñòîğèşToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var historyForm = new HistoryForm();
             historyForm.ShowDialog();

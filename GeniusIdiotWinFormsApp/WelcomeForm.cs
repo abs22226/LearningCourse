@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace GeniusIdiotWinFormsApp
+﻿namespace GeniusIdiotWinFormsApp
 {
     public partial class WelcomeForm : Form
     {
@@ -19,9 +9,16 @@ namespace GeniusIdiotWinFormsApp
 
         private void WelcomeForm_Load(object sender, EventArgs e)
         {
+            FormClosing += WelcomeForm_FormClosing;
+
             UserNameTextBox.GotFocus += UserNameTextBox_GotFocus;
 
             CommentTextLabel.Text = string.Empty;            
+        }
+
+        private void WelcomeForm_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            UserNameTextBox.Text = "Аноним";
         }
 
         private void UserNameTextBox_GotFocus(object? sender, EventArgs e)
