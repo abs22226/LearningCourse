@@ -32,7 +32,7 @@
             addedQuestionTextBox = new TextBox();
             label2 = new Label();
             numericAnswerTextBox = new TextBox();
-            addingButton = new Button();
+            addButton = new Button();
             answerCommentLabel = new Label();
             questionCommentLabel = new Label();
             SuspendLayout();
@@ -72,23 +72,23 @@
             numericAnswerTextBox.Size = new Size(355, 29);
             numericAnswerTextBox.TabIndex = 3;
             // 
-            // addingButton
+            // addButton
             // 
-            addingButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            addingButton.Location = new Point(30, 328);
-            addingButton.Name = "addingButton";
-            addingButton.Size = new Size(355, 61);
-            addingButton.TabIndex = 4;
-            addingButton.Text = "Добавить";
-            addingButton.UseVisualStyleBackColor = true;
-            addingButton.Click += AddingButton_Click;
+            addButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            addButton.Location = new Point(30, 327);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(355, 69);
+            addButton.TabIndex = 4;
+            addButton.Text = "Добавить";
+            addButton.UseVisualStyleBackColor = true;
+            addButton.Click += AddingButton_Click;
             // 
-            // answerCommentTextLabel
+            // answerCommentLabel
             // 
             answerCommentLabel.AutoSize = true;
             answerCommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
             answerCommentLabel.Location = new Point(30, 272);
-            answerCommentLabel.Name = "answerCommentTextLabel";
+            answerCommentLabel.Name = "answerCommentLabel";
             answerCommentLabel.Size = new Size(164, 21);
             answerCommentLabel.TabIndex = 5;
             answerCommentLabel.Text = "Текст комментария";
@@ -107,18 +107,18 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(414, 433);
+            ClientSize = new Size(414, 450);
             Controls.Add(questionCommentLabel);
             Controls.Add(answerCommentLabel);
-            Controls.Add(addingButton);
+            Controls.Add(addButton);
             Controls.Add(numericAnswerTextBox);
             Controls.Add(label2);
             Controls.Add(addedQuestionTextBox);
             Controls.Add(label1);
-            MaximumSize = new Size(430, 472);
-            MinimumSize = new Size(430, 472);
+            MaximumSize = new Size(430, 489);
+            MinimumSize = new Size(430, 489);
             Name = "AddQuestionForm";
-            Text = "AddQuestionForm";
+            Text = "Добавление вопроса";
             Load += AddQuestionForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -130,7 +130,7 @@
         private TextBox addedQuestionTextBox;
         private Label label2;
         private TextBox numericAnswerTextBox;
-        private Button addingButton;
+        private Button addButton;
         private Label answerCommentLabel;
         private Label questionCommentLabel;
     }

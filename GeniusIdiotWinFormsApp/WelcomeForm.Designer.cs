@@ -38,7 +38,7 @@
             // 
             inputNameLabel.AutoSize = true;
             inputNameLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            inputNameLabel.Location = new Point(34, 31);
+            inputNameLabel.Location = new Point(30, 31);
             inputNameLabel.Name = "inputNameLabel";
             inputNameLabel.Size = new Size(175, 42);
             inputNameLabel.TabIndex = 1;
@@ -47,28 +47,28 @@
             // UserNameTextBox
             // 
             UserNameTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            UserNameTextBox.Location = new Point(34, 97);
+            UserNameTextBox.Location = new Point(30, 97);
             UserNameTextBox.Name = "UserNameTextBox";
-            UserNameTextBox.Size = new Size(347, 29);
+            UserNameTextBox.Size = new Size(355, 29);
             UserNameTextBox.TabIndex = 2;
             // 
             // StartButton
             // 
             StartButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            StartButton.Location = new Point(34, 219);
+            StartButton.Location = new Point(30, 195);
             StartButton.Name = "StartButton";
-            StartButton.Size = new Size(347, 48);
+            StartButton.Size = new Size(355, 69);
             StartButton.TabIndex = 3;
             StartButton.Text = "Начать";
             StartButton.UseVisualStyleBackColor = true;
             StartButton.Click += StartButton_Click;
             // 
-            // CommentTextLabel
+            // CommentLabel
             // 
             CommentLabel.AutoSize = true;
             CommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentLabel.Location = new Point(34, 140);
-            CommentLabel.Name = "CommentTextLabel";
+            CommentLabel.Location = new Point(30, 140);
+            CommentLabel.Name = "CommentLabel";
             CommentLabel.Size = new Size(164, 21);
             CommentLabel.TabIndex = 4;
             CommentLabel.Text = "Текст комментария";
@@ -85,7 +85,7 @@
             MaximumSize = new Size(430, 352);
             MinimumSize = new Size(430, 352);
             Name = "WelcomeForm";
-            Text = "WelcomeForm";
+            Text = "Регистрация";
             Load += WelcomeForm_Load;
             ResumeLayout(false);
             PerformLayout();

@@ -32,12 +32,13 @@
             QuestionNumberLabel = new Label();
             QuestionTextLabel = new Label();
             UserAnswerTextBox = new TextBox();
-            CommentTextLabel = new Label();
+            CommentLabel = new Label();
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             новыйТестToolStripMenuItem = new ToolStripMenuItem();
             показатьИсториюToolStripMenuItem = new ToolStripMenuItem();
             добавитьВопросToolStripMenuItem = new ToolStripMenuItem();
+            удалитьВопросToolStripMenuItem = new ToolStripMenuItem();
             перезапускToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
@@ -48,7 +49,7 @@
             NextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             NextButton.Location = new Point(30, 327);
             NextButton.Name = "NextButton";
-            NextButton.Size = new Size(356, 69);
+            NextButton.Size = new Size(355, 69);
             NextButton.TabIndex = 0;
             NextButton.Text = "Далее";
             NextButton.UseVisualStyleBackColor = true;
@@ -80,19 +81,18 @@
             UserAnswerTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             UserAnswerTextBox.Location = new Point(30, 219);
             UserAnswerTextBox.Name = "UserAnswerTextBox";
-            UserAnswerTextBox.Size = new Size(356, 29);
+            UserAnswerTextBox.Size = new Size(355, 29);
             UserAnswerTextBox.TabIndex = 3;
             // 
-            // CommentTextLabel
+            // CommentLabel
             // 
-            CommentTextLabel.AutoSize = true;
-            CommentTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentTextLabel.Location = new Point(30, 261);
-            CommentTextLabel.MaximumSize = new Size(296, 90);
-            CommentTextLabel.Name = "CommentTextLabel";
-            CommentTextLabel.Size = new Size(164, 21);
-            CommentTextLabel.TabIndex = 4;
-            CommentTextLabel.Text = "Текст комментария";
+            CommentLabel.AutoSize = true;
+            CommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            CommentLabel.Location = new Point(30, 261);
+            CommentLabel.Name = "CommentLabel";
+            CommentLabel.Size = new Size(164, 21);
+            CommentLabel.TabIndex = 4;
+            CommentLabel.Text = "Текст комментария";
             // 
             // menuStrip1
             // 
@@ -106,7 +106,7 @@
             // менюToolStripMenuItem
             // 
             менюToolStripMenuItem.BackColor = SystemColors.Control;
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, добавитьВопросToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, добавитьВопросToolStripMenuItem, удалитьВопросToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
             менюToolStripMenuItem.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(65, 23);
@@ -117,6 +117,7 @@
             новыйТестToolStripMenuItem.Name = "новыйТестToolStripMenuItem";
             новыйТестToolStripMenuItem.Size = new Size(195, 24);
             новыйТестToolStripMenuItem.Text = "Новый тест";
+            новыйТестToolStripMenuItem.Click += НовыйТестToolStripMenuItem_Click;
             // 
             // показатьИсториюToolStripMenuItem
             // 
@@ -131,6 +132,13 @@
             добавитьВопросToolStripMenuItem.Size = new Size(195, 24);
             добавитьВопросToolStripMenuItem.Text = "Добавить вопрос";
             добавитьВопросToolStripMenuItem.Click += ДобавитьВопросToolStripMenuItem_Click;
+            // 
+            // удалитьВопросToolStripMenuItem
+            // 
+            удалитьВопросToolStripMenuItem.Name = "удалитьВопросToolStripMenuItem";
+            удалитьВопросToolStripMenuItem.Size = new Size(195, 24);
+            удалитьВопросToolStripMenuItem.Text = "Удалить вопрос";
+            удалитьВопросToolStripMenuItem.Click += УдалитьВопросToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
@@ -151,7 +159,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 450);
-            Controls.Add(CommentTextLabel);
+            Controls.Add(CommentLabel);
             Controls.Add(UserAnswerTextBox);
             Controls.Add(QuestionTextLabel);
             Controls.Add(QuestionNumberLabel);
@@ -175,7 +183,7 @@
         private Label QuestionNumberLabel;
         private Label QuestionTextLabel;
         private TextBox UserAnswerTextBox;
-        private Label CommentTextLabel;
+        private Label CommentLabel;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem показатьИсториюToolStripMenuItem;
@@ -183,5 +191,6 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private ToolStripMenuItem новыйТестToolStripMenuItem;
         private ToolStripMenuItem добавитьВопросToolStripMenuItem;
+        private ToolStripMenuItem удалитьВопросToolStripMenuItem;
     }
 }

@@ -31,23 +31,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
         {
-            CommentTextLabel.Text = string.Empty;
-        }
-
-        private void NextButton_Click(object sender, EventArgs e)
-        {
-            if (QuestionNumberLabel.Text.StartsWith("Âîïğîñ ¹ "))
-            {
-                HandleGettingNumericAnswer();
-            }
-            else if (QuestionTextLabel.Text.StartsWith("Ââåäèòå"))
-            {
-                HandleQuestionsStorageModification();
-            }
-            else
-            {
-                HandleGettingDecision();
-            }
+            CommentLabel.Text = string.Empty;
         }
 
         private void StartNewQuiz()
@@ -73,9 +57,56 @@ namespace GeniusIdiotWinFormsApp
             QuestionNumberLabel.Text = string.Empty;
             QuestionTextLabel.Text = string.Empty;
             UserAnswerTextBox.Clear();
-            CommentTextLabel.Text = string.Empty;
+            CommentLabel.Text = string.Empty;
 
-            QuestionNumberLabel.ForeColor = Color.Black;
+            QuestionTextLabel.ForeColor = Color.Black;
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (QuestionNumberLabel.Text.StartsWith("Âîïğîñ ¹ "))
+            {
+                var userAnswer = GetNumericAnswer();
+
+                if (userAnswer != null)
+                {
+                    if (userAnswer == currentQuestion.Answer)
+                    {
+                        rightAnswersCount++;
+                    }
+
+                    questions.Remove(currentQuestion);
+
+                    if (questions.Count > 0)
+                    {
+                        ShowRandomQuestion();
+                    }
+                    else
+                    {
+                        FinishTheQuiz();
+                    }
+                }
+            }
+            else
+            {
+                CommentLabel.Text = "Ïåğåéäèòå â ìåíş â ëåâîì âåğõíåì óãëó!";
+            }
+        }
+
+        private int? GetNumericAnswer()
+        {
+            string userInput = UserAnswerTextBox.Text;
+            int userAnswer;
+            if (int.TryParse(userInput, out userAnswer))
+            {
+                return userAnswer;
+            }
+            else
+            {
+                UserAnswerTextBox.Clear();
+                CommentLabel.Text = "Ââåäèòå ÷èñëî îò -2*10^9 äî 2*10^9!";
+                return null;
+            }
         }
 
         private void ShowRandomQuestion()
@@ -93,48 +124,6 @@ namespace GeniusIdiotWinFormsApp
             UserAnswerTextBox.Focus();
         }
 
-
-
-        private void HandleGettingNumericAnswer()
-        {
-            var userAnswer = GetNumericAnswer();
-
-            if (userAnswer != null)
-            {
-                if (userAnswer == currentQuestion.Answer)
-                {
-                    rightAnswersCount++;
-                }
-
-                questions.Remove(currentQuestion);
-
-                if (questions.Count > 0)
-                {
-                    ShowRandomQuestion();
-                }
-                else
-                {
-                    FinishTheQuiz();
-                }
-            }
-        }
-
-        private int? GetNumericAnswer()
-        {
-            string userInput = UserAnswerTextBox.Text;
-            int userAnswer;
-            if (int.TryParse(userInput, out userAnswer))
-            {
-                return userAnswer;
-            }
-            else
-            {
-                UserAnswerTextBox.Clear();
-                CommentTextLabel.Text = "Ââåäèòå ÷èñëî îò -2*10^9 äî 2*10^9!";
-                return null;
-            }
-        }
-
         private void FinishTheQuiz()
         {
             ClearForms();
@@ -142,140 +131,13 @@ namespace GeniusIdiotWinFormsApp
             user.SetScore(rightAnswersCount, startingQuestionsCount);
             user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
 
-            var userIsPathetic = user.Diagnosis == "èäèîò" || user.Diagnosis == "êğåòèí" || user.Diagnosis == "äóğàê";
-            QuestionNumberLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
+            QuestionNumberLabel.Text = string.Empty;
 
-            QuestionNumberLabel.Text = $"Êîëè÷åñòâî ïğàâèëüíûõ îòâåòîâ: {user.Score}\n{user.Name}, âàø äèàãíîç: {user.Diagnosis.ToUpper()}";
+            var userIsPathetic = user.Diagnosis == "èäèîò" || user.Diagnosis == "êğåòèí" || user.Diagnosis == "äóğàê";
+            QuestionTextLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
+            QuestionTextLabel.Text = $"Êîëè÷åñòâî ïğàâèëüíûõ îòâåòîâ: {user.Score}\n{user.Name}, âàø äèàãíîç: {user.Diagnosis.ToUpper()}";
 
             UsersStorage.Save(user);
-
-            QuestionTextLabel.Text = "Õîòèòå ïîñìîòğåòü èñòîğèş ğåçóëüòàòîâ? (äà/íåò)";
-
-            UserAnswerTextBox.Focus();
-        }
-
-        private void HandleQuestionsStorageModification()
-        {
-            if (QuestionTextLabel.Text == "Ââåäèòå íîìåğ âîïğîñà äëÿ óäàëåíèÿ:")
-            {
-                var number = GetQuestionNumber(questions.Count);
-                if (number != null)
-                {
-                    var index = (int)number - 1;
-                    var question = questions[index];
-                    QuestionsStorage.Remove(question);
-
-                    DisplayText("Õîòèòå ïğîéòè òåñò ñíîâà? (äà/íåò)");
-                }
-            }
-        }
-
-        private string? GetNewQuestionText()
-        {
-            var userInput = UserAnswerTextBox.Text;
-            if (string.IsNullOrEmpty(userInput) || userInput.Contains('#'))
-            {
-                CommentTextLabel.Text = "Íåîáõîäèìî ââåñòè êîğğåêòíûé òåêñò!";
-                UserAnswerTextBox.Clear();
-                return null;
-            }
-            else
-            {
-                var newQuestionText = userInput.Trim();
-                return newQuestionText;
-            }
-        }
-
-        private int? GetQuestionNumber(int questionsCount)
-        {
-            var userInput = UserAnswerTextBox.Text;
-            int number;
-            if (int.TryParse(userInput, out number) && number >= 1 && number <= questionsCount)
-            {
-                return number;
-            }
-            else
-            {
-                UserAnswerTextBox.Clear();
-                CommentTextLabel.Text = $"Ââåäèòå ÷èñëî îò 1 äî {questionsCount}!";
-                return null;
-            }
-        }
-
-        private void HandleGettingDecision()
-        {
-            var userIsReady = GetUserDecision();
-            if (userIsReady.HasValue)
-            {
-                if (QuestionTextLabel.Text == "Õîòèòå äîáàâèòü íîâûé âîïğîñ? (äà/íåò)")
-                {
-                    if ((bool)userIsReady) DisplayText("Ââåäèòå òåêñò âîïğîñà:\n- ñèìâîë # íåäîïóñòèì");
-                    else DisplayText("Õîòèòå óäàëèòü êàêîé-òî âîïğîñ? (äà/íåò)");
-                }
-                else if (QuestionTextLabel.Text == "Õîòèòå óäàëèòü êàêîé-òî âîïğîñ? (äà/íåò)")
-                {
-                    if ((bool)userIsReady) InitiateQuestionRemoval();
-                    else DisplayText("Õîòèòå ïğîéòè òåñò ñíîâà? (äà/íåò)");
-                }
-                else if (QuestionTextLabel.Text == "Õîòèòå ïğîéòè òåñò ñíîâà? (äà/íåò)")
-                {
-                    if ((bool)userIsReady) StartNewQuiz();
-                    else CloseTheApp();
-                }
-            }
-        }
-
-        private bool? GetUserDecision()
-        {
-            var userInput = UserAnswerTextBox.Text;
-            if (string.IsNullOrEmpty(userInput) || userInput.Trim().ToLower() != "äà" && userInput.Trim().ToLower() != "íåò")
-            {
-                CommentTextLabel.Text = "Íåîáõîäèìî ââåñòè: äà èëè íåò!";
-                UserAnswerTextBox.Clear();
-                return null;
-            }
-            else
-            {
-                var userDecision = userInput.Trim().ToLower();
-                if (userDecision.Length < userInput.Length)
-                {
-                    UserAnswerTextBox.Text = userDecision;
-                }
-                return userDecision == "äà" ? true : false;
-            }
-        }
-
-        private void DisplayText(string text)
-        {
-            QuestionTextLabel.Text = text;
-            UserAnswerTextBox.Clear();
-            CommentTextLabel.Text = string.Empty;
-
-            UserAnswerTextBox.Focus();
-        }
-
-        private void InitiateQuestionRemoval()
-        {
-            questions = QuestionsStorage.GetAll();
-
-            var text = string.Empty;
-            for (int i = 0; i < questions.Count; i++)
-            {
-                text += $"\n{i + 1}. {questions[i].Text}";
-            }
-
-            DisplayText("Çàïîìíèòå íîìåğ âîïğîñà äëÿ óäàëåíèÿ:");
-
-            var pressedMessageBoxButton = MessageBox.Show(text);
-            if (pressedMessageBoxButton == DialogResult.OK || pressedMessageBoxButton == DialogResult.Cancel)
-            {
-                DisplayText("Ââåäèòå íîìåğ âîïğîñà äëÿ óäàëåíèÿ:");
-            }
-        }
-
-        private void CloseTheApp()
-        {
-            this.Close();
         }
 
         private void ÂûõîäToolStripMenuItem_Click(object sender, EventArgs e)
@@ -303,7 +165,24 @@ namespace GeniusIdiotWinFormsApp
             if (questions.Count != startingQuestionsCount)
             {
                 StartNewQuiz();
-            }           
+            }
+        }
+
+        private void ÓäàëèòüÂîïğîñToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var questionRemovalForm = new questionRemovalForm();
+            questionRemovalForm.ShowDialog();
+
+            var questions = QuestionsStorage.GetAll();
+            if (questions.Count != startingQuestionsCount)
+            {
+                StartNewQuiz();
+            }
+        }
+
+        private void ÍîâûéÒåñòToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartNewQuiz();
         }
     }
 }

@@ -9,18 +9,22 @@
 
         public static List<User> GetAll()
         {
-            var value = FileProvider.GetValue("UsersStorage.txt");
-            var lines = value.Split('\n');
             var users = new List<User>();
-            foreach (var line in lines)
+            if (FileProvider.Exists("UsersStorage.txt"))
             {
-                if (!string.IsNullOrEmpty(line))
+                var value = FileProvider.GetValue("UsersStorage.txt");
+                var lines = value.Split('\n');
+
+                foreach (var line in lines)
                 {
-                    var result = line.Split('#');
-                    var name = result[0];
-                    var score = result[1];
-                    var diagnosis = result[2].TrimEnd('\r');
-                    users.Add(new User(name, score, diagnosis));
+                    if (!string.IsNullOrEmpty(line))
+                    {
+                        var result = line.Split('#');
+                        var name = result[0];
+                        var score = result[1];
+                        var diagnosis = result[2].TrimEnd('\r');
+                        users.Add(new User(name, score, diagnosis));
+                    }
                 }
             }
             return users;

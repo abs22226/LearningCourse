@@ -42,35 +42,34 @@
             historyDataGridView.Location = new Point(14, 12);
             historyDataGridView.Name = "historyDataGridView";
             historyDataGridView.RowTemplate.Height = 25;
-            historyDataGridView.Size = new Size(374, 426);
+            historyDataGridView.Size = new Size(388, 426);
             historyDataGridView.TabIndex = 0;
             // 
             // UserNameColumn
             // 
-            UserNameColumn.HeaderText = "Имя:";
+            UserNameColumn.HeaderText = "Имя";
             UserNameColumn.Name = "UserNameColumn";
-            UserNameColumn.Width = 110;
+            UserNameColumn.Width = 153;
             // 
             // UserResultColumn
             // 
-            UserResultColumn.HeaderText = "Результат:";
+            UserResultColumn.HeaderText = "Результат";
             UserResultColumn.Name = "UserResultColumn";
-            UserResultColumn.Width = 110;
+            UserResultColumn.Width = 75;
             // 
             // UserDiagnosisColumn
             // 
-            UserDiagnosisColumn.HeaderText = "Диагноз:";
+            UserDiagnosisColumn.HeaderText = "Диагноз";
             UserDiagnosisColumn.Name = "UserDiagnosisColumn";
-            UserDiagnosisColumn.Width = 110;
             // 
             // HistoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(400, 450);
+            ClientSize = new Size(414, 450);
             Controls.Add(historyDataGridView);
             Name = "HistoryForm";
-            Text = "HistoryForm";
+            Text = "История";
             Load += HistoryForm_Load;
             ((System.ComponentModel.ISupportInitialize)historyDataGridView).EndInit();
             ResumeLayout(false);
