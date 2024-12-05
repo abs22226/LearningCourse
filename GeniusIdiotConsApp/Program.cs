@@ -12,39 +12,26 @@ namespace GeniusIdiotConsApp
             var user = new User(name);
 
             var userIsReady = true;
-
             while (userIsReady)
             {
-                var questions = QuestionsStorage.GetAll();
-                var startingQuestionsCount = questions.Count();
+                var quiz = new Quiz(user);
 
-                var rightAnswersCount = 0;
-
-                var random = new Random();
-
-                for (int i = 0; i < startingQuestionsCount; i++)
+                for (int i = 0; i < quiz.Length; i++)
                 {
-                    var index = random.Next(0, questions.Count);
-
-                    Console.WriteLine("Вопрос №" + (i + 1));
-                    Console.WriteLine(questions[index].Text);
+                    quiz.RandomizeCurrentQuestion();
+                    
+                    Console.WriteLine("Вопрос №" + (quiz.CurrentQuestionNumber));
+                    Console.WriteLine(quiz.CurrentQuestion.Text);
 
                     var userAnswer = GetNumericAnswer();
 
-                    var rightAnswer = questions[index].Answer;
-
-                    if (userAnswer == rightAnswer)
-                    {
-                        rightAnswersCount++;
-                    }
-
-                    questions.RemoveAt(index);
+                    quiz.AcceptUserAnswer(userAnswer);
                 }
 
-                user.SetScore(rightAnswersCount, startingQuestionsCount);
+                quiz.SetUserScore();
                 Console.WriteLine("Количество правильных ответов: " + user.Score);
 
-                user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
+                quiz.SetUserDiagnosis();
                 Console.WriteLine(user.Name + ", ваш диагноз: " + user.Diagnosis);
 
                 UsersStorage.Save(user);

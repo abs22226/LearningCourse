@@ -2,14 +2,17 @@ using GeniusIdiotCommon;
 
 namespace GeniusIdiotWinFormsApp
 {
+
+
     public partial class MainForm : Form
     {
+        private Quiz quiz;
         private List<Question> questions;
-        private int startingQuestionsCount;
+        private int allQuestionsCount;
         private Question currentQuestion;
-        private int questionNumber;
+        private int currentQuestionNumber;
         private User user;
-        private int rightAnswersCount;
+        private int correctAnswersCount;
         private string newQuestionText;
 
         public MainForm()
@@ -20,13 +23,16 @@ namespace GeniusIdiotWinFormsApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             UserAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
+            MeetNewUser();
+            StartNewQuiz();
+        }
 
+        private void MeetNewUser()
+        {
             var welcomeForm = new WelcomeForm();
             welcomeForm.ShowDialog();
 
             user = new User(welcomeForm.UserNameTextBox.Text);
-
-            StartNewQuiz();
         }
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
@@ -36,20 +42,11 @@ namespace GeniusIdiotWinFormsApp
 
         private void StartNewQuiz()
         {
-            ResetScoring();
             ClearForms();
 
-            questions = QuestionsStorage.GetAll();
-            startingQuestionsCount = questions.Count;
+            quiz = new Quiz(user);
 
             ShowRandomQuestion();
-        }
-
-        private void ResetScoring()
-        {
-            startingQuestionsCount = 0;
-            questionNumber = 0;
-            rightAnswersCount = 0;
         }
 
         private void ClearForms()
@@ -70,25 +67,21 @@ namespace GeniusIdiotWinFormsApp
 
                 if (userAnswer != null)
                 {
-                    if (userAnswer == currentQuestion.Answer)
-                    {
-                        rightAnswersCount++;
-                    }
+                    quiz.AcceptUserAnswer(userAnswer);
 
-                    questions.Remove(currentQuestion);
-
-                    if (questions.Count > 0)
+                    if (quiz.IsEnded)
                     {
-                        ShowRandomQuestion();
+                        FinishTheQuiz();                        
                     }
                     else
                     {
-                        FinishTheQuiz();
+                        ShowRandomQuestion();
                     }
                 }
             }
             else
             {
+                UserAnswerTextBox.Clear();
                 CommentLabel.Text = "Перейдите в меню в левом верхнем углу!";
             }
         }
@@ -113,31 +106,31 @@ namespace GeniusIdiotWinFormsApp
         {
             ClearForms();
 
-            questionNumber++;
-            QuestionNumberLabel.Text = "Вопрос № " + questionNumber;
+            quiz.RandomizeCurrentQuestion();
 
-            var random = new Random();
-            var randomIndex = random.Next(0, questions.Count);
-            currentQuestion = questions[randomIndex];
-            QuestionTextLabel.Text = currentQuestion.Text;
+            QuestionNumberLabel.Text = "Вопрос № " + quiz.CurrentQuestionNumber;
+            QuestionTextLabel.Text = quiz.CurrentQuestion.Text;
 
             UserAnswerTextBox.Focus();
         }
 
         private void FinishTheQuiz()
         {
+            quiz.SetUserScore();
+            quiz.SetUserDiagnosis();
+
+            ShowDiagnosis();
+
+            UsersStorage.Save(user);
+        }
+
+        private void ShowDiagnosis()
+        {
             ClearForms();
-
-            user.SetScore(rightAnswersCount, startingQuestionsCount);
-            user.SetDiagnosis(rightAnswersCount, startingQuestionsCount);
-
-            QuestionNumberLabel.Text = string.Empty;
 
             var userIsPathetic = user.Diagnosis == "идиот" || user.Diagnosis == "кретин" || user.Diagnosis == "дурак";
             QuestionTextLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
             QuestionTextLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis.ToUpper()}";
-
-            UsersStorage.Save(user);
         }
 
         private void ВыходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,7 +155,7 @@ namespace GeniusIdiotWinFormsApp
             addQuestionForm.ShowDialog();
 
             var questions = QuestionsStorage.GetAll();
-            if (questions.Count != startingQuestionsCount)
+            if (questions.Count != quiz.Length)
             {
                 StartNewQuiz();
             }
@@ -174,7 +167,7 @@ namespace GeniusIdiotWinFormsApp
             questionRemovalForm.ShowDialog();
 
             var questions = QuestionsStorage.GetAll();
-            if (questions.Count != startingQuestionsCount)
+            if (questions.Count != quiz.Length)
             {
                 StartNewQuiz();
             }
