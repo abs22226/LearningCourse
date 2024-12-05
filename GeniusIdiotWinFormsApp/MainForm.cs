@@ -2,18 +2,10 @@ using GeniusIdiotCommon;
 
 namespace GeniusIdiotWinFormsApp
 {
-
-
     public partial class MainForm : Form
     {
         private Quiz quiz;
-        private List<Question> questions;
-        private int allQuestionsCount;
-        private Question currentQuestion;
-        private int currentQuestionNumber;
         private User user;
-        private int correctAnswersCount;
-        private string newQuestionText;
 
         public MainForm()
         {
