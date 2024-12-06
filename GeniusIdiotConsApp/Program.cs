@@ -174,7 +174,7 @@ namespace GeniusIdiotConsApp
             Console.WriteLine("Введите ответ на вопрос:");
             var answer = GetNumericAnswer();
 
-            QuestionsStorage.Add(new Question() { Text = text, Answer = answer });
+            QuestionsStorage.Append(new Question() { Text = text, Answer = answer });
         }
 
         static string GetNewQuestionText()

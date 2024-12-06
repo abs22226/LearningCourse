@@ -15,20 +15,19 @@ namespace GeniusIdiotCommon
 
         public static List<User> GetAll()
         {
-            if (!FileProvider.Exists(filePath))
+            var users = new List<User>();
+            if (FileProvider.Exists(filePath))
             {
-                return new List<User>();
-
+                var fileData = FileProvider.Get(filePath);
+                users = JsonConvert.DeserializeObject<List<User>>(fileData);
             }
-            var fileData = FileProvider.Get(filePath);
-            var users = JsonConvert.DeserializeObject<List<User>>(fileData);
             return users;
         }
 
         private static void Save(List<User> users)
         {
             var jsonData = JsonConvert.SerializeObject(users, Formatting.Indented);
-            FileProvider.Append(filePath, jsonData);
+            FileProvider.Replace(filePath, jsonData);
         }
     }
 }

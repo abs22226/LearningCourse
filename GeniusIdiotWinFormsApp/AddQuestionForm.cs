@@ -41,7 +41,7 @@ namespace GeniusIdiotWinFormsApp
                 int numericAnswer;
                 if (int.TryParse(numericAnswerTextBox.Text, out numericAnswer))
                 {
-                    QuestionsStorage.Add(new Question(addedQuestionText.Trim(), numericAnswer));
+                    QuestionsStorage.Append(new Question() { Text = addedQuestionText.Trim(), Answer = numericAnswer });
                     Close();
                 }
                 else
