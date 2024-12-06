@@ -24,7 +24,8 @@ namespace GeniusIdiotWinFormsApp
             var welcomeForm = new WelcomeForm();
             welcomeForm.ShowDialog();
 
-            user = new User(welcomeForm.UserNameTextBox.Text);
+            user = new User();
+            user.Name = welcomeForm.UserNameTextBox.Text;
         }
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
@@ -37,6 +38,7 @@ namespace GeniusIdiotWinFormsApp
             ClearForms();
 
             quiz = new Quiz(user);
+            quiz.ResetUserResult();
 
             ShowRandomQuestion();
         }
@@ -113,7 +115,7 @@ namespace GeniusIdiotWinFormsApp
 
             ShowDiagnosis();
 
-            UsersStorage.Save(user);
+            UsersStorage.Append(user);
         }
 
         private void ShowDiagnosis()

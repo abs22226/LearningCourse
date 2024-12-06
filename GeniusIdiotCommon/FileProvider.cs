@@ -12,7 +12,7 @@ namespace GeniusIdiotCommon
             }
         }
 
-        public static string GetValue(string fileName)
+        public static string Get(string fileName)
         {
             var value = string.Empty;
             using (var reader = new StreamReader(fileName, Encoding.UTF8))

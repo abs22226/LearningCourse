@@ -9,7 +9,8 @@ namespace GeniusIdiotConsApp
             Console.WriteLine("Введите ваше имя:\n(до 20 символов, cимвол '#' недопустим)");
             var name = GetUserName();
 
-            var user = new User(name);
+            var user = new User();
+            user.Name = name;
 
             var userIsReady = true;
             while (userIsReady)
@@ -34,7 +35,7 @@ namespace GeniusIdiotConsApp
                 quiz.SetUserDiagnosis();
                 Console.WriteLine(user.Name + ", ваш диагноз: " + user.Diagnosis);
 
-                UsersStorage.Save(user);
+                UsersStorage.Append(user);
 
                 Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
                 userIsReady = GetUserDecision();
@@ -62,7 +63,7 @@ namespace GeniusIdiotConsApp
                 if (userIsReady)
                 {
                     Console.Clear();
-                    user.ResetResult();
+                    quiz.ResetUserResult();
                 }
             }
         }
@@ -173,7 +174,7 @@ namespace GeniusIdiotConsApp
             Console.WriteLine("Введите ответ на вопрос:");
             var answer = GetNumericAnswer();
 
-            QuestionsStorage.Add(new Question(text, answer));
+            QuestionsStorage.Add(new Question() { Text = text, Answer = answer });
         }
 
         static string GetNewQuestionText()
