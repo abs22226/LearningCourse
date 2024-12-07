@@ -1,6 +1,6 @@
 ﻿namespace GeniusIdiotWinFormsApp
 {
-    partial class QuestionRemovalForm
+    partial class QuestionsListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +63,7 @@
             deleteButton.UseVisualStyleBackColor = true;
             deleteButton.Click += DeleteButton_Click;
             // 
-            // QuestionRemovalForm
+            // QuestionsListForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -72,8 +72,8 @@
             Controls.Add(questionRemovalDataGridView);
             MaximumSize = new Size(430, 550);
             MinimumSize = new Size(430, 550);
-            Name = "QuestionRemovalForm";
-            Text = "Удаление вопроса";
+            Name = "QuestionsListForm";
+            Text = "Список вопросов";
             Load += DeleteQuestionForm_Load;
             ((System.ComponentModel.ISupportInitialize)questionRemovalDataGridView).EndInit();
             ResumeLayout(false);

@@ -38,7 +38,7 @@
             новыйТестToolStripMenuItem = new ToolStripMenuItem();
             показатьИсториюToolStripMenuItem = new ToolStripMenuItem();
             добавитьВопросToolStripMenuItem = new ToolStripMenuItem();
-            удалитьВопросToolStripMenuItem = new ToolStripMenuItem();
+            списокВопросовToolStripMenuItem = new ToolStripMenuItem();
             перезапускToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
@@ -106,7 +106,7 @@
             // менюToolStripMenuItem
             // 
             менюToolStripMenuItem.BackColor = SystemColors.Control;
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, добавитьВопросToolStripMenuItem, удалитьВопросToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { новыйТестToolStripMenuItem, показатьИсториюToolStripMenuItem, добавитьВопросToolStripMenuItem, списокВопросовToolStripMenuItem, перезапускToolStripMenuItem, выходToolStripMenuItem });
             менюToolStripMenuItem.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(65, 23);
@@ -133,12 +133,12 @@
             добавитьВопросToolStripMenuItem.Text = "Добавить вопрос";
             добавитьВопросToolStripMenuItem.Click += ДобавитьВопросToolStripMenuItem_Click;
             // 
-            // удалитьВопросToolStripMenuItem
+            // списокВопросовToolStripMenuItem
             // 
-            удалитьВопросToolStripMenuItem.Name = "удалитьВопросToolStripMenuItem";
-            удалитьВопросToolStripMenuItem.Size = new Size(195, 24);
-            удалитьВопросToolStripMenuItem.Text = "Удалить вопрос";
-            удалитьВопросToolStripMenuItem.Click += УдалитьВопросToolStripMenuItem_Click;
+            списокВопросовToolStripMenuItem.Name = "списокВопросовToolStripMenuItem";
+            списокВопросовToolStripMenuItem.Size = new Size(195, 24);
+            списокВопросовToolStripMenuItem.Text = "Список вопросов";
+            списокВопросовToolStripMenuItem.Click += СписокВопросовToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
@@ -191,6 +191,6 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private ToolStripMenuItem новыйТестToolStripMenuItem;
         private ToolStripMenuItem добавитьВопросToolStripMenuItem;
-        private ToolStripMenuItem удалитьВопросToolStripMenuItem;
+        private ToolStripMenuItem списокВопросовToolStripMenuItem;
     }
 }

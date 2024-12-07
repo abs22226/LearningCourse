@@ -52,7 +52,10 @@ namespace GeniusIdiotWinFormsApp
             quiz = new Quiz(user);
             quiz.ResetUserResult();
 
-            ShowRandomQuestion();
+            if (quiz.Length != 0)
+            {
+                ShowRandomQuestion();
+            }
         }
 
         private void ClearForms()
@@ -160,23 +163,28 @@ namespace GeniusIdiotWinFormsApp
             var addQuestionForm = new AddQuestionForm();
             addQuestionForm.ShowDialog();
 
-            var questions = QuestionsStorage.GetAll();
-            if (questions.Count != quiz.Length)
+            StartNewQuizIfNeseccary();
+        }
+
+        private void StartNewQuizIfNeseccary()
+        {
+            var quizIsInProcess = questionNumberLabel.Text.StartsWith("Âîïðîñ ¹ ");
+            if (quizIsInProcess)
             {
-                StartNewQuiz();
+                var questionsInStorage = QuestionsStorage.GetAll();
+                if (questionsInStorage.Count != quiz.Length)
+                {
+                    StartNewQuiz();
+                }
             }
         }
 
-        private void ÓäàëèòüÂîïðîñToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ÑïèñîêÂîïðîñîâToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var questionRemovalForm = new QuestionRemovalForm();
-            questionRemovalForm.ShowDialog();
+            var questionsListForm = new QuestionsListForm();
+            questionsListForm.ShowDialog();
 
-            var questions = QuestionsStorage.GetAll();
-            if (questions.Count != quiz.Length)
-            {
-                StartNewQuiz();
-            }
+            StartNewQuizIfNeseccary();
         }
 
         private void ÍîâûéÒåñòToolStripMenuItem_Click(object sender, EventArgs e)

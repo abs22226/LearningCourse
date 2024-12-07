@@ -2,11 +2,11 @@
 
 namespace GeniusIdiotWinFormsApp
 {
-    public partial class QuestionRemovalForm : Form
+    public partial class QuestionsListForm : Form
     {
         private List<Question> questions;
 
-        public QuestionRemovalForm()
+        public QuestionsListForm()
         {
             InitializeComponent();
 
