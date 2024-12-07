@@ -32,7 +32,7 @@
             addedQuestionTextBox = new TextBox();
             label2 = new Label();
             numericAnswerTextBox = new TextBox();
-            addButton = new Button();
+            addingButton = new Button();
             answerCommentLabel = new Label();
             questionCommentLabel = new Label();
             SuspendLayout();
@@ -42,7 +42,7 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(30, 31);
             label1.Name = "label1";
-            label1.Size = new Size(186, 42);
+            label1.Size = new Size(186, 21);
             label1.TabIndex = 0;
             label1.Text = "Введите вопрос:";
             // 
@@ -72,16 +72,16 @@
             numericAnswerTextBox.Size = new Size(355, 29);
             numericAnswerTextBox.TabIndex = 3;
             // 
-            // addButton
+            // addingButton
             // 
-            addButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            addButton.Location = new Point(30, 306);
-            addButton.Name = "addButton";
-            addButton.Size = new Size(355, 69);
-            addButton.TabIndex = 4;
-            addButton.Text = "Добавить";
-            addButton.UseVisualStyleBackColor = true;
-            addButton.Click += AddingButton_Click;
+            addingButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            addingButton.Location = new Point(30, 306);
+            addingButton.Name = "addingButton";
+            addingButton.Size = new Size(355, 69);
+            addingButton.TabIndex = 4;
+            addingButton.Text = "Добавить";
+            addingButton.UseVisualStyleBackColor = true;
+            addingButton.Click += AddingButton_Click;
             // 
             // answerCommentLabel
             // 
@@ -110,7 +110,7 @@
             ClientSize = new Size(414, 429);
             Controls.Add(questionCommentLabel);
             Controls.Add(answerCommentLabel);
-            Controls.Add(addButton);
+            Controls.Add(addingButton);
             Controls.Add(numericAnswerTextBox);
             Controls.Add(label2);
             Controls.Add(addedQuestionTextBox);
@@ -130,7 +130,7 @@
         private TextBox addedQuestionTextBox;
         private Label label2;
         private TextBox numericAnswerTextBox;
-        private Button addButton;
+        private Button addingButton;
         private Label answerCommentLabel;
         private Label questionCommentLabel;
     }

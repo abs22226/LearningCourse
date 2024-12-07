@@ -14,7 +14,7 @@
             UserNameTextBox.GotFocus += UserNameTextBox_GotFocus;
             UserNameTextBox.KeyDown += UserNameTextBox_KeyDown;
 
-            CommentLabel.Text = string.Empty;
+            commentLabel.Text = string.Empty;
         }
 
         private void UserNameTextBox_KeyDown(object? sender, KeyEventArgs e)
@@ -22,6 +22,7 @@
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                startButton.Focus();
                 StartButton_Click(sender, e);
             }
         }
@@ -37,15 +38,15 @@
 
         private void UserNameTextBox_GotFocus(object? sender, EventArgs e)
         {
-            CommentLabel.Text = string.Empty;
+            commentLabel.Text = string.Empty;
         }
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            var userInput = UserNameTextBox.Text;
-            if (string.IsNullOrEmpty(userInput))
+            var userInput = UserNameTextBox.Text; 
+            if (string.IsNullOrEmpty(userInput) || userInput.Trim() == string.Empty)
             {
-                CommentLabel.Text = "Необходимо ввести имя!";
+                commentLabel.Text = "Необходимо ввести имя!";
                 UserNameTextBox.Clear();
             }
             else

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            NextButton = new Button();
-            QuestionNumberLabel = new Label();
-            QuestionTextLabel = new Label();
-            UserAnswerTextBox = new TextBox();
-            CommentLabel = new Label();
+            nextButton = new Button();
+            questionNumberLabel = new Label();
+            questionTextLabel = new Label();
+            userAnswerTextBox = new TextBox();
+            commentLabel = new Label();
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             новыйТестToolStripMenuItem = new ToolStripMenuItem();
@@ -44,55 +44,55 @@
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // NextButton
+            // nextButton
             // 
-            NextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            NextButton.Location = new Point(30, 327);
-            NextButton.Name = "NextButton";
-            NextButton.Size = new Size(355, 69);
-            NextButton.TabIndex = 0;
-            NextButton.Text = "Далее";
-            NextButton.UseVisualStyleBackColor = true;
-            NextButton.Click += NextButton_Click;
+            nextButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            nextButton.Location = new Point(30, 327);
+            nextButton.Name = "nextButton";
+            nextButton.Size = new Size(355, 69);
+            nextButton.TabIndex = 0;
+            nextButton.Text = "Далее";
+            nextButton.UseVisualStyleBackColor = true;
+            nextButton.Click += NextButton_Click;
             // 
-            // QuestionNumberLabel
+            // questionNumberLabel
             // 
-            QuestionNumberLabel.AutoSize = true;
-            QuestionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            QuestionNumberLabel.Location = new Point(30, 55);
-            QuestionNumberLabel.Name = "QuestionNumberLabel";
-            QuestionNumberLabel.Size = new Size(97, 21);
-            QuestionNumberLabel.TabIndex = 1;
-            QuestionNumberLabel.Text = "Вопрос № 1";
+            questionNumberLabel.AutoSize = true;
+            questionNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            questionNumberLabel.Location = new Point(30, 55);
+            questionNumberLabel.Name = "questionNumberLabel";
+            questionNumberLabel.Size = new Size(97, 21);
+            questionNumberLabel.TabIndex = 1;
+            questionNumberLabel.Text = "Вопрос № 1";
             // 
-            // QuestionTextLabel
+            // questionTextLabel
             // 
-            QuestionTextLabel.AutoSize = true;
-            QuestionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            QuestionTextLabel.Location = new Point(30, 121);
-            QuestionTextLabel.MaximumSize = new Size(296, 90);
-            QuestionTextLabel.Name = "QuestionTextLabel";
-            QuestionTextLabel.Size = new Size(111, 21);
-            QuestionTextLabel.TabIndex = 2;
-            QuestionTextLabel.Text = "Текст вопроса";
+            questionTextLabel.AutoSize = true;
+            questionTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            questionTextLabel.Location = new Point(30, 121);
+            questionTextLabel.MaximumSize = new Size(296, 90);
+            questionTextLabel.Name = "questionTextLabel";
+            questionTextLabel.Size = new Size(111, 21);
+            questionTextLabel.TabIndex = 2;
+            questionTextLabel.Text = "Текст вопроса";
             // 
-            // UserAnswerTextBox
+            // userAnswerTextBox
             // 
-            UserAnswerTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            UserAnswerTextBox.Location = new Point(30, 219);
-            UserAnswerTextBox.Name = "UserAnswerTextBox";
-            UserAnswerTextBox.Size = new Size(355, 29);
-            UserAnswerTextBox.TabIndex = 3;
+            userAnswerTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            userAnswerTextBox.Location = new Point(30, 219);
+            userAnswerTextBox.Name = "userAnswerTextBox";
+            userAnswerTextBox.Size = new Size(355, 29);
+            userAnswerTextBox.TabIndex = 3;
             // 
-            // CommentLabel
+            // commentLabel
             // 
-            CommentLabel.AutoSize = true;
-            CommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentLabel.Location = new Point(30, 261);
-            CommentLabel.Name = "CommentLabel";
-            CommentLabel.Size = new Size(164, 21);
-            CommentLabel.TabIndex = 4;
-            CommentLabel.Text = "Текст комментария";
+            commentLabel.AutoSize = true;
+            commentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            commentLabel.Location = new Point(30, 261);
+            commentLabel.Name = "commentLabel";
+            commentLabel.Size = new Size(164, 21);
+            commentLabel.TabIndex = 4;
+            commentLabel.Text = "Текст комментария";
             // 
             // menuStrip1
             // 
@@ -159,11 +159,11 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 450);
-            Controls.Add(CommentLabel);
-            Controls.Add(UserAnswerTextBox);
-            Controls.Add(QuestionTextLabel);
-            Controls.Add(QuestionNumberLabel);
-            Controls.Add(NextButton);
+            Controls.Add(commentLabel);
+            Controls.Add(userAnswerTextBox);
+            Controls.Add(questionTextLabel);
+            Controls.Add(questionNumberLabel);
+            Controls.Add(nextButton);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             MaximumSize = new Size(430, 489);
@@ -179,11 +179,11 @@
 
         #endregion
 
-        private Button NextButton;
-        private Label QuestionNumberLabel;
-        private Label QuestionTextLabel;
-        private TextBox UserAnswerTextBox;
-        private Label CommentLabel;
+        private Button nextButton;
+        private Label questionNumberLabel;
+        private Label questionTextLabel;
+        private TextBox userAnswerTextBox;
+        private Label commentLabel;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem показатьИсториюToolStripMenuItem;

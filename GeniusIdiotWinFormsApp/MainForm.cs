@@ -14,8 +14,8 @@ namespace GeniusIdiotWinFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            UserAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
-            UserAnswerTextBox.KeyDown += UserAnswerTextBox_KeyDown;
+            userAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
+            userAnswerTextBox.KeyDown += UserAnswerTextBox_KeyDown;
 
             MeetNewUser();
             StartNewQuiz();
@@ -26,6 +26,7 @@ namespace GeniusIdiotWinFormsApp
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                nextButton.Focus();
                 NextButton_Click(sender, e);
             }
         }
@@ -41,7 +42,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void UserAnswerTextBox_GotFocus(object? sender, EventArgs e)
         {
-            CommentLabel.Text = string.Empty;
+            commentLabel.Text = string.Empty;
         }
 
         private void StartNewQuiz()
@@ -56,17 +57,17 @@ namespace GeniusIdiotWinFormsApp
 
         private void ClearForms()
         {
-            QuestionNumberLabel.Text = string.Empty;
-            QuestionTextLabel.Text = string.Empty;
-            UserAnswerTextBox.Clear();
-            CommentLabel.Text = string.Empty;
+            questionNumberLabel.Text = string.Empty;
+            questionTextLabel.Text = string.Empty;
+            userAnswerTextBox.Clear();
+            commentLabel.Text = string.Empty;
 
-            QuestionTextLabel.ForeColor = Color.Black;
+            questionTextLabel.ForeColor = Color.Black;
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (QuestionNumberLabel.Text.StartsWith("Вопрос № "))
+            if (questionNumberLabel.Text.StartsWith("Вопрос № "))
             {
                 var userAnswer = GetNumericAnswer();
 
@@ -86,14 +87,14 @@ namespace GeniusIdiotWinFormsApp
             }
             else
             {
-                UserAnswerTextBox.Clear();
-                CommentLabel.Text = "Перейдите в меню в левом верхнем углу!";
+                userAnswerTextBox.Clear();
+                commentLabel.Text = "Перейдите в меню в левом верхнем углу!";
             }
         }
 
         private int? GetNumericAnswer()
         {
-            string userInput = UserAnswerTextBox.Text;
+            string userInput = userAnswerTextBox.Text;
             int userAnswer;
             if (int.TryParse(userInput, out userAnswer))
             {
@@ -101,8 +102,8 @@ namespace GeniusIdiotWinFormsApp
             }
             else
             {
-                UserAnswerTextBox.Clear();
-                CommentLabel.Text = "Введите число от -2*10^9 до 2*10^9!";
+                userAnswerTextBox.Clear();
+                commentLabel.Text = "Введите число от -2*10^9 до 2*10^9!";
                 return null;
             }
         }
@@ -113,10 +114,10 @@ namespace GeniusIdiotWinFormsApp
 
             quiz.RandomizeCurrentQuestion();
 
-            QuestionNumberLabel.Text = "Вопрос № " + quiz.CurrentQuestionNumber;
-            QuestionTextLabel.Text = quiz.CurrentQuestion.Text;
+            questionNumberLabel.Text = "Вопрос № " + quiz.CurrentQuestionNumber;
+            questionTextLabel.Text = quiz.CurrentQuestion.Text;
 
-            UserAnswerTextBox.Focus();
+            userAnswerTextBox.Focus();
         }
 
         private void FinishTheQuiz()
@@ -134,8 +135,8 @@ namespace GeniusIdiotWinFormsApp
             ClearForms();
 
             var userIsPathetic = user.Diagnosis == "идиот" || user.Diagnosis == "кретин" || user.Diagnosis == "дурак";
-            QuestionTextLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
-            QuestionTextLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis.ToUpper()}";
+            questionTextLabel.ForeColor = userIsPathetic ? Color.Red : Color.Green;
+            questionTextLabel.Text = $"Количество правильных ответов: {user.Score}\n{user.Name}, ваш диагноз: {user.Diagnosis.ToUpper()}";
         }
 
         private void ВыходToolStripMenuItem_Click(object sender, EventArgs e)

@@ -30,8 +30,8 @@
         {
             inputNameLabel = new Label();
             UserNameTextBox = new TextBox();
-            StartButton = new Button();
-            CommentLabel = new Label();
+            startButton = new Button();
+            commentLabel = new Label();
             SuspendLayout();
             // 
             // inputNameLabel
@@ -52,34 +52,34 @@
             UserNameTextBox.Size = new Size(355, 29);
             UserNameTextBox.TabIndex = 2;
             // 
-            // StartButton
+            // startButton
             // 
-            StartButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            StartButton.Location = new Point(30, 174);
-            StartButton.Name = "StartButton";
-            StartButton.Size = new Size(355, 69);
-            StartButton.TabIndex = 3;
-            StartButton.Text = "Начать";
-            StartButton.UseVisualStyleBackColor = true;
-            StartButton.Click += StartButton_Click;
+            startButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            startButton.Location = new Point(30, 174);
+            startButton.Name = "startButton";
+            startButton.Size = new Size(355, 69);
+            startButton.TabIndex = 3;
+            startButton.Text = "Начать";
+            startButton.UseVisualStyleBackColor = true;
+            startButton.Click += StartButton_Click;
             // 
-            // CommentLabel
+            // commentLabel
             // 
-            CommentLabel.AutoSize = true;
-            CommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentLabel.Location = new Point(30, 119);
-            CommentLabel.Name = "CommentLabel";
-            CommentLabel.Size = new Size(164, 21);
-            CommentLabel.TabIndex = 4;
-            CommentLabel.Text = "Текст комментария";
+            commentLabel.AutoSize = true;
+            commentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            commentLabel.Location = new Point(30, 119);
+            commentLabel.Name = "commentLabel";
+            commentLabel.Size = new Size(164, 21);
+            commentLabel.TabIndex = 4;
+            commentLabel.Text = "Текст комментария";
             // 
             // WelcomeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 292);
-            Controls.Add(CommentLabel);
-            Controls.Add(StartButton);
+            Controls.Add(commentLabel);
+            Controls.Add(startButton);
             Controls.Add(UserNameTextBox);
             Controls.Add(inputNameLabel);
             MaximumSize = new Size(430, 331);
@@ -94,7 +94,7 @@
         #endregion
         private Label inputNameLabel;
         public TextBox UserNameTextBox;
-        private Button StartButton;
-        private Label CommentLabel;
+        private Button startButton;
+        private Label commentLabel;
     }
 }

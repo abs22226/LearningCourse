@@ -26,6 +26,7 @@ namespace GeniusIdiotWinFormsApp
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                addingButton.Focus();
                 AddingButton_Click(sender, e);
             }
         }
@@ -35,6 +36,7 @@ namespace GeniusIdiotWinFormsApp
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                addingButton.Focus();
                 AddingButton_Click(sender, e);
             }
         }

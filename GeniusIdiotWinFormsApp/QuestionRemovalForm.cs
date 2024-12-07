@@ -28,6 +28,7 @@ namespace GeniusIdiotWinFormsApp
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                deleteButton.Focus();
                 DeleteButton_Click(sender, e);
             }
         }
