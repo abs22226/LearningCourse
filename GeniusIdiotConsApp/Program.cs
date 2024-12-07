@@ -6,7 +6,7 @@ namespace GeniusIdiotConsApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите ваше имя:\n(до 20 символов, cимвол '#' недопустим)");
+            Console.WriteLine("Введите ваше имя:\n(до 20 символов)");
             var name = GetUserName();
 
             var user = new User();
@@ -75,28 +75,32 @@ namespace GeniusIdiotConsApp
                 var userInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(userInput))
                 {
-                    Console.CursorTop--;
+                    EraseFromConsole(userInput);
                 }
                 else
                 {
                     var userName = userInput.Trim();
-                    if (userName.Contains('#') || userName.Length > 20)
+                    if (userName.Length > 20)
                     {
-                        Console.CursorTop--;
-                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        EraseFromConsole(userInput);
                     }
                     else
                     {
                         if (userName.Length < userInput.Length)
                         {
-                            Console.CursorTop--;
-                            Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                            EraseFromConsole(userInput);
                             Console.WriteLine(userName);
                         }
                         return userName;
                     }
                 }
             }
+        }
+
+        static void EraseFromConsole(string userInput)
+        {
+            Console.CursorTop--;
+            Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r");
         }
 
         static int GetNumericAnswer()
@@ -109,16 +113,14 @@ namespace GeniusIdiotConsApp
                 {
                     if (userAnswer.ToString().Length < userInput.Length)
                     {
-                        Console.CursorTop--;
-                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        EraseFromConsole(userInput);
                         Console.WriteLine(userAnswer);
                     }
                     return userAnswer;
                 }
                 else
                 {
-                    Console.CursorTop--;
-                    Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r");
+                    EraseFromConsole(userInput);
                     Console.WriteLine("Введите число от -2*10^9 до 2*10^9!");
                 }
             }
@@ -129,24 +131,22 @@ namespace GeniusIdiotConsApp
             while (true)
             {
                 var userInput = Console.ReadLine();
-                if (String.IsNullOrEmpty(userInput))
+                if (string.IsNullOrEmpty(userInput))
                 {
-                    Console.CursorTop--;
+                    EraseFromConsole(userInput);
                 }
                 else
                 {
                     var userAnswer = userInput.Trim().ToLower();
                     if (userAnswer != "да" && userAnswer != "нет")
                     {
-                        Console.CursorTop--;
-                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        EraseFromConsole(userInput);
                     }
                     else
                     {
                         if (userAnswer.Length < userInput.Length)
                         {
-                            Console.CursorTop--;
-                            Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                            EraseFromConsole(userInput);
                             Console.WriteLine(userAnswer);
                         }
                         return userAnswer == "да" ? true : false;
@@ -182,17 +182,16 @@ namespace GeniusIdiotConsApp
             while (true)
             {
                 var userInput = Console.ReadLine();
-                if (String.IsNullOrEmpty(userInput))
+                if (string.IsNullOrEmpty(userInput))
                 {
-                    Console.CursorTop--;
+                    EraseFromConsole(userInput);
                 }
                 else
                 {
                     var newQuestionText = userInput.Trim();
                     if (newQuestionText.Length < userInput.Length)
                     {
-                        Console.CursorTop--;
-                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        EraseFromConsole(userInput);
                         Console.WriteLine(newQuestionText);
                     }
                     return newQuestionText;
@@ -225,16 +224,14 @@ namespace GeniusIdiotConsApp
                 {
                     if (number < 1 || number > questionsCount)
                     {
-                        Console.CursorTop--;
-                        Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                        EraseFromConsole(userInput);
                         Console.WriteLine($"Введите число от 1 до {questionsCount}!");
                     }
                     else
                     {
                         if (number.ToString().Length < userInput.Length)
                         {
-                            Console.CursorTop--;
-                            Console.Write("\r" + new string(' ', userInput.Length) + "\r");
+                            EraseFromConsole(userInput);
                             Console.WriteLine(number);
                         }
                         return number;
@@ -242,8 +239,7 @@ namespace GeniusIdiotConsApp
                 }
                 else
                 {
-                    Console.CursorTop--;
-                    Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r");
+                    EraseFromConsole(userInput);
                     Console.WriteLine($"Введите число от 1 до {questionsCount}!");
                 }
             }
