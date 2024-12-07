@@ -40,14 +40,14 @@
             inputNameLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             inputNameLabel.Location = new Point(30, 31);
             inputNameLabel.Name = "inputNameLabel";
-            inputNameLabel.Size = new Size(175, 42);
+            inputNameLabel.Size = new Size(144, 21);
             inputNameLabel.TabIndex = 1;
-            inputNameLabel.Text = "Введите ваше имя:\r(символ # недопустим)";
+            inputNameLabel.Text = "Введите ваше имя:\r";
             // 
             // UserNameTextBox
             // 
             UserNameTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            UserNameTextBox.Location = new Point(30, 97);
+            UserNameTextBox.Location = new Point(30, 76);
             UserNameTextBox.Name = "UserNameTextBox";
             UserNameTextBox.Size = new Size(355, 29);
             UserNameTextBox.TabIndex = 2;
@@ -55,7 +55,7 @@
             // StartButton
             // 
             StartButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            StartButton.Location = new Point(30, 195);
+            StartButton.Location = new Point(30, 174);
             StartButton.Name = "StartButton";
             StartButton.Size = new Size(355, 69);
             StartButton.TabIndex = 3;
@@ -67,7 +67,7 @@
             // 
             CommentLabel.AutoSize = true;
             CommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            CommentLabel.Location = new Point(30, 140);
+            CommentLabel.Location = new Point(30, 119);
             CommentLabel.Name = "CommentLabel";
             CommentLabel.Size = new Size(164, 21);
             CommentLabel.TabIndex = 4;
@@ -77,13 +77,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(414, 313);
+            ClientSize = new Size(414, 292);
             Controls.Add(CommentLabel);
             Controls.Add(StartButton);
             Controls.Add(UserNameTextBox);
             Controls.Add(inputNameLabel);
-            MaximumSize = new Size(430, 352);
-            MinimumSize = new Size(430, 352);
+            MaximumSize = new Size(430, 331);
+            MinimumSize = new Size(430, 331);
             Name = "WelcomeForm";
             Text = "Регистрация";
             Load += WelcomeForm_Load;

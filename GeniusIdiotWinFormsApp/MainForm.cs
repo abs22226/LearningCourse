@@ -15,8 +15,19 @@ namespace GeniusIdiotWinFormsApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             UserAnswerTextBox.GotFocus += UserAnswerTextBox_GotFocus;
+            UserAnswerTextBox.KeyDown += UserAnswerTextBox_KeyDown;
+
             MeetNewUser();
             StartNewQuiz();
+        }
+
+        private void UserAnswerTextBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                NextButton_Click(sender, e);
+            }
         }
 
         private void MeetNewUser()
@@ -65,7 +76,7 @@ namespace GeniusIdiotWinFormsApp
 
                     if (quiz.IsEnded)
                     {
-                        FinishTheQuiz();                        
+                        FinishTheQuiz();
                     }
                     else
                     {

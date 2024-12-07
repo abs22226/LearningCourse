@@ -1,26 +1,39 @@
-﻿namespace GeniusIdiotCommon
+﻿using Newtonsoft.Json;
+
+namespace GeniusIdiotCommon
 {
     public class QuestionsStorage
     {
-        private static string filePath = "QuestionsStorage.txt";
+        private static string filePath = "QuestionsStorage.json";
+
+        public static void Append(Question newQuestion)
+        {
+            var questions = GetAll();
+            questions.Add(newQuestion);
+            Save(questions);
+        }
+
+        public static void Remove(Question deletedQuestion)
+        {
+            var questions = GetAll();
+            foreach (var question in questions)
+            {
+                if (question == deletedQuestion)
+                {
+                    questions.Remove(question);
+                    break;
+                }
+            }
+            Save(questions);
+        }
 
         public static List<Question> GetAll()
         {
             var questions = new List<Question>();
             if (FileProvider.Exists(filePath))
             {
-                var value = FileProvider.Get(filePath);
-                var lines = value.Split('\n');
-                foreach (var line in lines)
-                {
-                    if (!string.IsNullOrEmpty(line))
-                    {
-                        var result = line.Split('#');
-                        var text = result[0];
-                        var answer = Convert.ToInt32(result[1].TrimEnd('\r'));
-                        questions.Add(new Question() { Text = text, Answer = answer });
-                    }
-                }
+                var fileData = FileProvider.Get(filePath);
+                questions = JsonConvert.DeserializeObject<List<Question>>(fileData);
             }
             else
             {
@@ -35,33 +48,10 @@
             return questions;
         }
 
-        public static void Save(List<Question> questions)
+        private static void Save(List<Question> questions)
         {
-            foreach (var question in questions)
-            {
-                Add(question);
-            }
-        }
-
-        public static void Add(Question newQuestion)
-        {
-            FileProvider.Append(filePath, $"{newQuestion.Text}#{newQuestion.Answer}");
-        }
-
-        public static void Remove(Question question)
-        {
-            var questions = GetAll();            
-            for (int i = 0; i < questions.Count; i++)
-            {
-                if (questions[i].Text == question.Text)
-                {
-                    questions.RemoveAt(i);
-                    break;
-                }
-            }
-
-            FileProvider.Clear(filePath);
-            Save(questions);
+            var jsonData = JsonConvert.SerializeObject(questions, Formatting.Indented);
+            FileProvider.Replace(filePath, jsonData);
         }
     }
 }

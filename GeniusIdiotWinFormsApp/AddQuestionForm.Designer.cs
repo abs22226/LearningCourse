@@ -44,12 +44,12 @@
             label1.Name = "label1";
             label1.Size = new Size(186, 42);
             label1.TabIndex = 0;
-            label1.Text = "Введите вопрос: (символ # недопустим)";
+            label1.Text = "Введите вопрос:";
             // 
             // addedQuestionTextBox
             // 
             addedQuestionTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            addedQuestionTextBox.Location = new Point(30, 97);
+            addedQuestionTextBox.Location = new Point(30, 76);
             addedQuestionTextBox.Name = "addedQuestionTextBox";
             addedQuestionTextBox.Size = new Size(355, 29);
             addedQuestionTextBox.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(30, 184);
+            label2.Location = new Point(30, 163);
             label2.Name = "label2";
             label2.Size = new Size(186, 21);
             label2.TabIndex = 2;
@@ -67,7 +67,7 @@
             // numericAnswerTextBox
             // 
             numericAnswerTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            numericAnswerTextBox.Location = new Point(30, 229);
+            numericAnswerTextBox.Location = new Point(30, 208);
             numericAnswerTextBox.Name = "numericAnswerTextBox";
             numericAnswerTextBox.Size = new Size(355, 29);
             numericAnswerTextBox.TabIndex = 3;
@@ -75,7 +75,7 @@
             // addButton
             // 
             addButton.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            addButton.Location = new Point(30, 327);
+            addButton.Location = new Point(30, 306);
             addButton.Name = "addButton";
             addButton.Size = new Size(355, 69);
             addButton.TabIndex = 4;
@@ -87,7 +87,7 @@
             // 
             answerCommentLabel.AutoSize = true;
             answerCommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            answerCommentLabel.Location = new Point(30, 272);
+            answerCommentLabel.Location = new Point(30, 251);
             answerCommentLabel.Name = "answerCommentLabel";
             answerCommentLabel.Size = new Size(164, 21);
             answerCommentLabel.TabIndex = 5;
@@ -97,7 +97,7 @@
             // 
             questionCommentLabel.AutoSize = true;
             questionCommentLabel.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            questionCommentLabel.Location = new Point(30, 140);
+            questionCommentLabel.Location = new Point(30, 119);
             questionCommentLabel.Name = "questionCommentLabel";
             questionCommentLabel.Size = new Size(164, 21);
             questionCommentLabel.TabIndex = 6;
@@ -107,7 +107,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(414, 450);
+            ClientSize = new Size(414, 429);
             Controls.Add(questionCommentLabel);
             Controls.Add(answerCommentLabel);
             Controls.Add(addButton);
@@ -115,8 +115,8 @@
             Controls.Add(label2);
             Controls.Add(addedQuestionTextBox);
             Controls.Add(label1);
-            MaximumSize = new Size(430, 489);
-            MinimumSize = new Size(430, 489);
+            MaximumSize = new Size(430, 468);
+            MinimumSize = new Size(430, 468);
             Name = "AddQuestionForm";
             Text = "Добавление вопроса";
             Load += AddQuestionForm_Load;

@@ -16,10 +16,20 @@ namespace GeniusIdiotWinFormsApp
         private void DeleteQuestionForm_Load(object sender, EventArgs e)
         {
             questionNumberTextBox.GotFocus += QuestionNumberTextBox_GotFocus;
+            questionNumberTextBox.KeyDown += QuestionNumberTextBox_KeyDown;
 
             commentLabel.Text = string.Empty;
-            
+
             ShowQuestions();
+        }
+
+        private void QuestionNumberTextBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                DeleteButton_Click(sender, e);
+            }
         }
 
         private void QuestionNumberTextBox_GotFocus(object? sender, EventArgs e)
