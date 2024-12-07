@@ -2,11 +2,11 @@
 
 namespace GeniusIdiotWinFormsApp
 {
-    public partial class questionRemovalForm : Form
+    public partial class QuestionRemovalForm : Form
     {
         private List<Question> questions;
 
-        public questionRemovalForm()
+        public QuestionRemovalForm()
         {
             InitializeComponent();
 
@@ -15,27 +15,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void DeleteQuestionForm_Load(object sender, EventArgs e)
         {
-            questionNumberTextBox.GotFocus += QuestionNumberTextBox_GotFocus;
-            questionNumberTextBox.KeyDown += QuestionNumberTextBox_KeyDown;
-
-            commentLabel.Text = string.Empty;
-
             ShowQuestions();
-        }
-
-        private void QuestionNumberTextBox_KeyDown(object? sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                deleteButton.Focus();
-                DeleteButton_Click(sender, e);
-            }
-        }
-
-        private void QuestionNumberTextBox_GotFocus(object? sender, EventArgs e)
-        {
-            commentLabel.Text = string.Empty;
         }
 
         private void ShowQuestions()
@@ -43,25 +23,45 @@ namespace GeniusIdiotWinFormsApp
             questions = QuestionsStorage.GetAll();
             for (int i = 0; i < questions.Count; i++)
             {
-                questionRemovalDataGridView.Rows.Add($"{i + 1}.", questions[i].Text);
+                questionRemovalDataGridView.Rows.Add(questions[i].Text);
             }
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            int number;
-            if (int.TryParse(questionNumberTextBox.Text, out number) && number >= 1 && number <= questions.Count)
+            var selectedCells = questionRemovalDataGridView.SelectedCells;
+            for (int i = 0; i < selectedCells.Count; i++)
             {
-                var index = number - 1;
-                var question = questions[index];
-                QuestionsStorage.Remove(question);
-                Close();
+                var allRows = questionRemovalDataGridView.Rows;
+                for (int j = 0; j < allRows.Count - 1; j++)
+                {
+                    var row = allRows[j];
+                    var selectedCell = selectedCells[i];
+                    if (row.Cells.Contains(selectedCell))
+                    {
+                        var selectedQuestion = GetQuestion(selectedCell);
+                        QuestionsStorage.Remove(selectedQuestion);
+                        questions = QuestionsStorage.GetAll();
+
+                        questionRemovalDataGridView.Rows.RemoveAt(j);
+                        j--;
+
+                        break;
+                    }
+                }
             }
-            else
+        }
+
+        private Question GetQuestion(DataGridViewCell selectedCell)
+        {
+            foreach (var question in questions)
             {
-                commentLabel.Text = $"Введите число от 1 до {questions.Count}!";
-                questionNumberTextBox.Clear();
+                if (question.Text == selectedCell.FormattedValue.ToString())
+                {
+                    return question;
+                }
             }
+            return new Question();
         }
     }
 }

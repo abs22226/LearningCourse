@@ -169,7 +169,7 @@ namespace GeniusIdiotWinFormsApp
 
         private void ÓäàëèòüÂîïğîñToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var questionRemovalForm = new questionRemovalForm();
+            var questionRemovalForm = new QuestionRemovalForm();
             questionRemovalForm.ShowDialog();
 
             var questions = QuestionsStorage.GetAll();
