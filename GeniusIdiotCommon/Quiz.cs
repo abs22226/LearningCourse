@@ -33,7 +33,7 @@ namespace GeniusIdiotCommon
             {
                 correctAnswersCount++;
             }
-            questions.Remove(CurrentQuestion);
+            RemoveCurrentQuestion();
         }
 
         public void SetUserScore()
@@ -59,6 +59,11 @@ namespace GeniusIdiotCommon
                 case < 100: user.Diagnosis = "талант"; break;
                 default: user.Diagnosis = "гений"; break;
             }
+        }
+
+        public void RemoveCurrentQuestion()
+        {
+            questions.Remove(CurrentQuestion);
         }
     }
 }

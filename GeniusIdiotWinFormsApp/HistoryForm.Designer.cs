@@ -68,6 +68,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(414, 450);
             Controls.Add(historyDataGridView);
+            MaximumSize = new Size(430, 489);
+            MinimumSize = new Size(430, 489);
             Name = "HistoryForm";
             Text = "История";
             Load += HistoryForm_Load;
