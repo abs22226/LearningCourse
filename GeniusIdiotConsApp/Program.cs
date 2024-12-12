@@ -1,9 +1,17 @@
 ﻿using GeniusIdiotCommon;
+using System.Text;
 
 namespace GeniusIdiotConsApp
 {
     class Program
     {
+        private static StringBuilder inputBuffer = new StringBuilder();
+        private static object consoleLock = new object(); // Lock object
+        private static ManualResetEvent answerReceived = new ManualResetEvent(false);
+        private static int userAnswer;
+        private static bool keepInputThreadRunning;
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Введите ваше имя:\n(до 20 символов)");
@@ -11,6 +19,8 @@ namespace GeniusIdiotConsApp
 
             var user = new User();
             user.Name = name;
+
+
 
             var userIsReady = true;
             while (userIsReady)
@@ -20,20 +30,56 @@ namespace GeniusIdiotConsApp
                 for (int i = 0; i < quiz.Length; i++)
                 {
                     quiz.RandomizeCurrentQuestion();
-                    
-                    Console.WriteLine("Вопрос №" + (quiz.CurrentQuestionNumber));
-                    Console.WriteLine(quiz.CurrentQuestion.Text);
 
-                    var userAnswer = GetNumericAnswer();
+                    lock (consoleLock)
+                    {
+                        Console.WriteLine("Вопрос №" + (quiz.CurrentQuestionNumber));
+                        Console.WriteLine(quiz.CurrentQuestion.Text);
+                        Console.WriteLine($"Time left: 10");
+                    }
+
+                    userAnswer = int.MinValue;
+                    answerReceived.Reset();
+
+                    // Start a new thread for input handling
+                    Thread inputThread = new Thread(HandleUserInput);
+                    keepInputThreadRunning = true;
+                    inputThread.Start();
+
+                    for (int seconds = 10; seconds >= 0; seconds--)
+                    {
+                        lock (consoleLock)
+                        {
+                            Console.CursorTop--;
+                            Console.WriteLine(seconds < 10 ? $"\rTime left: 0{seconds}" : $"\rTime left: {seconds}");
+                            Console.Write(inputBuffer);
+                        }
+                        Thread.Sleep(1000);
+
+                        if (answerReceived.WaitOne(0)) // Check if the event is set
+                        {
+                            break; // Exit the countdown loop if an answer is received
+                        }
+
+                        if (seconds == 0)
+                        {
+                            Console.Write("\r" + new string(' ', inputBuffer.Length) + "\r" + string.Empty);
+                        }
+                    }
+
+                    keepInputThreadRunning = false;
 
                     quiz.AcceptUserAnswer(userAnswer);
+
+                    inputBuffer.Clear();
+
+                    lock (consoleLock)
+                    {
+                        Console.WriteLine();
+                    }
                 }
 
-                quiz.SetUserScore();
-                Console.WriteLine("Количество правильных ответов: " + user.Score);
-
-                quiz.SetUserDiagnosis();
-                Console.WriteLine(user.Name + ", ваш диагноз: " + user.Diagnosis);
+                ShowUserDiagnosis(user, quiz);
 
                 UsersStorage.Append(user);
 
@@ -66,6 +112,69 @@ namespace GeniusIdiotConsApp
                     quiz.ResetUserResult();
                 }
             }
+        }
+
+        private static void HandleUserInput()
+        {
+            inputBuffer.Clear();
+
+            while (keepInputThreadRunning)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        var userInput = inputBuffer.ToString();
+                        if (int.TryParse(userInput, out userAnswer))
+                        {
+                            if (userAnswer.ToString().Length < userInput.Length)
+                            {                                
+                                lock (consoleLock)
+                                {
+                                    Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r" + string.Empty);
+                                    Console.Write(userAnswer);
+                                }
+                            }
+                            answerReceived.Set();
+                        }
+                        else
+                        {
+                            lock (consoleLock)
+                            {
+                                Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r" + string.Empty);
+                            }
+                            inputBuffer.Clear();
+                        }
+                    }
+                    else if (key.Key == ConsoleKey.Backspace && inputBuffer.Length > 0)
+                    {
+                        lock (consoleLock)
+                        {
+                            Console.Write("\b \b"); // Erase the last character
+                        }
+                        inputBuffer.Length--;
+                    }
+                    else
+                    {
+                        inputBuffer.Append(key.KeyChar);
+                        lock (consoleLock)
+                        {
+                            Console.Write(key.KeyChar);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void ShowUserDiagnosis(User user, Quiz quiz)
+        {
+            quiz.SetUserScore();
+            Console.WriteLine("Количество правильных ответов: " + user.Score);
+
+            quiz.SetUserDiagnosis();
+            Console.WriteLine(user.Name + ", ваш диагноз: " + user.Diagnosis);
         }
 
         static string GetUserName()
