@@ -9,41 +9,41 @@ namespace GeniusIdiotConsApp
         private static object consoleLock = new object(); // Lock object
         private static ManualResetEvent answerReceived = new ManualResetEvent(false);
         private static int userAnswer;
-        private static bool keepInputThreadRunning;
-
 
         static void Main(string[] args)
         {
             Console.WriteLine("Введите ваше имя:\n(до 20 символов)");
             var name = GetUserName();
 
+            Console.Clear();
+
             var user = new User();
             user.Name = name;
-
-
 
             var userIsReady = true;
             while (userIsReady)
             {
+                Console.WriteLine($"{user.Name}, начинаем новый квиз:");
+                Console.WriteLine($"\nУ вас будет 10 секунд, чтобы ввести ответ, после чего, при отсутствии ответа, он будет засчитан как неверный, и появится следующий вопрос. Ввод должен быть числом от -2*10^9 до 2*10^9, иначе он не будет принят.");
+                Console.WriteLine($"\nКогда будете готовы начать, нажмите любую клавишу.");
+                
+                Console.ReadKey();
+                Console.Clear();
+
                 var quiz = new Quiz(user);
 
                 for (int i = 0; i < quiz.Length; i++)
                 {
                     quiz.RandomizeCurrentQuestion();
 
-                    lock (consoleLock)
-                    {
-                        Console.WriteLine("Вопрос №" + (quiz.CurrentQuestionNumber));
-                        Console.WriteLine(quiz.CurrentQuestion.Text);
-                        Console.WriteLine($"Time left: 10");
-                    }
+                    Console.WriteLine("Вопрос №" + (quiz.CurrentQuestionNumber));
+                    Console.WriteLine(quiz.CurrentQuestion.Text);
+                    Console.WriteLine($":10");
 
                     userAnswer = int.MinValue;
                     answerReceived.Reset();
 
-                    // Start a new thread for input handling
-                    Thread inputThread = new Thread(HandleUserInput);
-                    keepInputThreadRunning = true;
+                    Thread inputThread = new Thread(HandleUserInput); // Start a new thread for input handling
                     inputThread.Start();
 
                     for (int seconds = 10; seconds >= 0; seconds--)
@@ -51,7 +51,7 @@ namespace GeniusIdiotConsApp
                         lock (consoleLock)
                         {
                             Console.CursorTop--;
-                            Console.WriteLine(seconds < 10 ? $"\rTime left: 0{seconds}" : $"\rTime left: {seconds}");
+                            Console.WriteLine(seconds < 10 ? $"\r:0{seconds}" : $"\r:{seconds}");
                             Console.Write(inputBuffer);
                         }
                         Thread.Sleep(1000);
@@ -63,48 +63,50 @@ namespace GeniusIdiotConsApp
 
                         if (seconds == 0)
                         {
-                            Console.Write("\r" + new string(' ', inputBuffer.Length) + "\r" + string.Empty);
+                            lock (consoleLock)
+                            {
+                                Console.Write("\r" + new string(' ', inputBuffer.Length) + "\r" + "...");
+                            }
                         }
                     }
 
-                    keepInputThreadRunning = false;
+                    answerReceived.Set();
+                    inputThread.Join();
 
                     quiz.AcceptUserAnswer(userAnswer);
-
                     inputBuffer.Clear();
 
-                    lock (consoleLock)
-                    {
-                        Console.WriteLine();
-                    }
+                    Console.WriteLine("\n");
                 }
+
+                Console.Clear();
 
                 ShowUserDiagnosis(user, quiz);
 
                 UsersStorage.Append(user);
 
-                Console.WriteLine("Хотите посмотреть историю результатов? (Да/Нет)");
+                Console.WriteLine("\nХотите посмотреть историю результатов? (Да/Нет)");
                 userIsReady = GetUserDecision();
                 if (userIsReady)
                 {
                     ShowHistory();
                 }
 
-                Console.WriteLine("Хотите добавить новый вопрос? (Да/Нет)");
+                Console.WriteLine("\nХотите добавить новый вопрос? (Да/Нет)");
                 userIsReady = GetUserDecision();
                 if (userIsReady)
                 {
                     AddNewQuestion();
                 }
 
-                Console.WriteLine("Хотите удалить какой-то вопрос? (Да/Нет)");
+                Console.WriteLine("\nХотите удалить какой-то вопрос? (Да/Нет)");
                 userIsReady = GetUserDecision();
                 if (userIsReady)
                 {
                     RemoveQuestion();
                 }
 
-                Console.WriteLine("Хотите пройти тест снова? (Да/Нет)");
+                Console.WriteLine("\nХотите пройти тест снова? (Да/Нет)");
                 userIsReady = GetUserDecision();
                 if (userIsReady)
                 {
@@ -118,7 +120,7 @@ namespace GeniusIdiotConsApp
         {
             inputBuffer.Clear();
 
-            while (keepInputThreadRunning)
+            while (!answerReceived.WaitOne(0))
             {
                 if (Console.KeyAvailable)
                 {
@@ -130,7 +132,7 @@ namespace GeniusIdiotConsApp
                         if (int.TryParse(userInput, out userAnswer))
                         {
                             if (userAnswer.ToString().Length < userInput.Length)
-                            {                                
+                            {
                                 lock (consoleLock)
                                 {
                                     Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r" + string.Empty);
@@ -184,7 +186,9 @@ namespace GeniusIdiotConsApp
                 var userInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(userInput))
                 {
-                    EraseFromConsole(userInput);
+                    Console.CursorTop--;
+                    Console.WriteLine("Аноним");
+                    return "Аноним";
                 }
                 else
                 {
@@ -195,6 +199,13 @@ namespace GeniusIdiotConsApp
                     }
                     else
                     {
+                        if (string.IsNullOrEmpty(userName))
+                        {
+                            Console.CursorTop--;
+                            Console.WriteLine("Аноним");
+                            return "Аноним";
+                        }
+
                         if (userName.Length < userInput.Length)
                         {
                             EraseFromConsole(userInput);
@@ -209,7 +220,7 @@ namespace GeniusIdiotConsApp
         static void EraseFromConsole(string userInput)
         {
             Console.CursorTop--;
-            Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r");
+            Console.Write(string.IsNullOrEmpty(userInput) ? "\r" + string.Empty : "\r" + new string(' ', userInput.Length) + "\r" + string.Empty);
         }
 
         static int GetNumericAnswer()
@@ -278,9 +289,9 @@ namespace GeniusIdiotConsApp
 
         static void AddNewQuestion()
         {
-            Console.WriteLine("Введите текст вопроса:");
+            Console.WriteLine("\nВведите текст вопроса:");
             var text = GetNewQuestionText();
-            Console.WriteLine("Введите ответ на вопрос:");
+            Console.WriteLine("\nВведите ответ на вопрос:");
             var answer = GetNumericAnswer();
 
             QuestionsStorage.Append(new Question() { Text = text, Answer = answer });
@@ -311,7 +322,7 @@ namespace GeniusIdiotConsApp
         static void RemoveQuestion()
         {
             var questions = QuestionsStorage.GetAll();
-            Console.WriteLine("Введите номер вопроса для удаления:");
+            Console.WriteLine("\nВведите номер вопроса для удаления:");
             for (int i = 0; i < questions.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {questions[i].Text}");
