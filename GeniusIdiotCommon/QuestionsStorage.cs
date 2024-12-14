@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-
-namespace GeniusIdiotCommon
+﻿namespace GeniusIdiotCommon
 {
     public class QuestionsStorage
     {
-        private static string filePath = "QuestionsStorage.json";
+        private static string fileName = "QuestionsStorage";
+        private static IConverter converter = new JsonConverter();
+        //private static IConverter converter = new XMLConverter();
 
         public static void Append(Question newQuestion)
         {
@@ -30,10 +30,10 @@ namespace GeniusIdiotCommon
         public static List<Question> GetAll()
         {
             var questions = new List<Question>();
-            if (FileProvider.Exists(filePath))
+            if (FileProvider.Exists(fileName))
             {
-                var fileData = FileProvider.Get(filePath);
-                questions = JsonConvert.DeserializeObject<List<Question>>(fileData);
+                var fileData = FileProvider.Get(fileName);
+                questions = converter.Deserialize<List<Question>>(fileData);
             }
             else
             {
@@ -50,8 +50,8 @@ namespace GeniusIdiotCommon
 
         private static void Save(List<Question> questions)
         {
-            var jsonData = JsonConvert.SerializeObject(questions, Formatting.Indented);
-            FileProvider.Replace(filePath, jsonData);
+            var data = converter.Serialize(questions);
+            FileProvider.Replace(fileName, data);
         }
     }
 }

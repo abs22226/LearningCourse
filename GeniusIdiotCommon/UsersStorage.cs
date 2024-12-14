@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-
-namespace GeniusIdiotCommon
+﻿namespace GeniusIdiotCommon
 {
     public class UsersStorage
     {
-        private static string filePath = "UsersStorage.json";
+        private static string fileName = "UsersStorage";
+        private static IConverter converter = new JsonConverter();
+        //private static IConverter converter = new XMLConverter();
 
         public static void Append(User user)
         {
@@ -16,18 +16,18 @@ namespace GeniusIdiotCommon
         public static List<User> GetAll()
         {
             var users = new List<User>();
-            if (FileProvider.Exists(filePath))
+            if (FileProvider.Exists(fileName))
             {
-                var fileData = FileProvider.Get(filePath);
-                users = JsonConvert.DeserializeObject<List<User>>(fileData);
+                var fileData = FileProvider.Get(fileName);
+                users = converter.Deserialize<List<User>>(fileData);
             }
             return users;
         }
 
         private static void Save(List<User> users)
         {
-            var jsonData = JsonConvert.SerializeObject(users, Formatting.Indented);
-            FileProvider.Replace(filePath, jsonData);
+            var data = converter.Serialize(users);
+            FileProvider.Replace(fileName, data);
         }
     }
 }
