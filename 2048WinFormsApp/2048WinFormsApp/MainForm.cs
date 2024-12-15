@@ -11,10 +11,74 @@ namespace _2048WinFormsApp
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
+            KeyDown += MainForm_KeyDown;
+
             InitMap();
             GenerateNumber();
+        }
+        private void MainForm_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                for (int i = 0; i < mapSize; i++) // ¬ каждой строчке...
+                {
+                    for (int j = mapSize - 1; j >= 0; j--) // проходимс€ по каждой €чейке справа налево...
+                    {
+                        if (labelsMap[i, j].Text != string.Empty) // и когда находим непустую €чейку...
+                        {
+                            for (int k = j - 1; k >= 0; k--) // проходимс€ по каждой €чейке слева от нее...
+                            {
+                                if (labelsMap[i, k].Text != string.Empty) // и когда находим непустую €чейку слева...
+                                {
+                                    if (labelsMap[i, k].Text == labelsMap[i, j].Text) // то если числа в этих непустых €чейках равны...
+                                    {
+                                        var number = int.Parse(labelsMap[i, j].Text);
+                                        labelsMap[i, j].Text = (number * 2).ToString(); // в правую записываем их сумму...
+                                        labelsMap[i, k].Text = string.Empty; // а левую очищаем.
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i < mapSize; i++) // ¬ каждой строчке...
+                {
+                    for (int j = mapSize - 1; j >= 0; j--) // проходимс€ по каждой €чейке справа налево...
+                    {
+                        if (labelsMap[i, j].Text == string.Empty) // и когда находим пустую €чейку...
+                        {
+                            for (int k = j - 1; k >= 0; k--) // проходимс€ по каждой €чейке слева от нее...
+                            {
+                                if (labelsMap[i, k].Text != string.Empty) // и когда находим непустую €чейку слева...
+                                {
+                                    labelsMap[i, j].Text = labelsMap[i, k].Text; // в правую €чейку записываем число из левой €чейки...
+                                    labelsMap[i, k].Text = string.Empty; // а левую очищаем.
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                MessageBox.Show("—трелка влево");
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                MessageBox.Show("—трелка вверх");
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                MessageBox.Show("—трелка вниз");
+            }
+
+            GenerateNumber();
+
         }
 
         private void InitMap()
@@ -60,5 +124,7 @@ namespace _2048WinFormsApp
                 }
             }
         }
+
+
     }
 }
