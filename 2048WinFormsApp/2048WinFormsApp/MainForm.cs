@@ -5,6 +5,7 @@ namespace _2048WinFormsApp
         private Label[,] labelsMap;
         private const int mapSize = 4;
         private static Random random = new Random();
+        private int score = 0;
 
         public MainForm()
         {
@@ -17,7 +18,14 @@ namespace _2048WinFormsApp
 
             InitMap();
             GenerateNumber();
+            ShowScore();
         }
+
+        private void ShowScore()
+        {
+            scoreLabel.Text = score.ToString();
+        }
+
         private void MainForm_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Right)
@@ -154,11 +162,51 @@ namespace _2048WinFormsApp
             }
             if (e.KeyCode == Keys.Down)
             {
-                MessageBox.Show("—трелка вниз");
+                for (int j = 0; j < mapSize; j++) // ¬ каждой колонке...
+                {
+                    for (int i = mapSize - 1; i >= 0; i--) // проходимс€ по каждой €чейке снизу вверх...
+                    {
+                        if (labelsMap[i, j].Text != string.Empty) // и когда находим непустую €чейку...
+                        {
+                            for (int k = i - 1; k >= 0; k--) // проходимс€ по каждой €чейке вверх от нее...
+                            {
+                                if (labelsMap[k, j].Text != string.Empty) // и когда находим ближайшую непустую €чейку...
+                                {
+                                    if (labelsMap[k, j].Text == labelsMap[i, j].Text) // то если числа в этих непустых €чейках равны...
+                                    {
+                                        var number = int.Parse(labelsMap[i, j].Text);
+                                        labelsMap[i, j].Text = (number * 2).ToString(); // в нижнюю записываем их сумму...
+                                        labelsMap[k, j].Text = string.Empty; // а верхнюю очищаем.
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (int j = 0; j < mapSize; j++) // ¬ каждой колонке...
+                {
+                    for (int i = mapSize - 1; i >= 0; i--) // проходимс€ по каждой €чейке снизу вверх...
+                    {
+                        if (labelsMap[i, j].Text == string.Empty) // и когда находим пустую €чейку...
+                        {
+                            for (int k = i - 1; k >= 0; k--) // проходимс€ по каждой €чейке вверх от нее...
+                            {
+                                if (labelsMap[k, j].Text != string.Empty) // и когда находим ближайшую непустую €чейку...
+                                {
+                                    labelsMap[i, j].Text = labelsMap[k, j].Text; // в нижнюю €чейку записываем число из верхней €чейки...
+                                    labelsMap[k, j].Text = string.Empty; // а верхнюю очищаем.
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             GenerateNumber();
-
+            ShowScore();
         }
 
         private void InitMap()
