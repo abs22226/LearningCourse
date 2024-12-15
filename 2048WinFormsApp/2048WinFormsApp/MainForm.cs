@@ -17,13 +17,8 @@ namespace _2048WinFormsApp
             KeyDown += MainForm_KeyDown;
 
             InitMap();
-            GenerateNumber();
             ShowScore();
-        }
-
-        private void ShowScore()
-        {
-            scoreLabel.Text = score.ToString();
+            GenerateNumber();
         }
 
         private void MainForm_KeyDown(object? sender, KeyEventArgs e)
@@ -44,7 +39,8 @@ namespace _2048WinFormsApp
                                     {
                                         var number = int.Parse(labelsMap[i, j].Text);
                                         labelsMap[i, j].Text = (number * 2).ToString(); // в правую записываем их сумму...
-                                        labelsMap[i, k].Text = string.Empty; // а левую очищаем.
+                                        labelsMap[i, k].Text = string.Empty; // а левую очищаем...
+                                        score += number * 2; // и увеличиваем счет на эту сумму.
                                     }
                                     break;
                                 }
@@ -71,6 +67,9 @@ namespace _2048WinFormsApp
                         }
                     }
                 }
+
+                ShowScore();
+                GenerateNumber();
             }
             if (e.KeyCode == Keys.Left)
             {
@@ -88,7 +87,8 @@ namespace _2048WinFormsApp
                                     {
                                         var number = int.Parse(labelsMap[i, j].Text);
                                         labelsMap[i, j].Text = (number * 2).ToString(); // в левую записываем их сумму...
-                                        labelsMap[i, k].Text = string.Empty; // а правую очищаем.
+                                        labelsMap[i, k].Text = string.Empty; // а правую очищаем...
+                                        score += number * 2; // и увеличиваем счет на эту сумму.
                                     }
                                     break;
                                 }
@@ -115,6 +115,9 @@ namespace _2048WinFormsApp
                         }
                     }
                 }
+
+                ShowScore();
+                GenerateNumber();
             }
             if (e.KeyCode == Keys.Up)
             {
@@ -132,7 +135,8 @@ namespace _2048WinFormsApp
                                     {
                                         var number = int.Parse(labelsMap[i, j].Text);
                                         labelsMap[i, j].Text = (number * 2).ToString(); // в верхнюю записываем их сумму...
-                                        labelsMap[k, j].Text = string.Empty; // а нижнюю очищаем.
+                                        labelsMap[k, j].Text = string.Empty; // а нижнюю очищаем...
+                                        score += number * 2; // и увеличиваем счет на эту сумму.
                                     }
                                     break;
                                 }
@@ -159,6 +163,9 @@ namespace _2048WinFormsApp
                         }
                     }
                 }
+
+                ShowScore();
+                GenerateNumber();
             }
             if (e.KeyCode == Keys.Down)
             {
@@ -176,7 +183,8 @@ namespace _2048WinFormsApp
                                     {
                                         var number = int.Parse(labelsMap[i, j].Text);
                                         labelsMap[i, j].Text = (number * 2).ToString(); // в нижнюю записываем их сумму...
-                                        labelsMap[k, j].Text = string.Empty; // а верхнюю очищаем.
+                                        labelsMap[k, j].Text = string.Empty; // а верхнюю очищаем...
+                                        score += number * 2; // и увеличиваем счет на эту сумму.
                                     }
                                     break;
                                 }
@@ -203,10 +211,47 @@ namespace _2048WinFormsApp
                         }
                     }
                 }
-            }
 
-            GenerateNumber();
-            ShowScore();
+                ShowScore();
+                GenerateNumber();
+            }            
+        }
+
+        private void GenerateNumber()
+        {
+            var mapHasEmptyLabels = MapHasEmptyLabels();
+            while (mapHasEmptyLabels)
+            {
+                var labelNumber = random.Next(mapSize * mapSize);
+                var rowIndex = labelNumber / mapSize;
+                var columnIndex = labelNumber % mapSize;
+                if (labelsMap[rowIndex, columnIndex].Text == string.Empty)
+                {
+                    //TODO: randomly generate either 2 or 4
+                    labelsMap[rowIndex, columnIndex].Text = "2";
+                    break;
+                }
+            }
+        }
+
+        private bool MapHasEmptyLabels()
+        {
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    if (labelsMap[i, j].Text == string.Empty)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void ShowScore()
+        {
+            scoreLabel.Text = score.ToString();
         }
 
         private void InitMap()
@@ -236,23 +281,5 @@ namespace _2048WinFormsApp
             newLabel.Location = new Point(x, y);
             return newLabel;
         }
-
-        private void GenerateNumber()
-        {
-            while (true) // TODO: get rid of while(true)
-            {
-                var labelNumber = random.Next(mapSize * mapSize);
-                var rowIndex = labelNumber / mapSize;
-                var columnIndex = labelNumber % mapSize;
-                if (labelsMap[rowIndex, columnIndex].Text == string.Empty)
-                {
-                    //TODO: randomly generate either 2 or 4
-                    labelsMap[rowIndex, columnIndex].Text = "2";
-                    break;
-                }
-            }
-        }
-
-
     }
 }
