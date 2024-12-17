@@ -243,8 +243,8 @@ namespace _2048WinFormsApp
                 var columnIndex = labelNumber % mapSize;
                 if (labelsMap[rowIndex, columnIndex].Text == string.Empty)
                 {
-                    //TODO: randomly generate either 2 or 4
-                    labelsMap[rowIndex, columnIndex].Text = "2";
+                    //randomly generate either 2 or 4... 75% for 2 and 25% for 4
+                    labelsMap[rowIndex, columnIndex].Text = random.Next(1, 101) <= 75 ? "2" : "4";
                     break;
                 }
             }
