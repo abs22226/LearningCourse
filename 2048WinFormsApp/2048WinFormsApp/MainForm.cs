@@ -297,5 +297,20 @@ namespace _2048WinFormsApp
             newLabel.Location = new Point(x, y);
             return newLabel;
         }
+
+        private void рестартToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void правилаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Используйте клавиши со стрелками, чтобы перемещать плитки. Когда две плитки с одинаковыми номерами соприкасаются, они сливаются в одну. Когда ходов не осталось, игра закончена!");
+        }
     }
 }
