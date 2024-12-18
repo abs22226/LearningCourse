@@ -6,6 +6,7 @@ namespace _2048WinFormsApp
         private const int mapSize = 4;
         private static Random random = new Random();
         private int score = 0;
+        private int bestScore = 0;
 
         public MainForm()
         {
@@ -18,35 +19,31 @@ namespace _2048WinFormsApp
 
             InitMap();
             ShowScore();
+            CalculateBestScore();
             GenerateNumber();
         }
 
         private void MainForm_KeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Right)
+            if (e.KeyCode != Keys.Right &&
+                e.KeyCode != Keys.Left &&
+                e.KeyCode != Keys.Up &&
+                e.KeyCode != Keys.Down)
             {
-                HandleRightArrowKeyPressing();
-                ShowScore();
-                GenerateNumber();
+                return;
             }
-            if (e.KeyCode == Keys.Left)
+
+            switch (e.KeyCode)
             {
-                HandleLeftArrowKeyPressing();
-                ShowScore();
-                GenerateNumber();
+                case Keys.Right: HandleRightArrowKeyPressing(); break;
+                case Keys.Left: HandleLeftArrowKeyPressing(); break;
+                case Keys.Up: HandleUpArrowKeyPressing(); break;
+                case Keys.Down: HandleDownArrowKeyPressing(); break;
             }
-            if (e.KeyCode == Keys.Up)
-            {
-                HandleUpArrowKeyPressing();
-                ShowScore();
-                GenerateNumber();
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                HandleDownArrowKeyPressing();
-                ShowScore();
-                GenerateNumber();
-            }
+
+            ShowScore();
+            ShowBestScore();
+            GenerateNumber();
         }
 
         private void HandleDownArrowKeyPressing()
@@ -270,6 +267,35 @@ namespace _2048WinFormsApp
             scoreLabel.Text = score.ToString();
         }
 
+        private void ShowBestScore()
+        {
+            if (score > bestScore)
+            {
+                bestScore = score;
+            }
+            bestScoreLabel.Text = bestScore.ToString();
+        }
+
+        private void CalculateBestScore()
+        {
+            var users = UserManager.GetAll();
+            if (users.Count == 0)
+            {
+                return;
+            }
+
+            bestScore = users[0].Score;
+            foreach (var user in users)
+            {
+                if (user.Score > bestScore)
+                {
+                    bestScore = user.Score;
+                }
+            }
+
+            ShowBestScore();
+        }
+
         private void InitMap()
         {
             labelsMap = new Label[mapSize, mapSize];
@@ -311,6 +337,12 @@ namespace _2048WinFormsApp
         private void правилаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Используйте клавиши со стрелками, чтобы перемещать плитки. Когда две плитки с одинаковыми номерами соприкасаются, они сливаются в одну. Когда ходов не осталось, игра закончена!");
+        }
+
+        private void результатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var resultsForm = new ResultsForm();
+            resultsForm.ShowDialog();
         }
     }
 }
