@@ -33,9 +33,9 @@
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             правилаToolStripMenuItem = new ToolStripMenuItem();
+            результатыToolStripMenuItem = new ToolStripMenuItem();
             рестартToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
-            результатыToolStripMenuItem = new ToolStripMenuItem();
             bestScoreLabel = new Label();
             label3 = new Label();
             menuStrip1.SuspendLayout();
@@ -83,15 +83,23 @@
             // 
             правилаToolStripMenuItem.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             правилаToolStripMenuItem.Name = "правилаToolStripMenuItem";
-            правилаToolStripMenuItem.Size = new Size(180, 24);
+            правилаToolStripMenuItem.Size = new Size(150, 24);
             правилаToolStripMenuItem.Text = "Правила";
             правилаToolStripMenuItem.Click += правилаToolStripMenuItem_Click;
+            // 
+            // результатыToolStripMenuItem
+            // 
+            результатыToolStripMenuItem.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            результатыToolStripMenuItem.Name = "результатыToolStripMenuItem";
+            результатыToolStripMenuItem.Size = new Size(150, 24);
+            результатыToolStripMenuItem.Text = "Результаты";
+            результатыToolStripMenuItem.Click += результатыToolStripMenuItem_Click;
             // 
             // рестартToolStripMenuItem
             // 
             рестартToolStripMenuItem.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             рестартToolStripMenuItem.Name = "рестартToolStripMenuItem";
-            рестартToolStripMenuItem.Size = new Size(180, 24);
+            рестартToolStripMenuItem.Size = new Size(150, 24);
             рестартToolStripMenuItem.Text = "Рестарт";
             рестартToolStripMenuItem.Click += рестартToolStripMenuItem_Click;
             // 
@@ -99,17 +107,9 @@
             // 
             выходToolStripMenuItem.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(180, 24);
+            выходToolStripMenuItem.Size = new Size(150, 24);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
-            // 
-            // результатыToolStripMenuItem
-            // 
-            результатыToolStripMenuItem.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            результатыToolStripMenuItem.Name = "результатыToolStripMenuItem";
-            результатыToolStripMenuItem.Size = new Size(180, 24);
-            результатыToolStripMenuItem.Text = "Результаты";
-            результатыToolStripMenuItem.Click += результатыToolStripMenuItem_Click;
             // 
             // bestScoreLabel
             // 
@@ -145,6 +145,7 @@
             Name = "MainForm";
             Text = "2048";
             Load += MainForm_Load;
+            KeyDown += MainForm_KeyDown;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

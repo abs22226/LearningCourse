@@ -15,217 +15,23 @@ namespace _2048WinFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            KeyDown += MainForm_KeyDown;
-
             InitMap();
+            GenerateNumber();
             ShowScore();
             CalculateBestScore();
-            GenerateNumber();
         }
 
-        private void MainForm_KeyDown(object? sender, KeyEventArgs e)
+        private void InitMap()
         {
-            if (e.KeyCode != Keys.Right &&
-                e.KeyCode != Keys.Left &&
-                e.KeyCode != Keys.Up &&
-                e.KeyCode != Keys.Down)
-            {
-                return;
-            }
+            labelsMap = new Label[mapSize, mapSize];
 
-            switch (e.KeyCode)
+            for (int i = 0; i < mapSize; i++)
             {
-                case Keys.Right: HandleRightArrowKeyPressing(); break;
-                case Keys.Left: HandleLeftArrowKeyPressing(); break;
-                case Keys.Up: HandleUpArrowKeyPressing(); break;
-                case Keys.Down: HandleDownArrowKeyPressing(); break;
-            }
-
-            ShowScore();
-            ShowBestScore();
-            GenerateNumber();
-        }
-
-        private void HandleDownArrowKeyPressing()
-        {
-            for (int j = 0; j < mapSize; j++) // В каждой колонке...
-            {
-                for (int i = mapSize - 1; i >= 0; i--) // проходимся по каждой ячейке снизу вверх...
+                for (int j = 0; j < mapSize; j++)
                 {
-                    if (labelsMap[i, j].Text != string.Empty) // и когда находим непустую ячейку...
-                    {
-                        for (int k = i - 1; k >= 0; k--) // проходимся по каждой ячейке вверх от нее...
-                        {
-                            if (labelsMap[k, j].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                if (labelsMap[k, j].Text == labelsMap[i, j].Text) // то если числа в этих непустых ячейках равны...
-                                {
-                                    var number = int.Parse(labelsMap[i, j].Text);
-                                    labelsMap[i, j].Text = (number * 2).ToString(); // в нижнюю записываем их сумму...
-                                    labelsMap[k, j].Text = string.Empty; // а верхнюю очищаем...
-                                    score += number * 2; // и увеличиваем счет на эту сумму.
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int j = 0; j < mapSize; j++) // В каждой колонке...
-            {
-                for (int i = mapSize - 1; i >= 0; i--) // проходимся по каждой ячейке снизу вверх...
-                {
-                    if (labelsMap[i, j].Text == string.Empty) // и когда находим пустую ячейку...
-                    {
-                        for (int k = i - 1; k >= 0; k--) // проходимся по каждой ячейке вверх от нее...
-                        {
-                            if (labelsMap[k, j].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                labelsMap[i, j].Text = labelsMap[k, j].Text; // в нижнюю ячейку записываем число из верхней ячейки...
-                                labelsMap[k, j].Text = string.Empty; // а верхнюю очищаем.
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void HandleUpArrowKeyPressing()
-        {
-            for (int j = 0; j < mapSize; j++) // В каждой колонке...
-            {
-                for (int i = 0; i < mapSize; i++) // проходимся по каждой ячейке сверху вниз...
-                {
-                    if (labelsMap[i, j].Text != string.Empty) // и когда находим непустую ячейку...
-                    {
-                        for (int k = i + 1; k < mapSize; k++) // проходимся по каждой ячейке вниз от нее...
-                        {
-                            if (labelsMap[k, j].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                if (labelsMap[k, j].Text == labelsMap[i, j].Text) // то если числа в этих непустых ячейках равны...
-                                {
-                                    var number = int.Parse(labelsMap[i, j].Text);
-                                    labelsMap[i, j].Text = (number * 2).ToString(); // в верхнюю записываем их сумму...
-                                    labelsMap[k, j].Text = string.Empty; // а нижнюю очищаем...
-                                    score += number * 2; // и увеличиваем счет на эту сумму.
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int j = 0; j < mapSize; j++) // В каждой колонке...
-            {
-                for (int i = 0; i < mapSize; i++) // проходимся по каждой ячейке сверху вниз...
-                {
-                    if (labelsMap[i, j].Text == string.Empty) // и когда находим пустую ячейку...
-                    {
-                        for (int k = i + 1; k < mapSize; k++) // проходимся по каждой ячейке вниз от нее...
-                        {
-                            if (labelsMap[k, j].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                labelsMap[i, j].Text = labelsMap[k, j].Text; // в верхнюю ячейку записываем число из нижней ячейки...
-                                labelsMap[k, j].Text = string.Empty; // а нижнюю очищаем.
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void HandleLeftArrowKeyPressing()
-        {
-            for (int i = 0; i < mapSize; i++) // В каждой строчке...
-            {
-                for (int j = 0; j < mapSize; j++) // проходимся по каждой ячейке слева направо...
-                {
-                    if (labelsMap[i, j].Text != string.Empty) // и когда находим непустую ячейку...
-                    {
-                        for (int k = j + 1; k < mapSize; k++) // проходимся по каждой ячейке справа от нее...
-                        {
-                            if (labelsMap[i, k].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                if (labelsMap[i, k].Text == labelsMap[i, j].Text) // то если числа в этих непустых ячейках равны...
-                                {
-                                    var number = int.Parse(labelsMap[i, j].Text);
-                                    labelsMap[i, j].Text = (number * 2).ToString(); // в левую записываем их сумму...
-                                    labelsMap[i, k].Text = string.Empty; // а правую очищаем...
-                                    score += number * 2; // и увеличиваем счет на эту сумму.
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int i = 0; i < mapSize; i++) // В каждой строчке...
-            {
-                for (int j = 0; j < mapSize; j++) // проходимся по каждой ячейке слева направо...
-                {
-                    if (labelsMap[i, j].Text == string.Empty) // и когда находим пустую ячейку...
-                    {
-                        for (int k = j + 1; k < mapSize; k++) // проходимся по каждой ячейке справа от нее...
-                        {
-                            if (labelsMap[i, k].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                labelsMap[i, j].Text = labelsMap[i, k].Text; // в левую ячейку записываем число из правой ячейки...
-                                labelsMap[i, k].Text = string.Empty; // а правую очищаем.
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void HandleRightArrowKeyPressing()
-        {
-            for (int i = 0; i < mapSize; i++) // В каждой строчке...
-            {
-                for (int j = mapSize - 1; j >= 0; j--) // проходимся по каждой ячейке справа налево...
-                {
-                    if (labelsMap[i, j].Text != string.Empty) // и когда находим непустую ячейку...
-                    {
-                        for (int k = j - 1; k >= 0; k--) // проходимся по каждой ячейке слева от нее...
-                        {
-                            if (labelsMap[i, k].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                if (labelsMap[i, k].Text == labelsMap[i, j].Text) // то если числа в этих непустых ячейках равны...
-                                {
-                                    var number = int.Parse(labelsMap[i, j].Text);
-                                    labelsMap[i, j].Text = (number * 2).ToString(); // в правую записываем их сумму...
-                                    labelsMap[i, k].Text = string.Empty; // а левую очищаем...
-                                    score += number * 2; // и увеличиваем счет на эту сумму.
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int i = 0; i < mapSize; i++) // В каждой строчке...
-            {
-                for (int j = mapSize - 1; j >= 0; j--) // проходимся по каждой ячейке справа налево...
-                {
-                    if (labelsMap[i, j].Text == string.Empty) // и когда находим пустую ячейку...
-                    {
-                        for (int k = j - 1; k >= 0; k--) // проходимся по каждой ячейке слева от нее...
-                        {
-                            if (labelsMap[i, k].Text != string.Empty) // и когда находим ближайшую непустую ячейку...
-                            {
-                                labelsMap[i, j].Text = labelsMap[i, k].Text; // в правую ячейку записываем число из левой ячейки...
-                                labelsMap[i, k].Text = string.Empty; // а левую очищаем.
-                                break;
-                            }
-                        }
-                    }
+                    var newLabel = GetNewLabel(i, j);
+                    labelsMap[i, j] = newLabel;
+                    Controls.Add(labelsMap[i, j]);
                 }
             }
         }
@@ -235,12 +41,12 @@ namespace _2048WinFormsApp
             var mapHasEmptyLabels = MapHasEmptyLabels();
             while (mapHasEmptyLabels)
             {
-                var labelNumber = random.Next(mapSize * mapSize);
-                var rowIndex = labelNumber / mapSize;
-                var columnIndex = labelNumber % mapSize;
+                var randomLabelNumber = random.Next(mapSize * mapSize);
+                var rowIndex = randomLabelNumber / mapSize;
+                var columnIndex = randomLabelNumber % mapSize;
                 if (labelsMap[rowIndex, columnIndex].Text == string.Empty)
                 {
-                    //randomly generate either 2 or 4... 75% for 2 and 25% for 4
+                    //randomly generate either 2 or 4... in 75% of times generate 2 and in 25% of times generate 4
                     labelsMap[rowIndex, columnIndex].Text = random.Next(1, 101) <= 75 ? "2" : "4";
                     break;
                 }
@@ -262,18 +68,22 @@ namespace _2048WinFormsApp
             return false;
         }
 
+        private Label GetNewLabel(int rowIndex, int columnIndex)
+        {
+            var newLabel = new Label();
+            newLabel.BackColor = SystemColors.ButtonShadow;
+            newLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            newLabel.Size = new Size(70, 70);
+            newLabel.TextAlign = ContentAlignment.MiddleCenter;
+            int x = 10 + columnIndex * 76;
+            int y = 70 + rowIndex * 76;
+            newLabel.Location = new Point(x, y);
+            return newLabel;
+        }
+
         private void ShowScore()
         {
             scoreLabel.Text = score.ToString();
-        }
-
-        private void ShowBestScore()
-        {
-            if (score > bestScore)
-            {
-                bestScore = score;
-            }
-            bestScoreLabel.Text = bestScore.ToString();
         }
 
         private void CalculateBestScore()
@@ -296,32 +106,13 @@ namespace _2048WinFormsApp
             ShowBestScore();
         }
 
-        private void InitMap()
+        private void ShowBestScore()
         {
-            labelsMap = new Label[mapSize, mapSize];
-
-            for (int i = 0; i < mapSize; i++)
+            if (score > bestScore)
             {
-                for (int j = 0; j < mapSize; j++)
-                {
-                    var newLabel = GetNewLabel(i, j);
-                    Controls.Add(newLabel);
-                    labelsMap[i, j] = newLabel;
-                }
+                bestScore = score;
             }
-        }
-
-        private Label GetNewLabel(int rowIndex, int columnIndex)
-        {
-            var newLabel = new Label();
-            newLabel.BackColor = SystemColors.ButtonShadow;
-            newLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            newLabel.Size = new Size(70, 70);
-            newLabel.TextAlign = ContentAlignment.MiddleCenter;
-            int x = 10 + columnIndex * 76;
-            int y = 70 + rowIndex * 76;
-            newLabel.Location = new Point(x, y);
-            return newLabel;
+            bestScoreLabel.Text = bestScore.ToString();
         }
 
         private void рестартToolStripMenuItem_Click(object sender, EventArgs e)
@@ -344,5 +135,322 @@ namespace _2048WinFormsApp
             var resultsForm = new ResultsForm();
             resultsForm.ShowDialog();
         }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Right &&
+                e.KeyCode != Keys.Left &&
+                e.KeyCode != Keys.Up &&
+                e.KeyCode != Keys.Down)
+            {
+                return;
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.Right: HandleRight(); break;
+                case Keys.Left: HandleLeft(); break;
+                case Keys.Up: HandleUp(); break;
+                case Keys.Down: HandleDown(); break;
+            }
+
+            GenerateNumber();
+            ShowScore();
+            ShowBestScore();
+
+            if (UserWon())
+            {
+                UserManager.Add(new User() { Name = "Имя", Score = score });
+                MessageBox.Show("Ура! Вы победили!");
+                return;
+            }
+
+            if (GameOver())
+            {
+                UserManager.Add(new User() { Name = "Имя", Score = score });
+                MessageBox.Show("К сожалению вы проиграли!");
+                return;
+            }
+        }
+
+        private void HandleRight()
+        {
+            MergeRight();
+            MoveRight();
+        }
+
+        private void MergeRight()
+        {
+            for (int i = 0; i < mapSize; i++) // В каждой строчке...
+            {
+                for (int j = mapSize - 1; j >= 0; j--) // проходимся по каждой ячейке справа налево.
+                {
+                    var rightCell = labelsMap[i, j];
+                    if (rightCell.Text != string.Empty) // Если находим непустую ячейку,...
+                    {
+                        for (int k = j - 1; k >= 0; k--) // то проходимся по каждой ячейке слева от нее,...
+                        {
+                            var leftCell = labelsMap[i, k];
+                            if (leftCell.Text != string.Empty) // и когда находим слева ближайшую непустую ячейку,...
+                            {
+                                if (leftCell.Text == rightCell.Text) // то, если числа в этих ячейках равны,...
+                                {
+                                    var number = int.Parse(rightCell.Text);
+                                    rightCell.Text = (number * 2).ToString(); // в правую записываем их сумму,...
+                                    leftCell.Text = string.Empty; // а левую очищаем.
+                                    score += number * 2; // И увеличиваем счет на эту сумму.
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveRight()
+        {
+            for (int i = 0; i < mapSize; i++) // В каждой строчке...
+            {
+                for (int j = mapSize - 1; j >= 0; j--) // проходимся по каждой ячейке справа налево...
+                {
+                    var rightCell = labelsMap[i, j];
+                    if (rightCell.Text == string.Empty) // и когда находим пустую ячейку...
+                    {
+                        for (int k = j - 1; k >= 0; k--) // проходимся по каждой ячейке слева от нее...
+                        {
+                            var leftCell = labelsMap[i, k];
+                            if (leftCell.Text != string.Empty) // и когда находим слева ближайшую непустую ячейку...
+                            {
+                                rightCell.Text = leftCell.Text; // в правую ячейку записываем число из левой ячейки...
+                                leftCell.Text = string.Empty; // а левую очищаем.
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void HandleLeft()
+        {
+            MergeLeft();
+            MoveLeft();
+        }
+
+        private void MergeLeft()
+        {
+            for (int i = 0; i < mapSize; i++) // В каждой строчке...
+            {
+                for (int j = 0; j < mapSize; j++) // проходимся по каждой ячейке слева направо...
+                {
+                    var leftCell = labelsMap[i, j];
+                    if (leftCell.Text != string.Empty) // и когда находим непустую ячейку...
+                    {
+                        for (int k = j + 1; k < mapSize; k++) // то проходимся по каждой ячейке справа от нее...
+                        {
+                            var rightCell = labelsMap[i, k];
+                            if (rightCell.Text != string.Empty) // и когда находим справа ближайшую непустую ячейку...
+                            {
+                                if (rightCell.Text == leftCell.Text) // то если числа в этих ячейках равны...
+                                {
+                                    var number = int.Parse(leftCell.Text);
+                                    leftCell.Text = (number * 2).ToString(); // в левую записываем их сумму...
+                                    rightCell.Text = string.Empty; // а правую очищаем...
+                                    score += number * 2; // и увеличиваем счет на эту сумму.
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveLeft()
+        {
+            for (int i = 0; i < mapSize; i++) // В каждой строчке...
+            {
+                for (int j = 0; j < mapSize; j++) // проходимся по каждой ячейке слева направо...
+                {
+                    var leftCell = labelsMap[i, j];
+                    if (leftCell.Text == string.Empty) // и когда находим пустую ячейку...
+                    {
+                        for (int k = j + 1; k < mapSize; k++) // проходимся по каждой ячейке справа от нее...
+                        {
+                            var rightCell = labelsMap[i, k];
+                            if (rightCell.Text != string.Empty) // и когда находим справа ближайшую непустую ячейку...
+                            {
+                                leftCell.Text = rightCell.Text; // в левую ячейку записываем число из правой ячейки...
+                                rightCell.Text = string.Empty; // а правую очищаем.
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void HandleUp()
+        {
+            MergeUp();
+            MoveUp();
+        }
+
+        private void MergeUp()
+        {
+            for (int j = 0; j < mapSize; j++) // В каждой колонке...
+            {
+                for (int i = 0; i < mapSize; i++) // проходимся по каждой ячейке сверху вниз...
+                {
+                    var upperCell = labelsMap[i, j];
+                    if (upperCell.Text != string.Empty) // и когда находим непустую ячейку...
+                    {
+                        for (int k = i + 1; k < mapSize; k++) // то проходимся по каждой ячейке вниз от нее...
+                        {
+                            var lowerCell = labelsMap[k, j];
+                            if (lowerCell.Text != string.Empty) // и когда находим снизу ближайшую непустую ячейку...
+                            {
+                                if (lowerCell.Text == upperCell.Text) // то если числа в этих ячейках равны...
+                                {
+                                    var number = int.Parse(upperCell.Text);
+                                    upperCell.Text = (number * 2).ToString(); // в верхнюю записываем их сумму...
+                                    lowerCell.Text = string.Empty; // а нижнюю очищаем...
+                                    score += number * 2; // и увеличиваем счет на эту сумму.
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveUp()
+        {
+            for (int j = 0; j < mapSize; j++) // В каждой колонке...
+            {
+                for (int i = 0; i < mapSize; i++) // проходимся по каждой ячейке сверху вниз...
+                {
+                    var upperCell = labelsMap[i, j];
+                    if (upperCell.Text == string.Empty) // и когда находим пустую ячейку...
+                    {
+                        for (int k = i + 1; k < mapSize; k++) // проходимся по каждой ячейке вниз от нее...
+                        {
+                            var lowerCell = labelsMap[k, j];
+                            if (lowerCell.Text != string.Empty) // и когда находим снизу ближайшую непустую ячейку...
+                            {
+                                upperCell.Text = lowerCell.Text; // в верхнюю ячейку записываем число из нижней ячейки...
+                                lowerCell.Text = string.Empty; // а нижнюю очищаем.
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void HandleDown()
+        {
+            MergeDown();
+            MoveDown();
+        }
+
+        private void MergeDown()
+        {
+            for (int j = 0; j < mapSize; j++) // В каждой колонке...
+            {
+                for (int i = mapSize - 1; i >= 0; i--) // проходимся по каждой ячейке снизу вверх...
+                {
+                    var lowerCell = labelsMap[i, j];
+                    if (lowerCell.Text != string.Empty) // и когда находим непустую ячейку...
+                    {
+                        for (int k = i - 1; k >= 0; k--) // то проходимся по каждой ячейке вверх от нее...
+                        {
+                            var upperCell = labelsMap[k, j];
+                            if (upperCell.Text != string.Empty) // и когда находим сверху ближайшую непустую ячейку...
+                            {
+                                if (upperCell.Text == lowerCell.Text) // то если числа в этих ячейках равны...
+                                {
+                                    var number = int.Parse(lowerCell.Text);
+                                    lowerCell.Text = (number * 2).ToString(); // в нижнюю записываем их сумму...
+                                    upperCell.Text = string.Empty; // а верхнюю очищаем...
+                                    score += number * 2; // и увеличиваем счет на эту сумму.
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveDown()
+        {
+            for (int j = 0; j < mapSize; j++) // В каждой колонке...
+            {
+                for (int i = mapSize - 1; i >= 0; i--) // проходимся по каждой ячейке снизу вверх...
+                {
+                    var lowerCell = labelsMap[i, j];
+                    if (lowerCell.Text == string.Empty) // и когда находим пустую ячейку...
+                    {
+                        for (int k = i - 1; k >= 0; k--) // то проходимся по каждой ячейке вверх от нее...
+                        {
+                            var upperCell = labelsMap[k, j];
+                            if (upperCell.Text != string.Empty) // и когда находим сверху ближайшую непустую ячейку...
+                            {
+                                lowerCell.Text = upperCell.Text; // в нижнюю ячейку записываем число из верхней ячейки...
+                                upperCell.Text = string.Empty; // а верхнюю очищаем.
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool UserWon()
+        {
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    if (labelsMap[i, j].Text == "2048")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool GameOver()
+        {
+            if (MapHasEmptyLabels())
+            {
+                return false;
+            }
+
+            //if(CellsCanBeMerged())
+            //{
+            //    return false;
+            //}
+
+            for (int i = 0; i < mapSize - 1; i++) // TODO: надо i < mapSize, иначе ячейки нижней строки не проверяются на равенство с правой ячейкой.
+            {
+                for (int j = 0; j < mapSize - 1; j++) // TODO: надо j < mapSize, иначе ячейки самой правой колонки не проверяются на равенство с нижней ячейкой.
+                {
+                    if (labelsMap[i, j].Text == labelsMap[i, j + 1].Text ||
+                        labelsMap[i, j].Text == labelsMap[i + 1, j].Text)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+
     }
 }

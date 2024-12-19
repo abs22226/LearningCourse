@@ -48,13 +48,13 @@
             // 
             Column1.HeaderText = "Имя";
             Column1.Name = "Column1";
-            Column1.Width = 110;
+            Column1.Width = 112;
             // 
             // Column2
             // 
             Column2.HeaderText = "Счет";
             Column2.Name = "Column2";
-            Column2.Width = 110;
+            Column2.Width = 112;
             // 
             // ResultsForm
             // 
