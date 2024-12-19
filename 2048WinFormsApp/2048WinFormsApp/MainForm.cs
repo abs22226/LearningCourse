@@ -1,12 +1,21 @@
+
 namespace _2048WinFormsApp
 {
     public partial class MainForm : Form
     {
-        private Label[,] labelsMap;
-        private const int mapSize = 4;
+        private const int cellSize = 70;
+        private const int padding = 6;
+        private const int leftMargin = 10;
+        private const int topMargin = 70;
+        private const int rightMargin = 4;
+        private const int bottomMargin = 4;
+
+        private Label[,] cellsMap;
+        private int mapSize = 4;
         private static Random random = new Random();
         private int score = 0;
         private int bestScore = 0;
+        private string userName;        
 
         public MainForm()
         {
@@ -15,51 +24,77 @@ namespace _2048WinFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            var startForm = new StartForm();
+            startForm.ShowDialog();
+
+            userName = startForm.userNameTextBox.Text;
+
+            SetMapSize(startForm.radioButtons);
             InitMap();
             GenerateNumber();
             ShowScore();
             CalculateBestScore();
         }
 
+        private void SetMapSize(List<RadioButton> radioButtons)
+        {
+            foreach (var radioButton in radioButtons)
+            {
+                if (radioButton.Checked)
+                {
+                    mapSize = Convert.ToInt32(radioButton.Text[0].ToString());
+                    break;
+                }
+            }
+        }
+
         private void InitMap()
         {
-            labelsMap = new Label[mapSize, mapSize];
+            ClientSize = new Size(leftMargin + (cellSize + padding) * mapSize + rightMargin, topMargin + (cellSize + padding) * mapSize + bottomMargin);
+
+            titleBestScoreLabel.Location = new Point(leftMargin + (cellSize + padding) * mapSize - titleBestScoreLabel.Width - titleBestScoreLabel.Margin.Right, 9);
+            bestScoreLabel.Location = new Point(leftMargin + (cellSize + padding) * mapSize - bestScoreLabel.Width - bestScoreLabel.Margin.Right, 34);
+
+            titleScoreLabel.Location = new Point(leftMargin + (cellSize + padding) * mapSize - titleBestScoreLabel.Width - titleBestScoreLabel.Margin.Right - titleScoreLabel.Width - titleScoreLabel.Margin.Right, 9);
+            scoreLabel.Location = new Point(leftMargin + (cellSize + padding) * mapSize - titleBestScoreLabel.Width - titleBestScoreLabel.Margin.Right - scoreLabel.Width - scoreLabel.Margin.Right, 34);
+
+            cellsMap = new Label[mapSize, mapSize];
 
             for (int i = 0; i < mapSize; i++)
             {
                 for (int j = 0; j < mapSize; j++)
                 {
-                    var newLabel = GetNewLabel(i, j);
-                    labelsMap[i, j] = newLabel;
-                    Controls.Add(labelsMap[i, j]);
+                    var newCell = GetNewCell(i, j);
+                    cellsMap[i, j] = newCell;
+                    Controls.Add(cellsMap[i, j]);
                 }
             }
         }
 
         private void GenerateNumber()
         {
-            var mapHasEmptyLabels = MapHasEmptyLabels();
-            while (mapHasEmptyLabels)
+            var mapHasEmptyCells = MapHasEmptyCells();
+            while (mapHasEmptyCells)
             {
-                var randomLabelNumber = random.Next(mapSize * mapSize);
-                var rowIndex = randomLabelNumber / mapSize;
-                var columnIndex = randomLabelNumber % mapSize;
-                if (labelsMap[rowIndex, columnIndex].Text == string.Empty)
+                var randomCelllNumber = random.Next(mapSize * mapSize);
+                var rowIndex = randomCelllNumber / mapSize;
+                var columnIndex = randomCelllNumber % mapSize;
+                if (cellsMap[rowIndex, columnIndex].Text == string.Empty)
                 {
                     //randomly generate either 2 or 4... in 75% of times generate 2 and in 25% of times generate 4
-                    labelsMap[rowIndex, columnIndex].Text = random.Next(1, 101) <= 75 ? "2" : "4";
+                    cellsMap[rowIndex, columnIndex].Text = random.Next(1, 101) <= 75 ? "2" : "4";
                     break;
                 }
             }
         }
 
-        private bool MapHasEmptyLabels()
+        private bool MapHasEmptyCells()
         {
             for (int i = 0; i < mapSize; i++)
             {
                 for (int j = 0; j < mapSize; j++)
                 {
-                    if (labelsMap[i, j].Text == string.Empty)
+                    if (cellsMap[i, j].Text == string.Empty)
                     {
                         return true;
                     }
@@ -68,17 +103,17 @@ namespace _2048WinFormsApp
             return false;
         }
 
-        private Label GetNewLabel(int rowIndex, int columnIndex)
+        private Label GetNewCell(int rowIndex, int columnIndex)
         {
-            var newLabel = new Label();
-            newLabel.BackColor = SystemColors.ButtonShadow;
-            newLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            newLabel.Size = new Size(70, 70);
-            newLabel.TextAlign = ContentAlignment.MiddleCenter;
-            int x = 10 + columnIndex * 76;
-            int y = 70 + rowIndex * 76;
-            newLabel.Location = new Point(x, y);
-            return newLabel;
+            var newCell = new Label();
+            newCell.BackColor = SystemColors.ButtonShadow;
+            newCell.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            newCell.Size = new Size(cellSize, cellSize);
+            newCell.TextAlign = ContentAlignment.MiddleCenter;
+            int x = leftMargin + columnIndex * (cellSize + padding);
+            int y = topMargin + rowIndex * (cellSize + padding);
+            newCell.Location = new Point(x, y);
+            return newCell;
         }
 
         private void ShowScore()
@@ -160,15 +195,15 @@ namespace _2048WinFormsApp
 
             if (UserWon())
             {
-                UserManager.Add(new User() { Name = "Имя", Score = score });
-                MessageBox.Show("Ура! Вы победили!");
+                UserManager.Add(new User() { Name = userName, Score = score });
+                MessageBox.Show("Ура! Это победа!");
                 return;
             }
 
             if (GameOver())
             {
-                UserManager.Add(new User() { Name = "Имя", Score = score });
-                MessageBox.Show("К сожалению вы проиграли!");
+                UserManager.Add(new User() { Name = userName, Score = score });
+                MessageBox.Show("Увы! Это поражение!");
                 return;
             }
         }
@@ -185,12 +220,12 @@ namespace _2048WinFormsApp
             {
                 for (int j = mapSize - 1; j >= 0; j--) // проходимся по каждой ячейке справа налево.
                 {
-                    var rightCell = labelsMap[i, j];
+                    var rightCell = cellsMap[i, j];
                     if (rightCell.Text != string.Empty) // Если находим непустую ячейку,...
                     {
                         for (int k = j - 1; k >= 0; k--) // то проходимся по каждой ячейке слева от нее,...
                         {
-                            var leftCell = labelsMap[i, k];
+                            var leftCell = cellsMap[i, k];
                             if (leftCell.Text != string.Empty) // и когда находим слева ближайшую непустую ячейку,...
                             {
                                 if (leftCell.Text == rightCell.Text) // то, если числа в этих ячейках равны,...
@@ -214,12 +249,12 @@ namespace _2048WinFormsApp
             {
                 for (int j = mapSize - 1; j >= 0; j--) // проходимся по каждой ячейке справа налево...
                 {
-                    var rightCell = labelsMap[i, j];
+                    var rightCell = cellsMap[i, j];
                     if (rightCell.Text == string.Empty) // и когда находим пустую ячейку...
                     {
                         for (int k = j - 1; k >= 0; k--) // проходимся по каждой ячейке слева от нее...
                         {
-                            var leftCell = labelsMap[i, k];
+                            var leftCell = cellsMap[i, k];
                             if (leftCell.Text != string.Empty) // и когда находим слева ближайшую непустую ячейку...
                             {
                                 rightCell.Text = leftCell.Text; // в правую ячейку записываем число из левой ячейки...
@@ -244,12 +279,12 @@ namespace _2048WinFormsApp
             {
                 for (int j = 0; j < mapSize; j++) // проходимся по каждой ячейке слева направо...
                 {
-                    var leftCell = labelsMap[i, j];
+                    var leftCell = cellsMap[i, j];
                     if (leftCell.Text != string.Empty) // и когда находим непустую ячейку...
                     {
                         for (int k = j + 1; k < mapSize; k++) // то проходимся по каждой ячейке справа от нее...
                         {
-                            var rightCell = labelsMap[i, k];
+                            var rightCell = cellsMap[i, k];
                             if (rightCell.Text != string.Empty) // и когда находим справа ближайшую непустую ячейку...
                             {
                                 if (rightCell.Text == leftCell.Text) // то если числа в этих ячейках равны...
@@ -273,12 +308,12 @@ namespace _2048WinFormsApp
             {
                 for (int j = 0; j < mapSize; j++) // проходимся по каждой ячейке слева направо...
                 {
-                    var leftCell = labelsMap[i, j];
+                    var leftCell = cellsMap[i, j];
                     if (leftCell.Text == string.Empty) // и когда находим пустую ячейку...
                     {
                         for (int k = j + 1; k < mapSize; k++) // проходимся по каждой ячейке справа от нее...
                         {
-                            var rightCell = labelsMap[i, k];
+                            var rightCell = cellsMap[i, k];
                             if (rightCell.Text != string.Empty) // и когда находим справа ближайшую непустую ячейку...
                             {
                                 leftCell.Text = rightCell.Text; // в левую ячейку записываем число из правой ячейки...
@@ -303,12 +338,12 @@ namespace _2048WinFormsApp
             {
                 for (int i = 0; i < mapSize; i++) // проходимся по каждой ячейке сверху вниз...
                 {
-                    var upperCell = labelsMap[i, j];
+                    var upperCell = cellsMap[i, j];
                     if (upperCell.Text != string.Empty) // и когда находим непустую ячейку...
                     {
                         for (int k = i + 1; k < mapSize; k++) // то проходимся по каждой ячейке вниз от нее...
                         {
-                            var lowerCell = labelsMap[k, j];
+                            var lowerCell = cellsMap[k, j];
                             if (lowerCell.Text != string.Empty) // и когда находим снизу ближайшую непустую ячейку...
                             {
                                 if (lowerCell.Text == upperCell.Text) // то если числа в этих ячейках равны...
@@ -332,12 +367,12 @@ namespace _2048WinFormsApp
             {
                 for (int i = 0; i < mapSize; i++) // проходимся по каждой ячейке сверху вниз...
                 {
-                    var upperCell = labelsMap[i, j];
+                    var upperCell = cellsMap[i, j];
                     if (upperCell.Text == string.Empty) // и когда находим пустую ячейку...
                     {
                         for (int k = i + 1; k < mapSize; k++) // проходимся по каждой ячейке вниз от нее...
                         {
-                            var lowerCell = labelsMap[k, j];
+                            var lowerCell = cellsMap[k, j];
                             if (lowerCell.Text != string.Empty) // и когда находим снизу ближайшую непустую ячейку...
                             {
                                 upperCell.Text = lowerCell.Text; // в верхнюю ячейку записываем число из нижней ячейки...
@@ -362,12 +397,12 @@ namespace _2048WinFormsApp
             {
                 for (int i = mapSize - 1; i >= 0; i--) // проходимся по каждой ячейке снизу вверх...
                 {
-                    var lowerCell = labelsMap[i, j];
+                    var lowerCell = cellsMap[i, j];
                     if (lowerCell.Text != string.Empty) // и когда находим непустую ячейку...
                     {
                         for (int k = i - 1; k >= 0; k--) // то проходимся по каждой ячейке вверх от нее...
                         {
-                            var upperCell = labelsMap[k, j];
+                            var upperCell = cellsMap[k, j];
                             if (upperCell.Text != string.Empty) // и когда находим сверху ближайшую непустую ячейку...
                             {
                                 if (upperCell.Text == lowerCell.Text) // то если числа в этих ячейках равны...
@@ -391,12 +426,12 @@ namespace _2048WinFormsApp
             {
                 for (int i = mapSize - 1; i >= 0; i--) // проходимся по каждой ячейке снизу вверх...
                 {
-                    var lowerCell = labelsMap[i, j];
+                    var lowerCell = cellsMap[i, j];
                     if (lowerCell.Text == string.Empty) // и когда находим пустую ячейку...
                     {
                         for (int k = i - 1; k >= 0; k--) // то проходимся по каждой ячейке вверх от нее...
                         {
-                            var upperCell = labelsMap[k, j];
+                            var upperCell = cellsMap[k, j];
                             if (upperCell.Text != string.Empty) // и когда находим сверху ближайшую непустую ячейку...
                             {
                                 lowerCell.Text = upperCell.Text; // в нижнюю ячейку записываем число из верхней ячейки...
@@ -415,7 +450,7 @@ namespace _2048WinFormsApp
             {
                 for (int j = 0; j < mapSize; j++)
                 {
-                    if (labelsMap[i, j].Text == "2048")
+                    if (cellsMap[i, j].Text == "2048")
                     {
                         return true;
                     }
@@ -426,7 +461,7 @@ namespace _2048WinFormsApp
 
         private bool GameOver()
         {
-            if (MapHasEmptyLabels())
+            if (MapHasEmptyCells())
             {
                 return false;
             }
@@ -440,8 +475,8 @@ namespace _2048WinFormsApp
             {
                 for (int j = 0; j < mapSize - 1; j++) // TODO: надо j < mapSize, иначе ячейки самой правой колонки не проверяются на равенство с нижней ячейкой.
                 {
-                    if (labelsMap[i, j].Text == labelsMap[i, j + 1].Text ||
-                        labelsMap[i, j].Text == labelsMap[i + 1, j].Text)
+                    if (cellsMap[i, j].Text == cellsMap[i, j + 1].Text ||
+                        cellsMap[i, j].Text == cellsMap[i + 1, j].Text)
                     {
                         return false;
                     }

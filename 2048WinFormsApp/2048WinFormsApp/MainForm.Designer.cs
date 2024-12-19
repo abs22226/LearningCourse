@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            titleScoreLabel = new Label();
             scoreLabel = new Label();
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
@@ -37,19 +37,19 @@
             рестартToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
             bestScoreLabel = new Label();
-            label3 = new Label();
+            titleBestScoreLabel = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // titleScoreLabel
             // 
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(179, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(49, 21);
-            label1.TabIndex = 0;
-            label1.Text = "Счет";
-            label1.TextAlign = ContentAlignment.TopRight;
+            titleScoreLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            titleScoreLabel.Location = new Point(179, 9);
+            titleScoreLabel.Name = "titleScoreLabel";
+            titleScoreLabel.Size = new Size(49, 21);
+            titleScoreLabel.TabIndex = 0;
+            titleScoreLabel.Text = "Счет";
+            titleScoreLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // scoreLabel
             // 
@@ -121,15 +121,15 @@
             bestScoreLabel.Text = "0";
             bestScoreLabel.TextAlign = ContentAlignment.TopRight;
             // 
-            // label3
+            // titleBestScoreLlabel
             // 
-            label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(240, 9);
-            label3.Name = "label3";
-            label3.Size = new Size(68, 21);
-            label3.TabIndex = 3;
-            label3.Text = "Рекорд";
-            label3.TextAlign = ContentAlignment.TopRight;
+            titleBestScoreLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            titleBestScoreLabel.Location = new Point(240, 9);
+            titleBestScoreLabel.Name = "titleBestScoreLlabel";
+            titleBestScoreLabel.Size = new Size(68, 21);
+            titleBestScoreLabel.TabIndex = 3;
+            titleBestScoreLabel.Text = "Рекорд";
+            titleBestScoreLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // MainForm
             // 
@@ -137,10 +137,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(318, 378);
             Controls.Add(bestScoreLabel);
-            Controls.Add(label3);
+            Controls.Add(titleBestScoreLabel);
             Controls.Add(scoreLabel);
-            Controls.Add(label1);
+            Controls.Add(titleScoreLabel);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "2048";
@@ -154,7 +155,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label titleScoreLabel;
         private Label scoreLabel;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
@@ -163,6 +164,6 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private ToolStripMenuItem результатыToolStripMenuItem;
         private Label bestScoreLabel;
-        private Label label3;
+        private Label titleBestScoreLabel;
     }
 }

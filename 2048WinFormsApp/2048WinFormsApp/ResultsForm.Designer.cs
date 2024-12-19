@@ -62,6 +62,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(308, 328);
             Controls.Add(resultsDataGridView);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "ResultsForm";
             Text = "ResultsForm";
             Load += ResultsForm_Load;
