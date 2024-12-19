@@ -24,12 +24,7 @@ namespace _2048WinFormsApp
                 radioButton3,
                 radioButton4
             };
-
-        }
-
-        private void StartForm_Load(object sender, EventArgs e)
-        {
-
+            radioButton1.Checked = true;
         }
 
         private void startButton_Click(object sender, EventArgs e)

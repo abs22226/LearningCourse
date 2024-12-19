@@ -15,7 +15,7 @@ namespace _2048WinFormsApp
         private static Random random = new Random();
         private int score = 0;
         private int bestScore = 0;
-        private string userName;        
+        private string userName;
 
         public MainForm()
         {
@@ -71,6 +71,42 @@ namespace _2048WinFormsApp
             }
         }
 
+        private Label GetNewCell(int rowIndex, int columnIndex)
+        {
+            var newCell = new Label();
+            newCell.BackColor = SystemColors.ButtonShadow;
+            newCell.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            newCell.Size = new Size(cellSize, cellSize);
+            newCell.TextAlign = ContentAlignment.MiddleCenter;
+            int x = leftMargin + columnIndex * (cellSize + padding);
+            int y = topMargin + rowIndex * (cellSize + padding);
+            newCell.Location = new Point(x, y);
+
+            newCell.TextChanged += NewCell_TextChanged;
+
+            return newCell;
+        }
+
+        private void NewCell_TextChanged(object? sender, EventArgs e)
+        {
+            var cell = (Label)sender;
+            switch (cell.Text)
+            {
+                case "": cell.BackColor = SystemColors.ButtonShadow; break;
+                case "2": cell.BackColor = Color.FromArgb(179, 229, 252); break;
+                case "4": cell.BackColor = Color.FromArgb(200, 230, 201); break;
+                case "8": cell.BackColor = Color.FromArgb(242, 177, 121); break;
+                case "16": cell.BackColor = Color.FromArgb(255, 224, 178); break;
+                case "32": cell.BackColor = Color.FromArgb(255, 204, 188); break;
+                case "64": cell.BackColor = Color.FromArgb(255, 171, 145); break;
+                case "128": cell.BackColor = Color.FromArgb(255, 138, 101); break;
+                case "256": cell.BackColor = Color.FromArgb(255, 213, 79); break;
+                case "512": cell.BackColor = Color.FromArgb(255, 202, 40); break;
+                case "1024": cell.BackColor = Color.FromArgb(255, 112, 67); break;
+                case "20048": cell.BackColor = Color.FromArgb(244, 67, 54); break;
+            }
+        }
+
         private void GenerateNumber()
         {
             var mapHasEmptyCells = MapHasEmptyCells();
@@ -101,19 +137,6 @@ namespace _2048WinFormsApp
                 }
             }
             return false;
-        }
-
-        private Label GetNewCell(int rowIndex, int columnIndex)
-        {
-            var newCell = new Label();
-            newCell.BackColor = SystemColors.ButtonShadow;
-            newCell.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            newCell.Size = new Size(cellSize, cellSize);
-            newCell.TextAlign = ContentAlignment.MiddleCenter;
-            int x = leftMargin + columnIndex * (cellSize + padding);
-            int y = topMargin + rowIndex * (cellSize + padding);
-            newCell.Location = new Point(x, y);
-            return newCell;
         }
 
         private void ShowScore()
@@ -485,7 +508,5 @@ namespace _2048WinFormsApp
 
             return true;
         }
-
-
     }
 }
