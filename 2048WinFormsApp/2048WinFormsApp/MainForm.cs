@@ -185,7 +185,7 @@ namespace _2048WinFormsApp
 
         private void правилаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("»спользуйте клавиши со стрелками, чтобы перемещать плитки.  огда две плитки с одинаковыми номерами соприкасаютс€, они сливаютс€ в одну.  огда ходов не осталось, игра закончена!");
+            MessageBox.Show("Ќа поле случайным образом по€вл€ютс€ плитки со значени€ми 2 или 4. »грок может сдвигать все плитки в одну из четырЄх сторон: вверх, вниз, влево или вправо. ѕри столкновении плиток с одинаковыми значени€ми они сливаютс€, образу€ плитку с суммой значений. ÷ель игры Ч получить плитку со значением 2048.");
         }
 
         private void результатыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,6 +196,11 @@ namespace _2048WinFormsApp
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (UserWon() || GameOver())
+            {
+                return;
+            }
+
             if (e.KeyCode != Keys.Right &&
                 e.KeyCode != Keys.Left &&
                 e.KeyCode != Keys.Up &&
@@ -226,7 +231,7 @@ namespace _2048WinFormsApp
             if (GameOver())
             {
                 UserManager.Add(new User() { Name = userName, Score = score });
-                MessageBox.Show("”вы! Ёто поражение!");
+                MessageBox.Show("’одов больше не осталось - вы проиграли!");
                 return;
             }
         }
@@ -489,24 +494,48 @@ namespace _2048WinFormsApp
                 return false;
             }
 
-            //if(CellsCanBeMerged())
-            //{
-            //    return false;
-            //}
-
-            for (int i = 0; i < mapSize - 1; i++) // TODO: надо i < mapSize, иначе €чейки нижней строки не провер€ютс€ на равенство с правой €чейкой.
+            if (CellsCanBeMerged())
             {
-                for (int j = 0; j < mapSize - 1; j++) // TODO: надо j < mapSize, иначе €чейки самой правой колонки не провер€ютс€ на равенство с нижней €чейкой.
-                {
-                    if (cellsMap[i, j].Text == cellsMap[i, j + 1].Text ||
-                        cellsMap[i, j].Text == cellsMap[i + 1, j].Text)
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
 
             return true;
+        }
+
+        private bool CellsCanBeMerged()
+        {
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    if (i != mapSize - 1 && j == mapSize - 1) // если €чейка находитс€ в крайней правой колонке
+                    {
+                        if (cellsMap[i, j].Text == cellsMap[i + 1, j].Text)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (i == mapSize - 1 && j != mapSize - 1) // если €чейка находитс€ в самой нижней строке
+                    {
+                        if (cellsMap[i, j].Text == cellsMap[i, j + 1].Text)
+                        {
+                            return true;
+                        }
+                    }
+                    else // в остальных случа€х
+                    {
+                        if (i != mapSize - 1 && j != mapSize - 1) // если это не €чейка с правом нижнем углу 
+                        {
+                            if (cellsMap[i, j].Text == cellsMap[i, j + 1].Text ||
+                                cellsMap[i, j].Text == cellsMap[i + 1, j].Text)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }

@@ -123,7 +123,7 @@
             startButton.TabIndex = 3;
             startButton.Text = "Начать";
             startButton.UseVisualStyleBackColor = true;
-            startButton.Click += startButton_Click;
+            startButton.Click += StartButton_Click;
             // 
             // StartForm
             // 
