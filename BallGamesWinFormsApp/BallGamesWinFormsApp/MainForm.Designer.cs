@@ -30,6 +30,7 @@
         {
             button1 = new Button();
             button2 = new Button();
+            button3 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -38,7 +39,7 @@
             button1.Name = "button1";
             button1.Size = new Size(122, 23);
             button1.TabIndex = 0;
-            button1.Text = "Рисовать шарик";
+            button1.Text = "Двигать";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -52,12 +53,23 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // button3
+            // 
+            button3.Location = new Point(649, 52);
+            button3.Name = "button3";
+            button3.Size = new Size(122, 23);
+            button3.TabIndex = 0;
+            button3.Text = "Двигать";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(button2);
+            Controls.Add(button3);
             Controls.Add(button1);
             Name = "MainForm";
             Text = "Мячики";
@@ -69,5 +81,6 @@
 
         private Button button1;
         private Button button2;
+        private Button button3;
     }
 }
