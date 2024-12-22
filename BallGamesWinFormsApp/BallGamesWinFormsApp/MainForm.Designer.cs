@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             button2 = new Button();
             button3 = new Button();
-            timer = new System.Windows.Forms.Timer(components);
             button4 = new Button();
             SuspendLayout();
             // 
@@ -53,11 +51,6 @@
             button3.Text = "Остановить все шарики";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
-            // 
-            // timer
-            // 
-            timer.Interval = 15;
-            timer.Tick += timer_Tick;
             // 
             // button4
             // 
@@ -86,7 +79,6 @@
         #endregion
         private Button button2;
         private Button button3;
-        private System.Windows.Forms.Timer timer;
         private Button button4;
     }
 }
