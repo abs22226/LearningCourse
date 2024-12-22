@@ -3,6 +3,8 @@
     public class Ball
     {
         private MainForm mainForm;
+        private int vx = 1;
+        private int vy = 1;
         protected int x = 150;
         protected int y = 150;
         protected int size = 70;
@@ -29,14 +31,15 @@
 
         private void Go()
         {
-            x += 10;
-            y += 15;
+            x += vx;
+            y += vy;
         }
 
         private void Clear()
         {
             var graphics = mainForm.CreateGraphics(); // создаем холст на главной форме, чтобы рисовать на нем
-            var brush = new SolidBrush(mainForm.BackColor);
+            //var brush = new SolidBrush(mainForm.BackColor);
+            var brush = Brushes.White;
             var rectangle = new Rectangle(x - size / 2, y - size / 2, size, size); // координаты площади, куда надо вписать эллипс
             graphics.FillEllipse(brush, rectangle);
         }
