@@ -28,44 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button2 = new Button();
+            startButton = new Button();
+            stopButton = new Button();
+            clearButton = new Button();
             SuspendLayout();
             // 
-            // button1
+            // startButton
             // 
-            button1.Location = new Point(693, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(95, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Создать";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            startButton.Location = new Point(693, 12);
+            startButton.Name = "startButton";
+            startButton.Size = new Size(95, 23);
+            startButton.TabIndex = 0;
+            startButton.Text = "Создать";
+            startButton.UseVisualStyleBackColor = true;
+            startButton.Click += startButton_Click;
             // 
-            // button2
+            // stopButton
             // 
-            button2.Location = new Point(693, 41);
-            button2.Name = "button2";
-            button2.Size = new Size(95, 23);
-            button2.TabIndex = 0;
-            button2.Text = "Остановить";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            stopButton.Location = new Point(693, 41);
+            stopButton.Name = "stopButton";
+            stopButton.Size = new Size(95, 23);
+            stopButton.TabIndex = 0;
+            stopButton.Text = "Остановить";
+            stopButton.UseVisualStyleBackColor = true;
+            stopButton.Click += stopButton_Click;
+            // 
+            // clearButton
+            // 
+            clearButton.Location = new Point(693, 70);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(95, 23);
+            clearButton.TabIndex = 0;
+            clearButton.Text = "Очистить";
+            clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(button2);
+            Controls.Add(startButton);
+            Controls.Add(clearButton);
+            Controls.Add(stopButton);
             Name = "MainForm";
             Text = "Мячики";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 
         #endregion
-        private Button button1;
-        private Button button2;
+        private Button startButton;
+        private Button stopButton;
+        private Button clearButton;
     }
 }

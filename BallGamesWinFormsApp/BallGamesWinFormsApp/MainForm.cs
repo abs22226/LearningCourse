@@ -9,10 +9,18 @@ namespace BallGamesWinFormsApp
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            movingBalls = new List<RandomSpeedMovingBall>();
+            stopButton.Enabled = false;
+            clearButton.Enabled = false;
+        }
 
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            stopButton.Enabled = true;
+            startButton.Enabled = false;
+
+            movingBalls = new List<RandomSpeedMovingBall>();
             for (int i = 0; i < 5; i++)
             {
                 var movingBall = new RandomSpeedMovingBall(this);
@@ -21,7 +29,7 @@ namespace BallGamesWinFormsApp
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void stopButton_Click(object sender, EventArgs e)
         {
             var ballsCount = 0;
             foreach (var ball in movingBalls)
@@ -34,6 +42,20 @@ namespace BallGamesWinFormsApp
             }
 
             MessageBox.Show(ballsCount.ToString());
+
+            stopButton.Enabled = false;
+            clearButton.Enabled = true;
+        }        
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            foreach (var ball in movingBalls)
+            {
+                ball.Clear();
+            }
+
+            clearButton.Enabled = false;
+            startButton.Enabled = true;
         }
     }
 }

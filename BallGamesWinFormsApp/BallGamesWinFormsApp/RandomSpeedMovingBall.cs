@@ -4,8 +4,12 @@
     {
         public RandomSpeedMovingBall(MainForm mainForm) : base(mainForm)
         {
-            vx = random.Next(-5, 6);
-            vy = random.Next(-5, 6);
+            do
+            {
+                xMove = random.Next(-5, 6);
+                yMove = random.Next(-5, 6);
+            }
+            while (xMove == 0 && yMove == 0);
         }
     }
 }

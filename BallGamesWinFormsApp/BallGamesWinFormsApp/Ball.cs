@@ -3,11 +3,11 @@
     public class Ball
     {
         private MainForm mainForm;
-        protected int vx = 1;
-        protected int vy = 1;
-        protected int x = 50;
-        protected int y = 50;
-        protected int size = 70;
+        protected int x = 150;
+        protected int y = 150;
+        protected int size = 50;
+        protected int xMove = 5;
+        protected int yMove = -5;
         protected static Random random = new Random();
 
         public Ball(MainForm mainForm)
@@ -32,15 +32,14 @@
 
         private void Go()
         {
-            x += vx;
-            y += vy;
+            x += xMove;
+            y += yMove;
         }
 
-        private void Clear()
+        public void Clear()
         {
             var graphics = mainForm.CreateGraphics(); // создаем холст на главной форме, чтобы рисовать на нем
             var brush = new SolidBrush(mainForm.BackColor);
-            //var brush = Brushes.White;
             var rectangle = new Rectangle(x, y, size, size); // координаты площади, куда надо вписать эллипс
             graphics.FillEllipse(brush, rectangle);
         }
