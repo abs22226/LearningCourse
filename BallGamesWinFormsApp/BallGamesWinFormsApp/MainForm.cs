@@ -2,7 +2,7 @@ namespace BallGamesWinFormsApp
 {
     public partial class MainForm : Form
     {
-        List<RandomSpeedMovingBall> movingBalls;
+        List<RandomSpeedMovingBall> balls;
 
         public MainForm()
         {
@@ -20,19 +20,19 @@ namespace BallGamesWinFormsApp
             stopButton.Enabled = true;
             startButton.Enabled = false;
 
-            movingBalls = new List<RandomSpeedMovingBall>();
+            balls = new List<RandomSpeedMovingBall>();
             for (int i = 0; i < 5; i++)
             {
-                var movingBall = new RandomSpeedMovingBall(this);
-                movingBalls.Add(movingBall);
-                movingBall.Start();
+                var ball = new RandomSpeedMovingBall(this);
+                balls.Add(ball);
+                ball.Start();
             }
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
             var ballsCount = 0;
-            foreach (var ball in movingBalls)
+            foreach (var ball in balls)
             {
                 ball.Stop();
                 if (ball.IsOnMainForm())
@@ -49,7 +49,7 @@ namespace BallGamesWinFormsApp
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            foreach (var ball in movingBalls)
+            foreach (var ball in balls)
             {
                 ball.Clear();
             }
