@@ -2,38 +2,38 @@ namespace BallGamesWinFormsApp
 {
     public partial class MainForm : Form
     {
-        List<MovableBall> movableBalls;
-        PointBall pointBall;
+        List<RandomSpeedMovingBall> movingBalls;
 
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            pointBall = new PointBall(this, e.X, e.Y);
-            pointBall.Show();
-        }
+            movingBalls = new List<RandomSpeedMovingBall>();
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < movableBalls.Count; i++)
+            for (int i = 0; i < 5; i++)
             {
-                movableBalls[i].Stop();
+                var movingBall = new RandomSpeedMovingBall(this);
+                movingBalls.Add(movingBall);
+                movingBall.Start();
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            movableBalls = new List<MovableBall>();
-
-            for (int i = 0; i < 10; i++)
+            var ballsCount = 0;
+            foreach (var ball in movingBalls)
             {
-                var movableBall = new MovableBall(this);
-                movableBalls.Add(movableBall);
-                movableBall.Start();
+                ball.Stop();
+                if (ball.IsOnMainForm())
+                {
+                    ballsCount++;
+                }
             }
+
+            MessageBox.Show(ballsCount.ToString());
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿namespace BallGamesWinFormsApp
 {
-    public class MovableBall : RandomPointBall
+
+    public class MovingBall : RandomPointBall
     {
         private System.Windows.Forms.Timer timer;
 
-        public MovableBall(MainForm mainForm) : base(mainForm)
+        public MovingBall(MainForm mainForm) : base(mainForm)
         {
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 20;
