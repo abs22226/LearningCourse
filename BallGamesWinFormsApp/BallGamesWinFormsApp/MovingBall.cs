@@ -5,7 +5,7 @@
     {
         private System.Windows.Forms.Timer timer;
 
-        public MovingBall(MainForm mainForm) : base(mainForm)
+        public MovingBall(Form mainForm) : base(mainForm)
         {
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 20;

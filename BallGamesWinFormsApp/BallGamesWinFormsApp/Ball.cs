@@ -2,7 +2,7 @@
 {
     public class Ball
     {
-        private MainForm mainForm;
+        private Form mainForm;
         protected int x = 150;
         protected int y = 150;
         protected int size = 50;
@@ -10,7 +10,7 @@
         protected int yMove = -5;
         protected static Random random = new Random();
 
-        public Ball(MainForm mainForm)
+        public Ball(Form mainForm)
         {
             this.mainForm = mainForm;
         }

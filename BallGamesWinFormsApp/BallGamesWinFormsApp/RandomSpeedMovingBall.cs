@@ -2,7 +2,7 @@
 {
     public class RandomSpeedMovingBall : MovingBall
     {
-        public RandomSpeedMovingBall(MainForm mainForm) : base(mainForm)
+        public RandomSpeedMovingBall(Form mainForm) : base(mainForm)
         {
             do
             {

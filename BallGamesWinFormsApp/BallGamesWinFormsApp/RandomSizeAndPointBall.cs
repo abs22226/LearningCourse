@@ -2,7 +2,7 @@
 {
     public class RandomSizeAndPointBall : RandomPointBall
     {
-        public RandomSizeAndPointBall(MainForm mainForm) : base(mainForm)
+        public RandomSizeAndPointBall(Form mainForm) : base(mainForm)
         {
             size = random.Next(30, 80);
         }
