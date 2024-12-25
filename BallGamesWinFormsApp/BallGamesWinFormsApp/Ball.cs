@@ -49,5 +49,14 @@
             return x >= 0 && x + size <= mainForm.ClientSize.Width &&
                    y >= 0 && y + size <= mainForm.ClientSize.Height;
         }
+
+        public bool IsUnderCursor(Point cursorPoint)
+        {
+            var ballRadius = size / 2;
+            var ballCenter = new Point(x + ballRadius, y + ballRadius);
+            var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow((cursorPoint.X - ballCenter.X), 2) + Math.Pow((cursorPoint.Y - ballCenter.Y), 2));
+
+            return distanceFromCursorToBallCenter <= ballRadius;
+        }
     }
 }

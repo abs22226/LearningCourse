@@ -5,6 +5,8 @@ namespace CatcherWinFormsApp
     public partial class MainForm : Form
     {
         private List<RandomSpeedMovingBall> balls;
+        private int score = 0;
+
         public MainForm()
         {
             InitializeComponent();
@@ -31,12 +33,15 @@ namespace CatcherWinFormsApp
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            for (int i = 0; i < 5; i++)
+            var cursorPoint = new Point(e.X, e.Y);
+            foreach (var ball in balls)
             {
-                var ball = new RandomSpeedMovingBall(this);
-                balls.Add(ball);
-                ball.Start();
+                if (ball.IsUnderCursor(cursorPoint))
+                {
+                    score++;
+                }
             }
+            scoreLabel.Text = score.ToString();
         }
     }
 }

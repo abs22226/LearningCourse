@@ -1,4 +1,5 @@
-﻿namespace BallGamesWinFormsApp
+﻿
+namespace BallGamesWinFormsApp
 {
     public class RandomSpeedMovingBall : MovingBall
     {
