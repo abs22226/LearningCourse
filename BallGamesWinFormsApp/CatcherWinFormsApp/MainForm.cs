@@ -27,7 +27,8 @@ namespace CatcherWinFormsApp
             var cursorPoint = new Point(e.X, e.Y);
             foreach (var ball in balls)
             {
-                if (ball.IsInMotion() && 
+                if (ball.IsOnMainForm() &&
+                    ball.IsInMotion() && 
                     ball.IsUnderCursor(cursorPoint))
                 {
                     ball.Stop();
