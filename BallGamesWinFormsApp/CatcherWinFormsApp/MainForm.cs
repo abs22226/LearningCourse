@@ -19,13 +19,20 @@ namespace CatcherWinFormsApp
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
+            if(balls == null)
+            { 
+                return;
+            }
+
             var cursorPoint = new Point(e.X, e.Y);
             foreach (var ball in balls)
             {
-                if (ball.IsUnderCursor(cursorPoint))
+                if (ball.IsInMotion() && 
+                    ball.IsUnderCursor(cursorPoint))
                 {
                     ball.Stop();
                     score++;
+                    break;
                 }
             }
             scoreLabel.Text = score.ToString();

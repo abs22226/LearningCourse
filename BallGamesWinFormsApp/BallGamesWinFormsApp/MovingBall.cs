@@ -26,5 +26,10 @@
         {
             Move();
         }
+
+        public bool IsInMotion()
+        {
+            return timer.Enabled;
+        }
     }
 }
