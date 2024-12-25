@@ -17,6 +17,20 @@ namespace CatcherWinFormsApp
             clearButton.Enabled = false;
         }
 
+        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            var cursorPoint = new Point(e.X, e.Y);
+            foreach (var ball in balls)
+            {
+                if (ball.IsUnderCursor(cursorPoint))
+                {
+                    ball.Stop();
+                    score++;
+                }
+            }
+            scoreLabel.Text = score.ToString();
+        }
+
         private void startButton_Click(object sender, EventArgs e)
         {
             startButton.Enabled = false;
@@ -31,17 +45,17 @@ namespace CatcherWinFormsApp
             }
         }
 
-        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        private void clearButton_Click(object sender, EventArgs e)
         {
-            var cursorPoint = new Point(e.X, e.Y);
             foreach (var ball in balls)
             {
-                if (ball.IsUnderCursor(cursorPoint))
-                {
-                    score++;
-                }
+                ball.Clear();
             }
-            scoreLabel.Text = score.ToString();
+
+            clearButton.Enabled = false;
+            startButton.Enabled = true;
+            scoreLabel.Text = "0";
+            score = 0;
         }
     }
 }

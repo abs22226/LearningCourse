@@ -51,6 +51,7 @@
             clearButton.TabIndex = 0;
             clearButton.Text = "Очистить";
             clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
             // 
             // scoreLabel
             // 
