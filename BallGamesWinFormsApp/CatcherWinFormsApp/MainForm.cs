@@ -56,6 +56,7 @@ namespace CatcherWinFormsApp
         {
             foreach (var ball in balls)
             {
+                ball.Stop();
                 ball.Clear();
             }
 
