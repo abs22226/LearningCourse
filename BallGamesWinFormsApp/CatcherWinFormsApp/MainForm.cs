@@ -4,7 +4,7 @@ namespace CatcherWinFormsApp
 {
     public partial class MainForm : Form
     {
-        private List<RandomSpeedAndPointBall> balls;
+        private List<RandomSpeedAndDirectionBall> balls;
         private int score = 0;
 
         public MainForm()
@@ -44,10 +44,10 @@ namespace CatcherWinFormsApp
             startButton.Enabled = false;
             clearButton.Enabled = true;
 
-            balls = new List<RandomSpeedAndPointBall>();
+            balls = new List<RandomSpeedAndDirectionBall>();
             for (int i = 0; i < 5; i++)
             {
-                var ball = new RandomSpeedAndPointBall(this);
+                var ball = new RandomSpeedAndDirectionBall(this);
                 balls.Add(ball);
                 ball.Start();
             }

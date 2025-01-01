@@ -1,8 +1,8 @@
 ﻿namespace BallGamesWinFormsApp
 {
-    public class RandomSpeedAndPointBall : RandomPointBall
+    public class RandomSpeedAndDirectionBall : RandomPointBall
     {
-        public RandomSpeedAndPointBall(Form mainForm) : base(mainForm)
+        public RandomSpeedAndDirectionBall(Form mainForm) : base(mainForm)
         {
             do
             {
