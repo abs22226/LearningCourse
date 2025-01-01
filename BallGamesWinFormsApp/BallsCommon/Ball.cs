@@ -55,20 +55,10 @@
             graphics.FillEllipse(brush, rectangle);
         }
 
-        private void Go()
+        protected virtual void Go()
         {
             centerX += xMove;
             centerY += yMove;
-
-            if (centerX <= LeftEdge() || centerX >= RightEdge())
-            {
-                xMove = -xMove;
-            }
-
-            if (centerY <= TopEdge() || centerY >= BottomEdge())
-            {
-                yMove = -yMove;
-            }
         }
 
         public void Show()

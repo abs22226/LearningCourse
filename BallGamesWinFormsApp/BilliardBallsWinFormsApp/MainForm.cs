@@ -1,3 +1,5 @@
+using BallsCommon;
+
 namespace BilliardBallsWinFormsApp
 {
     public partial class MainForm : Form
@@ -9,8 +11,11 @@ namespace BilliardBallsWinFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var ball = new BilliardBall(this);
+            Ball ball = new BilliardBall(this);
             ball.Start();
+
+            Ball ball2 = new RandomSpeedAndDirectionBall(this);
+            ball2.Start();
         }
     }
 }

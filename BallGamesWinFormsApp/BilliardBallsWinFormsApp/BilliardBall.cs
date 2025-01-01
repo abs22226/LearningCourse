@@ -9,5 +9,13 @@ namespace BilliardBallsWinFormsApp
 
 
         }
+
+        protected override void Go()
+        {
+            base.Go();
+
+            xMove = centerX <= LeftEdge() || centerX >= RightEdge() ? -xMove : xMove;
+            yMove = centerY <= TopEdge() || centerY >= BottomEdge() ? -yMove : yMove;
+        }
     }
 }
