@@ -11,11 +11,11 @@ namespace BilliardBallsWinFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Ball ball = new BilliardBall(this);
-            ball.Start();
-
-            Ball ball2 = new RandomSpeedAndDirectionBall(this);
-            ball2.Start();
+            for (int i = 0; i < 10; i++)
+            {
+                Ball ball = new BilliardBall(this);
+                ball.Start();
+            }
         }
     }
 }
