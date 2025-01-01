@@ -13,8 +13,20 @@ namespace BilliardBallsWinFormsApp
         {
             for (int i = 0; i < 10; i++)
             {
-                Ball ball = new BilliardBall(this);
+                var ball = new BilliardBall(this);
+                ball.OnHittingEdge += Ball_OnEdgeHitting;
                 ball.Start();
+            }
+        }
+
+        private void Ball_OnEdgeHitting(object? sender, HitEventArgs e)
+        {
+            switch (e.Edge)
+            {
+                case Edges.Left: leftLabel.Text = (Convert.ToInt32(leftLabel.Text) + 1).ToString(); break;
+                case Edges.Right: rightLabel.Text = (Convert.ToInt32(rightLabel.Text) + 1).ToString(); break;
+                case Edges.Top: topLabel.Text = (Convert.ToInt32(topLabel.Text) + 1).ToString(); break;
+                case Edges.Bottom: bottomLabel.Text = (Convert.ToInt32(bottomLabel.Text) + 1).ToString(); break;
             }
         }
     }
