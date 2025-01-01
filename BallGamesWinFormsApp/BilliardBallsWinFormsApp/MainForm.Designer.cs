@@ -37,6 +37,7 @@
             ClientSize = new Size(800, 450);
             Name = "MainForm";
             Text = "Биллиардные шарики";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 

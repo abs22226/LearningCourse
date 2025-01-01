@@ -59,6 +59,16 @@
         {
             centerX += xMove;
             centerY += yMove;
+
+            if (centerX <= LeftEdge() || centerX >= RightEdge())
+            {
+                xMove = -xMove;
+            }
+
+            if (centerY <= TopEdge() || centerY >= BottomEdge())
+            {
+                yMove = -yMove;
+            }
         }
 
         public void Show()

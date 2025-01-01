@@ -6,5 +6,11 @@ namespace BilliardBallsWinFormsApp
         {
             InitializeComponent();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var ball = new BilliardBall(this);
+            ball.Start();
+        }
     }
 }

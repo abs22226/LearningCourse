@@ -28,10 +28,6 @@ namespace BallGamesWinFormsApp
                 var randomSpeedAndDirectionBall = new RandomSpeedAndDirectionBall(this);
                 balls.Add(randomSpeedAndDirectionBall);
                 randomSpeedAndDirectionBall.Start();
-
-                var randomSizeBall = new RandomSizeBall(this);
-                balls.Add(randomSizeBall);
-                randomSizeBall.Start();
             }
         }
 
