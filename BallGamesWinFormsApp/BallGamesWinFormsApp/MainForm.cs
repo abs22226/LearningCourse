@@ -2,7 +2,7 @@ namespace BallGamesWinFormsApp
 {
     public partial class MainForm : Form
     {
-        List<RandomSpeedMovingBall> balls;
+        List<RandomSpeedAndPointBall> balls;
 
         public MainForm()
         {
@@ -20,10 +20,10 @@ namespace BallGamesWinFormsApp
             stopButton.Enabled = true;
             startButton.Enabled = false;
 
-            balls = new List<RandomSpeedMovingBall>();
+            balls = new List<RandomSpeedAndPointBall>();
             for (int i = 0; i < 5; i++)
             {
-                var ball = new RandomSpeedMovingBall(this);
+                var ball = new RandomSpeedAndPointBall(this);
                 balls.Add(ball);
                 ball.Start();
             }

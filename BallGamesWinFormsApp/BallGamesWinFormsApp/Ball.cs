@@ -8,16 +8,43 @@
         protected int radius = 25;
         protected int xMove = 5;
         protected int yMove = -5;
-        protected static Random random = new Random();
+        protected static Random random;
+        private System.Windows.Forms.Timer timer;
 
         public Ball(Form mainForm)
         {
             this.mainForm = mainForm;
+            random = new Random();
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 20;
+            timer.Tick += Timer_Tick;
         }
 
-        public void Show()
+        public void Start()
         {
-            var brush = Brushes.Aqua;
+            timer.Start();
+        }
+
+        public void Stop()
+        {
+            timer.Stop();
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            Move();
+        }
+
+        public void Move()
+        {
+            Clear();
+            Go();
+            Show();
+        }
+
+        public void Clear()
+        {
+            var brush = new SolidBrush(mainForm.BackColor);
             Draw(brush);
         }
 
@@ -28,22 +55,15 @@
             graphics.FillEllipse(brush, rectangle);
         }
 
-        public void Move()
-        {
-            Clear();
-            Go();
-            Show();
-        }
-
         private void Go()
         {
             centerX += xMove;
             centerY += yMove;
         }
 
-        public void Clear()
+        public void Show()
         {
-            var brush = new SolidBrush(mainForm.BackColor);
+            var brush = Brushes.Aqua;
             Draw(brush);
         }
 
@@ -79,6 +99,11 @@
             var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow((cursorPoint.X - ballCenter.X), 2) + Math.Pow((cursorPoint.Y - ballCenter.Y), 2));
 
             return distanceFromCursorToBallCenter <= radius;
+        }
+
+        public bool IsInMotion()
+        {
+            return timer.Enabled;
         }
     }
 }
