@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BallGamesWinFormsApp\BallGamesWinFormsApp.csproj" />
+    <ProjectReference Include="..\BallsCommon\BallsCommon.csproj" />
   </ItemGroup>
 
 </Project>

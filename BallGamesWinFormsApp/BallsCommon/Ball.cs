@@ -1,4 +1,4 @@
-﻿namespace BallGamesWinFormsApp
+﻿namespace BallsCommon
 {
     public class Ball
     {
@@ -96,7 +96,7 @@
         public bool IsUnderCursor(Point cursorPoint)
         {
             var ballCenter = new Point(centerX, centerY);
-            var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow((cursorPoint.X - ballCenter.X), 2) + Math.Pow((cursorPoint.Y - ballCenter.Y), 2));
+            var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow(cursorPoint.X - ballCenter.X, 2) + Math.Pow(cursorPoint.Y - ballCenter.Y, 2));
 
             return distanceFromCursorToBallCenter <= radius;
         }

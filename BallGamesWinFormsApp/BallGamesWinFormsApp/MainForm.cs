@@ -1,9 +1,10 @@
+using BallsCommon;
+
 namespace BallGamesWinFormsApp
 {
     public partial class MainForm : Form
     {
         List<Ball> balls;
-        private object randomSpeedBall;
 
         public MainForm()
         {

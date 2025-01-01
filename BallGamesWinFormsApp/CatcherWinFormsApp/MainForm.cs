@@ -1,4 +1,4 @@
-using BallGamesWinFormsApp;
+using BallsCommon;
 
 namespace CatcherWinFormsApp
 {
