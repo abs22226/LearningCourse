@@ -4,8 +4,8 @@
     {
         public RandomPointBall(Form mainForm) : base(mainForm)
         {
-            x = random.Next(0, mainForm.ClientSize.Width);
-            y = random.Next(0, mainForm.ClientSize.Height);
+            centerX = random.Next(LeftEdge(), RightEdge());
+            centerY = random.Next(TopEdge(), BottomEdge());
         }
     }
 }

@@ -4,8 +4,8 @@
     {
         public PointBall(Form mainForm, int x, int y) : base(mainForm)
         {
-            this.x = x;
-            this.y = y;
+            this.centerX = x;
+            this.centerY = y;
         }
     }
 }

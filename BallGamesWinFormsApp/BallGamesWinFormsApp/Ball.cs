@@ -3,9 +3,9 @@
     public class Ball
     {
         private Form mainForm;
-        protected int x = 150;
-        protected int y = 150;
-        protected int size = 50;
+        protected int centerX = 150;
+        protected int centerY = 150;
+        protected int radius = 25;
         protected int xMove = 5;
         protected int yMove = -5;
         protected static Random random = new Random();
@@ -17,9 +17,14 @@
 
         public void Show()
         {
-            var graphics = mainForm.CreateGraphics(); // создаем холст на главной форме, чтобы рисовать на нем
             var brush = Brushes.Aqua;
-            var rectangle = new Rectangle(x, y, size, size); // координаты площади, куда надо вписать эллипс
+            Draw(brush);
+        }
+
+        private void Draw(Brush brush)
+        {
+            var graphics = mainForm.CreateGraphics(); // создаем холст на главной форме, чтобы рисовать на нем
+            var rectangle = new Rectangle(centerX - radius, centerY - radius, 2 * radius, 2 * radius); // координаты площади, куда надо вписать эллипс
             graphics.FillEllipse(brush, rectangle);
         }
 
@@ -32,31 +37,48 @@
 
         private void Go()
         {
-            x += xMove;
-            y += yMove;
+            centerX += xMove;
+            centerY += yMove;
         }
 
         public void Clear()
         {
-            var graphics = mainForm.CreateGraphics(); // создаем холст на главной форме, чтобы рисовать на нем
             var brush = new SolidBrush(mainForm.BackColor);
-            var rectangle = new Rectangle(x, y, size, size); // координаты площади, куда надо вписать эллипс
-            graphics.FillEllipse(brush, rectangle);
+            Draw(brush);
         }
 
         public bool IsOnMainForm()
         {
-            return x >= 0 && x + size <= mainForm.ClientSize.Width &&
-                   y >= 0 && y + size <= mainForm.ClientSize.Height;
+            return centerX >= LeftEdge() && centerX <= RightEdge() &&
+                   centerY >= TopEdge() && centerY <= BottomEdge();
+        }
+
+        public int LeftEdge()
+        {
+            return radius;
+        }
+
+        public int RightEdge()
+        {
+            return mainForm.ClientSize.Width - radius;
+        }
+
+        public int TopEdge()
+        {
+            return radius;
+        }
+
+        public int BottomEdge()
+        {
+            return mainForm.ClientSize.Height - radius;
         }
 
         public bool IsUnderCursor(Point cursorPoint)
         {
-            var ballRadius = size / 2;
-            var ballCenter = new Point(x + ballRadius, y + ballRadius);
+            var ballCenter = new Point(centerX, centerY);
             var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow((cursorPoint.X - ballCenter.X), 2) + Math.Pow((cursorPoint.Y - ballCenter.Y), 2));
 
-            return distanceFromCursorToBallCenter <= ballRadius;
+            return distanceFromCursorToBallCenter <= radius;
         }
     }
 }
