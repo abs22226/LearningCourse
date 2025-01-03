@@ -2,18 +2,29 @@
 {
     public class Ball
     {
-        private Form mainForm;
+        protected Form mainForm;
         protected int centerX = 150;
         protected int centerY = 150;
-        protected int radius = 25;
+        protected int radius = 10;
         protected int xMove = 5;
         protected int yMove = -5;
         protected static Random random;
         private System.Windows.Forms.Timer timer;
+        protected Brush brush;
 
         public Ball(Form mainForm)
         {
             this.mainForm = mainForm;
+            random = new Random();
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 20;
+            timer.Tick += Timer_Tick;
+        }
+
+        public Ball(Form mainForm, Brush brush)
+        {
+            this.mainForm = mainForm;
+            this.brush = brush;
             random = new Random();
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 20;
@@ -44,8 +55,8 @@
 
         public void Clear()
         {
-            var brush = new SolidBrush(mainForm.BackColor);
-            Draw(brush);
+            var backColorBrush = new SolidBrush(mainForm.BackColor);
+            Draw(backColorBrush);
         }
 
         private void Draw(Brush brush)
@@ -63,7 +74,6 @@
 
         public void Show()
         {
-            var brush = Brushes.Aqua;
             Draw(brush);
         }
 

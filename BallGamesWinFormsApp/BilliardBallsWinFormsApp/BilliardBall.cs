@@ -10,6 +10,10 @@ namespace BilliardBallsWinFormsApp
         {
         }
 
+        public BilliardBall(Form mainForm, Brush brush) : base(mainForm, brush)
+        {
+        }
+
         protected override void Go()
         {
             base.Go();
