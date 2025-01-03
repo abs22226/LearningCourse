@@ -1,4 +1,4 @@
-﻿namespace BilliardBallsWinFormsApp
+﻿namespace BallsCommon
 {
     public class HitEventArgs
     {
