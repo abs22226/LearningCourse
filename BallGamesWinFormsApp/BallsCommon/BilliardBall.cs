@@ -1,6 +1,4 @@
-﻿using BallsCommon;
-
-namespace BilliardBallsWinFormsApp
+﻿namespace BallsCommon
 {
     public class BilliardBall : RandomSpeedAndDirectionBall
     {
