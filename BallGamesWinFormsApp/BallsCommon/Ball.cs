@@ -9,22 +9,13 @@
         protected int xMove = 5;
         protected int yMove = -5;
         protected static Random random;
-        private System.Windows.Forms.Timer timer;
-        protected Brush brush;
-
-        //public Ball(Form mainForm)
-        //{
-        //    this.mainForm = mainForm;
-        //    random = new Random();
-        //    timer = new System.Windows.Forms.Timer();
-        //    timer.Interval = 20;
-        //    timer.Tick += Timer_Tick;
-        //}
+        protected System.Windows.Forms.Timer timer;
+        public Brush Brush { get; set; }
 
         public Ball(Form mainForm, Brush brush)
         {
             this.mainForm = mainForm;
-            this.brush = brush;
+            Brush = brush;
             random = new Random();
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 20;
@@ -74,7 +65,7 @@
 
         public void Show()
         {
-            Draw(brush);
+            Draw(Brush);
         }
 
         public bool IsOnMainForm()

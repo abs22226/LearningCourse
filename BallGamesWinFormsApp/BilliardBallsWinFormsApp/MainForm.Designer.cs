@@ -41,6 +41,7 @@
             // redLeftLabel
             // 
             redLeftLabel.AutoSize = true;
+            redLeftLabel.BackColor = Color.Transparent;
             redLeftLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             redLeftLabel.ForeColor = Color.Red;
             redLeftLabel.Location = new Point(12, 184);
@@ -52,9 +53,10 @@
             // redTopLabel
             // 
             redTopLabel.AutoSize = true;
+            redTopLabel.BackColor = Color.Transparent;
             redTopLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             redTopLabel.ForeColor = Color.Red;
-            redTopLabel.Location = new Point(373, 9);
+            redTopLabel.Location = new Point(358, 9);
             redTopLabel.Name = "redTopLabel";
             redTopLabel.Size = new Size(15, 17);
             redTopLabel.TabIndex = 0;
@@ -63,9 +65,10 @@
             // redBottomLabel
             // 
             redBottomLabel.AutoSize = true;
+            redBottomLabel.BackColor = Color.Transparent;
             redBottomLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             redBottomLabel.ForeColor = Color.Red;
-            redBottomLabel.Location = new Point(373, 424);
+            redBottomLabel.Location = new Point(358, 424);
             redBottomLabel.Name = "redBottomLabel";
             redBottomLabel.Size = new Size(15, 17);
             redBottomLabel.TabIndex = 0;
@@ -74,10 +77,12 @@
             // redRightLabel
             // 
             redRightLabel.AutoSize = true;
+            redRightLabel.BackColor = Color.Transparent;
             redRightLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             redRightLabel.ForeColor = Color.Red;
-            redRightLabel.Location = new Point(773, 184);
+            redRightLabel.Location = new Point(758, 184);
             redRightLabel.Name = "redRightLabel";
+            redRightLabel.RightToLeft = RightToLeft.No;
             redRightLabel.Size = new Size(15, 17);
             redRightLabel.TabIndex = 0;
             redRightLabel.Text = "0";
@@ -85,6 +90,7 @@
             // blueLeftLabel
             // 
             blueLeftLabel.AutoSize = true;
+            blueLeftLabel.BackColor = Color.Transparent;
             blueLeftLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             blueLeftLabel.ForeColor = Color.DodgerBlue;
             blueLeftLabel.Location = new Point(12, 222);
@@ -96,9 +102,10 @@
             // blueRightLabel
             // 
             blueRightLabel.AutoSize = true;
+            blueRightLabel.BackColor = Color.Transparent;
             blueRightLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             blueRightLabel.ForeColor = Color.DodgerBlue;
-            blueRightLabel.Location = new Point(773, 222);
+            blueRightLabel.Location = new Point(758, 222);
             blueRightLabel.Name = "blueRightLabel";
             blueRightLabel.Size = new Size(15, 17);
             blueRightLabel.TabIndex = 0;
@@ -107,9 +114,10 @@
             // blueTopLabel
             // 
             blueTopLabel.AutoSize = true;
+            blueTopLabel.BackColor = Color.Transparent;
             blueTopLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             blueTopLabel.ForeColor = Color.DodgerBlue;
-            blueTopLabel.Location = new Point(417, 9);
+            blueTopLabel.Location = new Point(414, 9);
             blueTopLabel.Name = "blueTopLabel";
             blueTopLabel.Size = new Size(15, 17);
             blueTopLabel.TabIndex = 0;
@@ -118,9 +126,10 @@
             // blueBottomLabel
             // 
             blueBottomLabel.AutoSize = true;
+            blueBottomLabel.BackColor = Color.Transparent;
             blueBottomLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             blueBottomLabel.ForeColor = Color.DodgerBlue;
-            blueBottomLabel.Location = new Point(417, 424);
+            blueBottomLabel.Location = new Point(414, 424);
             blueBottomLabel.Name = "blueBottomLabel";
             blueBottomLabel.Size = new Size(15, 17);
             blueBottomLabel.TabIndex = 0;
@@ -142,6 +151,7 @@
             Name = "MainForm";
             Text = "Биллиардные шарики";
             Load += MainForm_Load;
+            MouseDown += MainForm_MouseDown;
             ResumeLayout(false);
             PerformLayout();
         }
