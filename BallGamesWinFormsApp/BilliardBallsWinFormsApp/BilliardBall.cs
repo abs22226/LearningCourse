@@ -6,9 +6,9 @@ namespace BilliardBallsWinFormsApp
     {
         public event EventHandler<HitEventArgs> OnHittingEdge;
 
-        public BilliardBall(Form mainForm) : base(mainForm)
-        {
-        }
+        //public BilliardBall(Form mainForm) : base(mainForm)
+        //{
+        //}
 
         public BilliardBall(Form mainForm, Brush brush) : base(mainForm, brush)
         {

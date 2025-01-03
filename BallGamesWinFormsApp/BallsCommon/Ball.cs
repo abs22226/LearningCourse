@@ -5,21 +5,21 @@
         protected Form mainForm;
         protected int centerX = 150;
         protected int centerY = 150;
-        protected int radius = 10;
+        protected int radius = 25;
         protected int xMove = 5;
         protected int yMove = -5;
         protected static Random random;
         private System.Windows.Forms.Timer timer;
         protected Brush brush;
 
-        public Ball(Form mainForm)
-        {
-            this.mainForm = mainForm;
-            random = new Random();
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 20;
-            timer.Tick += Timer_Tick;
-        }
+        //public Ball(Form mainForm)
+        //{
+        //    this.mainForm = mainForm;
+        //    random = new Random();
+        //    timer = new System.Windows.Forms.Timer();
+        //    timer.Interval = 20;
+        //    timer.Tick += Timer_Tick;
+        //}
 
         public Ball(Form mainForm, Brush brush)
         {

@@ -25,7 +25,7 @@ namespace BallGamesWinFormsApp
             balls = new List<Ball>();
             for (int i = 0; i < 5; i++)
             {
-                var randomSpeedAndDirectionBall = new RandomSpeedAndDirectionBall(this);
+                var randomSpeedAndDirectionBall = new RandomSpeedAndDirectionBall(this, Brushes.DodgerBlue);
                 balls.Add(randomSpeedAndDirectionBall);
                 randomSpeedAndDirectionBall.Start();
             }

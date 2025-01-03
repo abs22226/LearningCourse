@@ -47,7 +47,7 @@ namespace CatcherWinFormsApp
             balls = new List<RandomSpeedAndDirectionBall>();
             for (int i = 0; i < 5; i++)
             {
-                var ball = new RandomSpeedAndDirectionBall(this);
+                var ball = new RandomSpeedAndDirectionBall(this, Brushes.DodgerBlue);
                 balls.Add(ball);
                 ball.Start();
             }
