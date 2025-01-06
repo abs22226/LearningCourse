@@ -37,6 +37,7 @@
             ClientSize = new Size(800, 450);
             Name = "MainForm";
             Text = "Салют";
+            MouseDown += MainForm_MouseDown;
             ResumeLayout(false);
         }
 

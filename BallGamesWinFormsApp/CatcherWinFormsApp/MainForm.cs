@@ -24,7 +24,7 @@ namespace CatcherWinFormsApp
                 return;
             }
 
-            var cursorPoint = new Point(e.X, e.Y);
+            var cursorPoint = new PointF(e.X, e.Y);
             foreach (var ball in balls)
             {
                 if (ball.IsOnMainForm() &&

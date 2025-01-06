@@ -3,11 +3,11 @@
     public class Ball
     {
         protected Form mainForm;
-        protected int centerX = 150;
-        protected int centerY = 150;
+        protected float centerX = 150;
+        protected float centerY = 150;
         protected int radius = 25;
-        protected int xMove = 5;
-        protected int yMove = -5;
+        protected float xMove = 5;
+        protected float yMove = -5;
         protected static Random random;
         protected System.Windows.Forms.Timer timer;
         public Brush Brush { get; set; }
@@ -53,7 +53,7 @@
         private void Draw(Brush brush)
         {
             var graphics = mainForm.CreateGraphics(); // создаем холст на главной форме, чтобы рисовать на нем
-            var rectangle = new Rectangle(centerX - radius, centerY - radius, 2 * radius, 2 * radius); // координаты площади, куда надо вписать эллипс
+            var rectangle = new RectangleF(centerX - radius, centerY - radius, 2 * radius, 2 * radius); // координаты площади, куда надо вписать эллипс
             graphics.FillEllipse(brush, rectangle);
         }
 
@@ -94,9 +94,9 @@
             return mainForm.ClientSize.Height - radius;
         }
 
-        public bool IsUnderCursor(Point cursorPoint)
+        public bool IsUnderCursor(PointF cursorPoint)
         {
-            var ballCenter = new Point(centerX, centerY);
+            var ballCenter = new PointF(centerX, centerY);
             var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow(cursorPoint.X - ballCenter.X, 2) + Math.Pow(cursorPoint.Y - ballCenter.Y, 2));
 
             return distanceFromCursorToBallCenter <= radius;
