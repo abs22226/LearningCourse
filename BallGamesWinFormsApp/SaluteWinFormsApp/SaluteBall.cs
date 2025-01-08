@@ -6,7 +6,7 @@ namespace SaluteWinFormsApp
     {
         private float g = 0.2f;
 
-        public SaluteBall(Form mainForm, Brush brush, int centerX, int centerY) : base(mainForm, brush)
+        public SaluteBall(Form mainForm, Brush brush, float centerX, float centerY) : base(mainForm, brush)
         {
             radius = 15;
             this.centerX = centerX;

@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            SaluteButton = new Button();
             SuspendLayout();
+            // 
+            // SaluteButton
+            // 
+            SaluteButton.Location = new Point(713, 12);
+            SaluteButton.Name = "SaluteButton";
+            SaluteButton.Size = new Size(75, 23);
+            SaluteButton.TabIndex = 0;
+            SaluteButton.Text = "Салют";
+            SaluteButton.UseVisualStyleBackColor = true;
+            SaluteButton.Click += SaluteButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SaluteButton);
             Name = "MainForm";
             Text = "Салют";
             MouseDown += MainForm_MouseDown;
@@ -42,5 +54,7 @@
         }
 
         #endregion
+
+        private Button SaluteButton;
     }
 }
