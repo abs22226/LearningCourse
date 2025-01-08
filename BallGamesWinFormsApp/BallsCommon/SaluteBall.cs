@@ -1,6 +1,4 @@
-﻿using BallsCommon;
-
-namespace SaluteWinFormsApp
+﻿namespace BallsCommon
 {
     public class SaluteBall : RandomSpeedAndDirectionBall
     {

@@ -1,3 +1,5 @@
+using BallsCommon;
+
 namespace SaluteWinFormsApp
 {
     public partial class MainForm : Form

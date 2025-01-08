@@ -1,4 +1,4 @@
-﻿namespace SaluteWinFormsApp
+﻿namespace BallsCommon
 {
     public class TopIsReachedEventArgs
     {
