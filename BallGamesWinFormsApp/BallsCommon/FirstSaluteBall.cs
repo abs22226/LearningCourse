@@ -6,15 +6,15 @@
 
         public FirstSaluteBall(Form mainForm, Brush brush) : base(mainForm, brush, mainForm.ClientSize.Width / 2, mainForm.ClientSize.Height)
         {
-            yMove = (float)random.NextDouble() * -6 - 7;
-            xMove = 0;
+            MoveY = (float)random.NextDouble() * -6 - 7;
+            MoveX = 0;
         }
 
         protected override void Go()
         {
             base.Go();
 
-            if (yMove > 0)
+            if (MoveY > 0)
             {
                 Stop();
                 Clear();

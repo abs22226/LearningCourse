@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             scoreLabel = new Label();
+            slowdownLabel = new Label();
             SuspendLayout();
             // 
             // scoreLabel
@@ -40,11 +41,21 @@
             scoreLabel.TabIndex = 0;
             scoreLabel.Text = "0";
             // 
+            // slowdownLabel
+            // 
+            slowdownLabel.AutoSize = true;
+            slowdownLabel.Location = new Point(372, 9);
+            slowdownLabel.Name = "slowdownLabel";
+            slowdownLabel.Size = new Size(85, 15);
+            slowdownLabel.TabIndex = 1;
+            slowdownLabel.Text = "ЗАМЕДЛЕНИЕ";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(slowdownLabel);
             Controls.Add(scoreLabel);
             Name = "MainForm";
             Text = "Фрукто-нинзя";
@@ -57,5 +68,6 @@
         #endregion
 
         private Label scoreLabel;
+        private Label slowdownLabel;
     }
 }

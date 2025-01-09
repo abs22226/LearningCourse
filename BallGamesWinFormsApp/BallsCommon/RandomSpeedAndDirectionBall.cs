@@ -6,10 +6,10 @@
         {
             do
             {
-                xMove = random.Next(-5, 6);
-                yMove = random.Next(-5, 6);
+                MoveX = random.Next(-5, 6);
+                MoveY = random.Next(-5, 6);
             }
-            while (xMove == 0 || yMove == 0);
+            while (MoveX == 0 || MoveY == 0);
         }
     }
 }

@@ -4,19 +4,25 @@ namespace FruitNinjaWinFormsApp
 {
     public class FruitBall : RandomSpeedAndDirectionBall
     {
-        private float g = 0.2f;
+        public float G;
+        public float InitialMoveX;
+        public float InitialMoveY;
 
         public FruitBall(Form mainForm, Brush brush) : base(mainForm, brush)
         {
             radius = 15;
             centerY = mainForm.ClientSize.Height + radius;
-            yMove = (float)random.NextDouble() * -6 - 7;
+            MoveY = (float)random.NextDouble() * -6 - 7;
+
+            G = 0.2f;
+            InitialMoveX = MoveX;
+            InitialMoveY = MoveY;
         }
 
         protected override void Go()
         {
             base.Go();
-            yMove += g;
+            MoveY += G;
 
             if (centerY > BottomEdge() + 2 * radius)
             {

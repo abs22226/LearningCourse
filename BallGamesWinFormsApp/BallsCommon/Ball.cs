@@ -6,10 +6,10 @@
         protected float centerX = 150;
         protected float centerY = 150;
         protected int radius = 25;
-        protected float xMove = 5;
-        protected float yMove = -5;
+        public float MoveX = 5;
+        public float MoveY = -5;
         protected static Random random;
-        protected System.Windows.Forms.Timer timer;
+        public System.Windows.Forms.Timer Timer;
         public Brush Brush { get; set; }
 
         public Ball(Form mainForm, Brush brush)
@@ -17,19 +17,19 @@
             this.mainForm = mainForm;
             Brush = brush;
             random = new Random();
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 20;
-            timer.Tick += Timer_Tick;
+            Timer = new System.Windows.Forms.Timer();
+            Timer.Interval = 20;
+            Timer.Tick += Timer_Tick;
         }
 
         public void Start()
         {
-            timer.Start();
+            Timer.Start();
         }
 
         public void Stop()
         {
-            timer.Stop();
+            Timer.Stop();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -59,8 +59,8 @@
 
         protected virtual void Go()
         {
-            centerX += xMove;
-            centerY += yMove;
+            centerX += MoveX;
+            centerY += MoveY;
         }
 
         public void Show()
@@ -104,7 +104,7 @@
 
         public bool IsInMotion()
         {
-            return timer.Enabled;
+            return Timer.Enabled;
         }
     }
 }

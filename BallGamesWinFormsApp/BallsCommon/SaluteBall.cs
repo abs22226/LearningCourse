@@ -9,13 +9,13 @@
             radius = 15;
             this.centerX = centerX;
             this.centerY = centerY;
-            yMove = -Math.Abs(yMove);
+            MoveY = -Math.Abs(MoveY);
         }
 
         protected override void Go()
         {
             base.Go();
-            yMove += g;
+            MoveY += g;
 
         }
     }

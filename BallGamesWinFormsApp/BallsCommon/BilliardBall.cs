@@ -23,25 +23,25 @@
 
             if (centerX <= LeftEdge())
             {
-                xMove = -xMove;
+                MoveX = -MoveX;
                 OnEdgeHitting.Invoke(this, new HitEventArgs(Edges.Left));
             }
 
             if (centerX >= RightEdge())
             {
-                xMove = -xMove;
+                MoveX = -MoveX;
                 OnEdgeHitting.Invoke(this, new HitEventArgs(Edges.Right));
             }
 
             if (centerY <= TopEdge())
             {
-                yMove = -yMove;
+                MoveY = -MoveY;
                 OnEdgeHitting.Invoke(this, new HitEventArgs(Edges.Top));
             }
 
             if (centerY >= BottomEdge())
             {
-                yMove = -yMove;
+                MoveY = -MoveY;
                 OnEdgeHitting.Invoke(this, new HitEventArgs(Edges.Bottom));
             }
         }
