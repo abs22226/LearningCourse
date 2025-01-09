@@ -28,12 +28,24 @@ namespace FruitNinjaWinFormsApp
             var count = random.Next(4, 11);
             for (int i = 0; i < count; i++)
             {
-                var r = random.Next(0, 256);
-                var g = random.Next(0, 256);
-                var b = random.Next(0, 256);
-                var randomColorBrush = new SolidBrush(Color.FromArgb(r, g, b));
-
-                var ball = random.Next(5) == 4 ? new BombBall(this, Brushes.Black) : new FruitBall(this, randomColorBrush); // 20% of bombs                
+                FruitBall ball;
+                var randomizer = random.Next(5);                
+                if (randomizer == 4)
+                {
+                    ball = new BombBall(this, Brushes.Black);
+                }
+                else if (randomizer == 3)
+                {
+                    ball = new BananaBall(this, Brushes.Yellow);
+                }
+                else
+                {
+                    var r = random.Next(0, 256);
+                    var g = random.Next(0, 256);
+                    var b = random.Next(0, 256);
+                    var randomColorBrush = new SolidBrush(Color.FromArgb(r, g, b));
+                    ball = new FruitBall(this, randomColorBrush);
+                }
                 balls.Add(ball);
                 ball.Start();
             }
