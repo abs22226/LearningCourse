@@ -1,4 +1,6 @@
-﻿namespace BallsCommon
+﻿using System.Drawing;
+
+namespace BallsCommon
 {
     public class Ball
     {
@@ -94,17 +96,26 @@
             return mainForm.ClientSize.Height - radius;
         }
 
-        public bool IsUnderCursor(PointF cursorPoint)
+        public bool IsUnder(PointF point)
         {
             var ballCenter = new PointF(centerX, centerY);
-            var distanceFromCursorToBallCenter = Math.Sqrt(Math.Pow(cursorPoint.X - ballCenter.X, 2) + Math.Pow(cursorPoint.Y - ballCenter.Y, 2));
+            var distanceFromPointToBallCenter = Math.Sqrt(Math.Pow(point.X - ballCenter.X, 2) + Math.Pow(point.Y - ballCenter.Y, 2));
 
-            return distanceFromCursorToBallCenter <= radius;
+            return distanceFromPointToBallCenter <= radius;
         }
 
         public bool IsInMotion()
         {
             return Timer.Enabled;
+        }
+
+        public bool IsIntersecting(Ball otherBall)
+        {
+            var ballCenter = new PointF(centerX, centerY);
+            var otherBallCenter = new PointF(otherBall.centerX, otherBall.centerY);
+            var distanceBetweenCenters = Math.Sqrt(Math.Pow(otherBallCenter.X - ballCenter.X, 2) + Math.Pow(otherBallCenter.Y - ballCenter.Y, 2));
+
+            return distanceBetweenCenters < radius + otherBall.radius;              
         }
     }
 }

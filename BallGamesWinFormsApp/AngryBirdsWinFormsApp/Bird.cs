@@ -11,8 +11,6 @@ namespace AngryBirdsWinFormsApp
         {
             centerX = LeftEdge();
             centerY = BottomEdge();
-
-            Brush = Brushes.DodgerBlue;
         }
 
         protected override void Go()
@@ -39,8 +37,18 @@ namespace AngryBirdsWinFormsApp
 
         public void SetSpeed(int x, int y)
         {
-            MoveX = (x - centerX) / 20;
-            MoveY = (y - centerY) / 20;
+            MoveX = (x - centerX) / 25;
+            MoveY = (y - centerY) / 25;
+        }
+
+        public bool IsOutside()
+        {
+            return centerX - radius > mainForm.ClientSize.Width;
+        }
+
+        public bool IsStopped()
+        {
+            return !IsInMotion();
         }
     }
 }

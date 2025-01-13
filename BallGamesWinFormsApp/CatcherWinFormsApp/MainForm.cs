@@ -29,7 +29,7 @@ namespace CatcherWinFormsApp
             {
                 if (ball.IsOnMainForm() &&
                     ball.IsInMotion() && 
-                    ball.IsUnderCursor(cursorPoint))
+                    ball.IsUnder(cursorPoint))
                 {
                     ball.Stop();
                     score++;

@@ -16,40 +16,56 @@ namespace AngryBirdsWinFormsApp
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            if (!bird.IsInMotion())
+            if (bird.IsIntersecting(pig))
+            {
+                scoreLabel.Text = (Convert.ToInt32(scoreLabel.Text) + 1).ToString();
+                CreateNewBird();
+                CreateNewPig();
+            }
+
+            if (bird.IsStopped() || bird.IsOutside())
             {
                 CreateNewBird();
             }
-
-
-        }
-
-        private void CreateNewBird()
-        {
-            if (bird != null)
-            {
-                bird.Clear();
-            }
-
-            bird = new Bird(this, Brushes.DodgerBlue);
-            bird.Show();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            scoreLabel.Text = "0";
             CreateNewBird();
+            CreateNewPig();
+        }
 
+        private void CreateNewBird()
+        {
+            timer.Stop();
+            if (bird != null)
+            {
+                bird.Stop();
+                bird.Clear();
+            }
+            bird = new Bird(this, Brushes.DodgerBlue);
+            bird.Show();
+        }
+
+        private void CreateNewPig()
+        {
+            if (pig != null)
+            {
+                pig.Clear();
+            }
             pig = new Pig(this, Brushes.HotPink);
             pig.Show();
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
+            if (bird.IsInMotion())
+            {
+                return;
+            }
             bird.SetSpeed(e.X, e.Y);
+            timer.Start();
             bird.Start();
         }
     }

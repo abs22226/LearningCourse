@@ -80,7 +80,7 @@ namespace FruitNinjaWinFormsApp
         {
             foreach (var ball in balls)
             {
-                if (ball.IsInMotion() && ball.IsUnderCursor(new PointF(e.X, e.Y)))
+                if (ball.IsInMotion() && ball.IsUnder(new PointF(e.X, e.Y)))
                 {
                     ball.Stop();
                     if (ball is BombBall)

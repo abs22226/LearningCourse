@@ -6,7 +6,6 @@ namespace AngryBirdsWinFormsApp
     {
         public Pig(Form mainForm, Brush brush) : base(mainForm, brush)
         {
-            Brush = Brushes.HotPink;
             radius = 30;
         }
     }

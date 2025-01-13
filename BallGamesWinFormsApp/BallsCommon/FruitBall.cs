@@ -13,8 +13,6 @@
             MoveY = (float)random.NextDouble() * -6 - 7;
 
             G = 0.2f;
-            InitialMoveX = MoveX;
-            InitialMoveY = MoveY;
         }
 
         protected override void Go()
