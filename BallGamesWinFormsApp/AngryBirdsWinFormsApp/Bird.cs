@@ -2,7 +2,7 @@
 
 namespace AngryBirdsWinFormsApp
 {
-    public class Bird : RandomSpeedAndDirectionBall
+    public class Bird : Ball
     {
         private float g = 0.2f;
         private float frictionCoefficient = 0.5f;
