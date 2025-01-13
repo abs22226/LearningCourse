@@ -1,5 +1,4 @@
-﻿
-namespace FruitNinjaWinFormsApp
+﻿namespace BallsCommon
 {
     public class BombBall : FruitBall
     {

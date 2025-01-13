@@ -1,6 +1,4 @@
-﻿using BallsCommon;
-
-namespace FruitNinjaWinFormsApp
+﻿namespace BallsCommon
 {
     public class FruitBall : RandomSpeedAndDirectionBall
     {

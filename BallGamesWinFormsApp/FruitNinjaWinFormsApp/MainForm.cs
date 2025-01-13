@@ -1,3 +1,5 @@
+using BallsCommon;
+
 namespace FruitNinjaWinFormsApp
 {
     public partial class MainForm : Form
