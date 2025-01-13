@@ -37,6 +37,7 @@
             ClientSize = new Size(800, 450);
             Name = "MainForm";
             Text = "Angry birds";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 
