@@ -38,6 +38,8 @@
             Name = "MainForm";
             Text = "Angry birds";
             Load += MainForm_Load;
+            Shown += MainForm_Shown;
+            MouseDown += MainForm_MouseDown;
             ResumeLayout(false);
         }
 
