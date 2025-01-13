@@ -1,6 +1,4 @@
-﻿using BallsCommon;
-
-namespace AngryBirdsWinFormsApp
+﻿namespace BallsCommon
 {
     public class Pig : RandomPointBall
     {
