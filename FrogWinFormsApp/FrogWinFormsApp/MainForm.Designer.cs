@@ -57,6 +57,7 @@
             leftPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             leftPictureBox1.TabIndex = 0;
             leftPictureBox1.TabStop = false;
+            leftPictureBox1.Click += PictureBox_Click;
             // 
             // leftPictureBox2
             // 
@@ -67,6 +68,7 @@
             leftPictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             leftPictureBox2.TabIndex = 1;
             leftPictureBox2.TabStop = false;
+            leftPictureBox2.Click += PictureBox_Click;
             // 
             // leftPictureBox3
             // 
@@ -77,6 +79,7 @@
             leftPictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             leftPictureBox3.TabIndex = 1;
             leftPictureBox3.TabStop = false;
+            leftPictureBox3.Click += PictureBox_Click;
             // 
             // leftPictureBox4
             // 
@@ -87,6 +90,7 @@
             leftPictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             leftPictureBox4.TabIndex = 2;
             leftPictureBox4.TabStop = false;
+            leftPictureBox4.Click += PictureBox_Click;
             // 
             // emptyPictureBox
             // 
@@ -107,6 +111,7 @@
             rightPictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             rightPictureBox4.TabIndex = 7;
             rightPictureBox4.TabStop = false;
+            rightPictureBox4.Click += PictureBox_Click;
             // 
             // rightPictureBox3
             // 
@@ -117,6 +122,7 @@
             rightPictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             rightPictureBox3.TabIndex = 5;
             rightPictureBox3.TabStop = false;
+            rightPictureBox3.Click += PictureBox_Click;
             // 
             // rightPictureBox2
             // 
@@ -127,6 +133,7 @@
             rightPictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             rightPictureBox2.TabIndex = 6;
             rightPictureBox2.TabStop = false;
+            rightPictureBox2.Click += PictureBox_Click;
             // 
             // rightPictureBox1
             // 
@@ -137,6 +144,7 @@
             rightPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             rightPictureBox1.TabIndex = 4;
             rightPictureBox1.TabStop = false;
+            rightPictureBox1.Click += PictureBox_Click;
             // 
             // MainForm
             // 
