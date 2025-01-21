@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace FrogWinFormsApp
 {
     public partial class MainForm : Form
@@ -14,20 +16,40 @@ namespace FrogWinFormsApp
             Swap((PictureBox)sender);
             ShowMoveCount();
             if (GameOver())
+            {                
+                ProcessGameFinishing();
+            }
+        }
+
+        private void ProcessGameFinishing()
+        {
+            DisablePictureBoxes();
+
+            const int minMoveCount = 24;
+            if (moveCount > minMoveCount)
             {
-                if (moveCount > 24)
+                var result = MessageBox.Show("Ура! Вы выиграли, но не за минимальное количество шагов. Попробуйте еще раз?", "Конец игры", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
                 {
-                    var result = MessageBox.Show("Ура! Вы выиграли, но не за минимальное количество шагов. Попробуйте еще раз?", "Конец игры", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
-                    {
-                        Application.Restart();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Ура! Вы выиграли за минимальное количество шагов.");
+                    Application.Restart();
                 }
             }
+            else
+            {
+                MessageBox.Show("Ура! Вы выиграли за минимальное количество шагов.");
+            }
+        }
+
+        private void DisablePictureBoxes()
+        {
+            leftPictureBox1.Enabled = false;
+            leftPictureBox2.Enabled = false;
+            leftPictureBox3.Enabled = false;
+            leftPictureBox4.Enabled = false;
+            rightPictureBox1.Enabled = false;
+            rightPictureBox2.Enabled = false;
+            rightPictureBox3.Enabled = false;
+            rightPictureBox4.Enabled = false;
         }
 
         private bool GameOver()
