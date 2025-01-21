@@ -37,6 +37,7 @@
             rightPictureBox3 = new PictureBox();
             rightPictureBox2 = new PictureBox();
             rightPictureBox1 = new PictureBox();
+            moveCountLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)leftPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)leftPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)leftPictureBox3).BeginInit();
@@ -146,11 +147,22 @@
             rightPictureBox1.TabStop = false;
             rightPictureBox1.Click += PictureBox_Click;
             // 
+            // moveCountLabel
+            // 
+            moveCountLabel.AutoSize = true;
+            moveCountLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            moveCountLabel.Location = new Point(69, 161);
+            moveCountLabel.Name = "moveCountLabel";
+            moveCountLabel.Size = new Size(236, 30);
+            moveCountLabel.TabIndex = 8;
+            moveCountLabel.Text = "Количество ходов - 0";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(990, 167);
+            ClientSize = new Size(990, 239);
+            Controls.Add(moveCountLabel);
             Controls.Add(rightPictureBox4);
             Controls.Add(rightPictureBox3);
             Controls.Add(rightPictureBox2);
@@ -172,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)rightPictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)rightPictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -185,5 +198,6 @@
         private PictureBox rightPictureBox3;
         private PictureBox rightPictureBox2;
         private PictureBox rightPictureBox1;
+        private Label moveCountLabel;
     }
 }
