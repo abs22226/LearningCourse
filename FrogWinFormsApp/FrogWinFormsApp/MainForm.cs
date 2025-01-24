@@ -7,6 +7,9 @@ namespace FrogWinFormsApp
         public MainForm()
         {
             InitializeComponent();
+
+            MaximumSize = Size;
+            MinimumSize = Size;
         }
 
         private void PictureBox_Click(object sender, EventArgs e)

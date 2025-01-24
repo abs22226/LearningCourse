@@ -11,8 +11,9 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Width = 224;
-            Height = 260;
+            Size = new Size(224, 260);
+            MaximumSize = Size;
+            MinimumSize = Size;
 
             _pictureBox = new PictureBox();
             _pictureBox.Image = image;
@@ -23,8 +24,7 @@
             _label.Text = message;
             _label.AutoSize = false;
             _label.Location = new Point(3, 180);
-            _label.Width = 218;
-            _label.Height = 100;
+            _label.Size = new Size(218, 100);
 
             Controls.Add(_pictureBox);
             Controls.Add(_label);
