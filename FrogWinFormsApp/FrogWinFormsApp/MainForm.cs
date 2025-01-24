@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace FrogWinFormsApp
 {
     public partial class MainForm : Form
@@ -36,7 +34,9 @@ namespace FrogWinFormsApp
             }
             else
             {
-                MessageBox.Show("Ура! Вы выиграли за минимальное количество шагов.");
+                //MessageBox.Show("Ура! Вы выиграли за минимальное количество шагов.");
+                Image image = Properties.Resources.frog;
+                CustomMessageBox.Show("Ура! Вы выиграли за минимальное количество шагов.", image);
             }
         }
 
