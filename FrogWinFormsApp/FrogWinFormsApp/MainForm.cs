@@ -16,7 +16,7 @@ namespace FrogWinFormsApp
             Swap((PictureBox)sender);
             ShowMoveCount();
             if (GameOver())
-            {                
+            {
                 ProcessGameFinishing();
             }
         }
@@ -31,7 +31,7 @@ namespace FrogWinFormsApp
                 var result = MessageBox.Show("Ура! Вы выиграли, но не за минимальное количество шагов. Попробуйте еще раз?", "Конец игры", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    Application.Restart();
+                    StartOver();
                 }
             }
             else
@@ -83,6 +83,49 @@ namespace FrogWinFormsApp
                 emptyPictureBox.Location = location;
                 moveCount++;
             }
+        }
+
+        private void начатьСначалаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartOver();
+        }
+
+        private void StartOver()
+        {
+            moveCount = 0;
+            ShowMoveCount();
+            OrganizePictureBoxes();
+            EnablePictureBoxes();
+        }
+
+        private void OrganizePictureBoxes()
+        {
+            leftPictureBox1.Location = new Point(0, 25);
+            leftPictureBox2.Location = new Point(110, 25);
+            leftPictureBox3.Location = new Point(220, 25);
+            leftPictureBox4.Location = new Point(330, 25);
+            emptyPictureBox.Location = new Point(440, 25);
+            rightPictureBox1.Location = new Point(550, 25);
+            rightPictureBox2.Location = new Point(660, 25);
+            rightPictureBox3.Location = new Point(770, 25);
+            rightPictureBox4.Location = new Point(880, 25);
+        }
+
+        private void EnablePictureBoxes()
+        {
+            leftPictureBox1.Enabled = true;
+            leftPictureBox2.Enabled = true;
+            leftPictureBox3.Enabled = true;
+            leftPictureBox4.Enabled = true;
+            rightPictureBox1.Enabled = true;
+            rightPictureBox2.Enabled = true;
+            rightPictureBox3.Enabled = true;
+            rightPictureBox4.Enabled = true;
+        }
+
+        private void показатьПравилаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Цель игры в том, чтобы расположить лягушек, которые смотрят влево, в левую часть, а остальных — в правую часть за минимальное количество перепрыгиваний. Прыгать можно на листок, если он находится рядом или через 1 лягушку.");
         }
     }
 }

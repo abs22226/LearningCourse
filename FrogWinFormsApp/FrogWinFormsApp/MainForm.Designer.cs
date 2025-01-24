@@ -38,6 +38,10 @@
             rightPictureBox2 = new PictureBox();
             rightPictureBox1 = new PictureBox();
             moveCountLabel = new Label();
+            menuStrip1 = new MenuStrip();
+            менюToolStripMenuItem = new ToolStripMenuItem();
+            начатьСначалаToolStripMenuItem = new ToolStripMenuItem();
+            показатьПравилаToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)leftPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)leftPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)leftPictureBox3).BeginInit();
@@ -47,12 +51,13 @@
             ((System.ComponentModel.ISupportInitialize)rightPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)rightPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)rightPictureBox1).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // leftPictureBox1
             // 
             leftPictureBox1.Image = Properties.Resources.frog1;
-            leftPictureBox1.Location = new Point(0, 0);
+            leftPictureBox1.Location = new Point(0, 25);
             leftPictureBox1.Name = "leftPictureBox1";
             leftPictureBox1.Size = new Size(110, 110);
             leftPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -63,7 +68,7 @@
             // leftPictureBox2
             // 
             leftPictureBox2.Image = Properties.Resources.frog1;
-            leftPictureBox2.Location = new Point(110, 0);
+            leftPictureBox2.Location = new Point(110, 25);
             leftPictureBox2.Name = "leftPictureBox2";
             leftPictureBox2.Size = new Size(110, 110);
             leftPictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -74,7 +79,7 @@
             // leftPictureBox3
             // 
             leftPictureBox3.Image = Properties.Resources.frog1;
-            leftPictureBox3.Location = new Point(220, 0);
+            leftPictureBox3.Location = new Point(220, 25);
             leftPictureBox3.Name = "leftPictureBox3";
             leftPictureBox3.Size = new Size(110, 110);
             leftPictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -85,7 +90,7 @@
             // leftPictureBox4
             // 
             leftPictureBox4.Image = Properties.Resources.frog1;
-            leftPictureBox4.Location = new Point(330, 0);
+            leftPictureBox4.Location = new Point(330, 25);
             leftPictureBox4.Name = "leftPictureBox4";
             leftPictureBox4.Size = new Size(110, 110);
             leftPictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -96,7 +101,7 @@
             // emptyPictureBox
             // 
             emptyPictureBox.Image = Properties.Resources.list;
-            emptyPictureBox.Location = new Point(440, 0);
+            emptyPictureBox.Location = new Point(440, 25);
             emptyPictureBox.Name = "emptyPictureBox";
             emptyPictureBox.Size = new Size(110, 110);
             emptyPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -106,7 +111,7 @@
             // rightPictureBox4
             // 
             rightPictureBox4.Image = Properties.Resources.frog3;
-            rightPictureBox4.Location = new Point(880, 0);
+            rightPictureBox4.Location = new Point(880, 25);
             rightPictureBox4.Name = "rightPictureBox4";
             rightPictureBox4.Size = new Size(110, 110);
             rightPictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -117,7 +122,7 @@
             // rightPictureBox3
             // 
             rightPictureBox3.Image = Properties.Resources.frog3;
-            rightPictureBox3.Location = new Point(770, 0);
+            rightPictureBox3.Location = new Point(770, 25);
             rightPictureBox3.Name = "rightPictureBox3";
             rightPictureBox3.Size = new Size(110, 110);
             rightPictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -128,7 +133,7 @@
             // rightPictureBox2
             // 
             rightPictureBox2.Image = Properties.Resources.frog3;
-            rightPictureBox2.Location = new Point(660, 0);
+            rightPictureBox2.Location = new Point(660, 25);
             rightPictureBox2.Name = "rightPictureBox2";
             rightPictureBox2.Size = new Size(110, 110);
             rightPictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -139,7 +144,7 @@
             // rightPictureBox1
             // 
             rightPictureBox1.Image = Properties.Resources.frog3;
-            rightPictureBox1.Location = new Point(550, 0);
+            rightPictureBox1.Location = new Point(550, 25);
             rightPictureBox1.Name = "rightPictureBox1";
             rightPictureBox1.Size = new Size(110, 110);
             rightPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -151,11 +156,42 @@
             // 
             moveCountLabel.AutoSize = true;
             moveCountLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            moveCountLabel.Location = new Point(69, 161);
+            moveCountLabel.Location = new Point(377, 174);
             moveCountLabel.Name = "moveCountLabel";
             moveCountLabel.Size = new Size(236, 30);
             moveCountLabel.TabIndex = 8;
             moveCountLabel.Text = "Количество ходов - 0";
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(990, 27);
+            menuStrip1.TabIndex = 9;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // менюToolStripMenuItem
+            // 
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { начатьСначалаToolStripMenuItem, показатьПравилаToolStripMenuItem });
+            менюToolStripMenuItem.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            менюToolStripMenuItem.Name = "менюToolStripMenuItem";
+            менюToolStripMenuItem.Size = new Size(65, 23);
+            менюToolStripMenuItem.Text = "МЕНЮ";
+            // 
+            // начатьСначалаToolStripMenuItem
+            // 
+            начатьСначалаToolStripMenuItem.Name = "начатьСначалаToolStripMenuItem";
+            начатьСначалаToolStripMenuItem.Size = new Size(192, 24);
+            начатьСначалаToolStripMenuItem.Text = "Начать сначала";
+            начатьСначалаToolStripMenuItem.Click += начатьСначалаToolStripMenuItem_Click;
+            // 
+            // показатьПравилаToolStripMenuItem
+            // 
+            показатьПравилаToolStripMenuItem.Name = "показатьПравилаToolStripMenuItem";
+            показатьПравилаToolStripMenuItem.Size = new Size(192, 24);
+            показатьПравилаToolStripMenuItem.Text = "Показать правила";
+            показатьПравилаToolStripMenuItem.Click += показатьПравилаToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -172,6 +208,8 @@
             Controls.Add(leftPictureBox3);
             Controls.Add(leftPictureBox2);
             Controls.Add(leftPictureBox1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "Попрыгушки";
             ((System.ComponentModel.ISupportInitialize)leftPictureBox1).EndInit();
@@ -183,6 +221,8 @@
             ((System.ComponentModel.ISupportInitialize)rightPictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)rightPictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)rightPictureBox1).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -199,5 +239,9 @@
         private PictureBox rightPictureBox2;
         private PictureBox rightPictureBox1;
         private Label moveCountLabel;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem менюToolStripMenuItem;
+        private ToolStripMenuItem начатьСначалаToolStripMenuItem;
+        private ToolStripMenuItem показатьПравилаToolStripMenuItem;
     }
 }
