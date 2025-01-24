@@ -2,8 +2,8 @@
 {
     public class CustomMessageBox : Form
     {
-        private PictureBox _pictureBox;
-        private Label _label;
+        private PictureBox pictureBox;
+        private Label label;
 
         public CustomMessageBox(string message, Image image)
         {
@@ -15,19 +15,19 @@
             MaximumSize = Size;
             MinimumSize = Size;
 
-            _pictureBox = new PictureBox();
-            _pictureBox.Image = image;
-            _pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            _pictureBox.Location = new Point(3, 3);
+            pictureBox = new PictureBox();
+            pictureBox.Image = image;
+            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox.Location = new Point(3, 3);
 
-            _label = new Label();
-            _label.Text = message;
-            _label.AutoSize = false;
-            _label.Location = new Point(3, 180);
-            _label.Size = new Size(218, 100);
+            label = new Label();
+            label.Text = message;
+            label.AutoSize = false;
+            label.Location = new Point(3, 180);
+            label.Size = new Size(218, 100);
 
-            Controls.Add(_pictureBox);
-            Controls.Add(_label);
+            Controls.Add(pictureBox);
+            Controls.Add(label);
         }
 
         public static void Show(string message, Image image)
