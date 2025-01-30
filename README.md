@@ -4,4 +4,4 @@ This repository contains all the projects from the "PRO C#. ООП на прак
 
 - **_2048WinFormsApp_** is a "clone" of the well-known game 2048. As the name suggests, the project is implemented on WinForms. File system operations and JSON serialization/deserialization are used to manage user information and results. You can view the results in the corresponding section of the application menu.
 
-- **_BallGamesWinFormsApp_** is ...
+- **_BallGamesWinFormsApp_** is a suite of applications that demonstrate various ball games such as BallGames, Catcher, BilliardBalls, Salute, FruitNinja, and AngryBirds. Built with WinForms, these applications rely on a common class library. Through the development of these applications, I've refined my skills in WinForms graphics and animation and gained practical experience with **_Inheritance_**, a fundamental concept of OOP.
