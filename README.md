@@ -6,4 +6,4 @@ This repository contains all the projects from the "PRO C#. ООП на прак
 
 - **_BallGamesWinFormsApp_** is a set of applications that demonstrate various ball-based games such as BallGames, Catcher, BilliardBalls, Salute, FruitNinja, and AngryBirds. Built with WinForms, these applications rely on a common class library which provides core mechanics for ball movement and collision detection. Through the development of these applications, I've refined my skills in WinForms graphics and animation and gained practical experience with applying fundamental principles of OOP such as inheritance and polymorphism.
 
-- **_FrogWinFormsApp_** is ...
+- **_FrogWinFormsApp_** is a small game developed using WinForms. The goal is to move the right-facing frogs to the right side of the swamp, and the left-facing frogs to the left side of the swamp, in the fewest number of moves possible. Animations are handled by manipulating images embedded in the application resources. Also, a custom MessageBox is used to notify the player when the game is over.
